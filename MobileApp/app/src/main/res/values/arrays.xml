@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cities">
+        <item>Lahore (لاہور)</item>
+        <item>Islamabad (اسلام آباد)</item>
+        <item>Rawalpindi (راول پنڈی)</item>
+    </string-array>
+</resources>

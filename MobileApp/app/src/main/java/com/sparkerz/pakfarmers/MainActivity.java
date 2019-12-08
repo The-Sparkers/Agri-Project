@@ -13,9 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.sparkerz.pakfarmers.fragments.buyfragment.BuyAdFragment;
+import com.sparkerz.pakfarmers.fragments.buyfragment.dummy.DummyContent;
+import com.sparkerz.pakfarmers.fragments.sellfragment.SellAdFragment;
 import com.sparkerz.pakfarmers.ui.main.SectionsPagerAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BuyAdFragment.OnListFragmentInteractionListener, SellAdFragment.OnListFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,5 +38,15 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(com.sparkerz.pakfarmers.fragments.sellfragment.dummy.DummyContent.DummyItem item) {
+
     }
 }
