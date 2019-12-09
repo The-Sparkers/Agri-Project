@@ -1,10 +1,14 @@
 package com.sparkerz.pakfarmers.fragments.buyfragment;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.sparkerz.pakfarmers.AdDetail;
 import com.sparkerz.pakfarmers.R;
 import com.sparkerz.pakfarmers.fragments.buyfragment.BuyAdFragment.OnListFragmentInteractionListener;
 import com.sparkerz.pakfarmers.fragments.buyfragment.dummy.DummyContent.DummyItem;
@@ -22,10 +26,12 @@ public class MyBuyAdRecyclerViewAdapter extends RecyclerView.Adapter<MyBuyAdRecy
 
     private final List<DummyItem> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private final Context context;
 
-    public MyBuyAdRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyBuyAdRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener, Context context) {
         mValues = items;
         mListener = listener;
+        this.context=context;
     }
 
     @Override
@@ -40,6 +46,12 @@ public class MyBuyAdRecyclerViewAdapter extends RecyclerView.Adapter<MyBuyAdRecy
         holder.mItem = mValues.get(position);
         holder.txtTitle.setText(mValues.get(position).content);
         holder.txtPrice.setText("10,00,000");
+        holder.btnAdDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.startActivity(new Intent(context, AdDetail.class));
+            }
+        });
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +74,7 @@ public class MyBuyAdRecyclerViewAdapter extends RecyclerView.Adapter<MyBuyAdRecy
         public final View mView;
         public final TextView txtTitle;
         public final TextView txtPrice;
+        public final Button btnAdDetails;
         public DummyItem mItem;
 
         public ViewHolder(View view) {
@@ -69,7 +82,9 @@ public class MyBuyAdRecyclerViewAdapter extends RecyclerView.Adapter<MyBuyAdRecy
             mView = view;
             txtTitle = view.findViewById(R.id.txtTitle);
             txtPrice = view.findViewById(R.id.txtPrice);
+            btnAdDetails=view.findViewById(R.id.btnViewDetails);
         }
+
 
         @Override
         public String toString() {

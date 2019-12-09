@@ -1,7 +1,7 @@
 <resources>
     <string name="tab_text_1">Buy (خرید)</string>
     <string name="tab_text_2">Sell (فروخت)</string>
-    <string name="app_name">Pak Farmer</string>
+    <string name="app_name" translatable="false">Pak Farmer</string>
     <string name="quantity_scale">Ton (ٹن)</string>
     <string name="currency">Rs. </string>
     <string name="text_quantity">Quantity (مقدار): </string>
@@ -9,5 +9,10 @@
     <string name="text_view_details_btn">Detail (تفصیل)</string>
     <string name="text_advertisement_image">Advertisement Image</string>
     <string name="text_interested_in">Interested In:</string>
-    <string name="text_phone">Phone (فون):</string>
+    <string name="text_phone">Owner\'s Phone (مالک کا فون):</string>
+    <string name="text_quality">Quality (معیار): </string>
+    <string name="text_farmer_s_detail">"Farmer's Detail (کسان کی تفصیل): "</string>
+    <string name="txt_name_field_label">"Owner Name (مالک کا نام): "</string>
+    <string name="text_address_field_label">Address (پتہ):</string>
+    <string name="text_city_label">City/Village (شہر/گاؤں):</string>
 </resources>

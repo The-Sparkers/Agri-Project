@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">روپے</string>
+    <string name="quantity_scale">ٹن</string>
+    <string name="tab_text_1">خرید</string>
+    <string name="tab_text_2">فروخت</string>
+    <string name="text_advertisement_image">اشتہار کی تصویر</string>
+    <string name="text_interested_in">دلچسپی:</string>
+    <string name="text_phone">مالک کا فون:</string>
+    <string name="text_price">"قیمت: "</string>
+    <string name="text_quantity">مقدار:</string>
+    <string name="text_view_details_btn">تفصیل</string>
+    <string name="text_quality">معیار:</string>
+    <string name="text_farmer_s_detail">کسان کی تفصیل:</string>
+    <string name="txt_name_field_label">مالک کا نام:</string>
+    <string name="text_address_field_label">پتہ:</string>
+    <string name="text_city_label">شہر/گاؤں:</string>
+</resources>

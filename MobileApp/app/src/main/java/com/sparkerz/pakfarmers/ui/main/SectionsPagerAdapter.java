@@ -2,15 +2,15 @@ package com.sparkerz.pakfarmers.ui.main;
 
 import android.content.Context;
 
+import com.sparkerz.pakfarmers.R;
+import com.sparkerz.pakfarmers.fragments.buyfragment.BuyAdFragment;
+import com.sparkerz.pakfarmers.fragments.sellfragment.SellAdFragment;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-
-import com.sparkerz.pakfarmers.R;
-import com.sparkerz.pakfarmers.fragments.buyfragment.BuyAdFragment;
-import com.sparkerz.pakfarmers.fragments.sellfragment.SellAdFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -31,7 +31,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new BuyAdFragment();
+                return new BuyAdFragment(mContext);
             case 1:
                 return new SellAdFragment();
         }

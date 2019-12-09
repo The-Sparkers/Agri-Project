@@ -2,12 +2,6 @@ package com.sparkerz.pakfarmers.fragments.buyfragment;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +10,10 @@ import com.sparkerz.pakfarmers.R;
 import com.sparkerz.pakfarmers.fragments.buyfragment.dummy.DummyContent;
 import com.sparkerz.pakfarmers.fragments.buyfragment.dummy.DummyContent.DummyItem;
 
-import java.util.List;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A fragment representing a list of Items.
@@ -31,18 +28,19 @@ public class BuyAdFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    private Context context;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public BuyAdFragment() {
+    public BuyAdFragment(Context context) {
+        this.context=context;
     }
-
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static BuyAdFragment newInstance(int columnCount) {
-        BuyAdFragment fragment = new BuyAdFragment();
+    public static BuyAdFragment newInstance(int columnCount, Context context) {
+        BuyAdFragment fragment = new BuyAdFragment(context);
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -72,7 +70,7 @@ public class BuyAdFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyBuyAdRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyBuyAdRecyclerViewAdapter(DummyContent.ITEMS, mListener, context));
         }
         return view;
     }

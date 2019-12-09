@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
             app:srcCompat="@drawable/agri_3" />
 
         <RatingBar
@@ -46,14 +46,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:max="5"
-            android:numStars="5"
+            android:numStars="3"
             android:progressBackgroundTint="@color/colorSecondaryLight"
             android:progressTint="@color/colorSecondary"
-            android:rating="4"
+            android:rating="2"
             android:stepSize="0.1"
             app:layout_constraintBottom_toBottomOf="@+id/txtQuantity2"
             app:layout_constraintEnd_toEndOf="@+id/imgAd"
             app:layout_constraintTop_toTopOf="@+id/txtQuantity2" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/text_phone"
+            android:textColor="@color/colorTextPositive"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/txtTitle"
+            app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+
+        <TextView
+            android:id="@+id/txtFarmerPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="0300-1234567"
+            android:textColor="@color/colorTextPositive"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <TextView
             android:id="@+id/txtQuantity"
