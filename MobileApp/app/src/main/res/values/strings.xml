@@ -8,7 +8,7 @@
     <string name="text_price">Price (قیمت):</string>
     <string name="text_view_details_btn">Detail (تفصیل)</string>
     <string name="text_advertisement_image">Advertisement Image</string>
-    <string name="text_interested_in">Interested In:</string>
+    <string name="text_interested_in">Interest(s) (دلچسپی):</string>
     <string name="text_phone">Owner\'s Phone (مالک کا فون):</string>
     <string name="text_quality">Quality (معیار): </string>
     <string name="text_farmer_s_detail">"Farmer's Detail (کسان کی تفصیل): "</string>
@@ -21,4 +21,5 @@
     <string name="text_profile">Profile</string>
     <string name="text_view_vegetables">View Vegetables (سبزیاں)</string>
     <string name="text_view_fruits">View Fruits (پھل)</string>
+    <string name="broker_phone">Phone ( فون):</string>
 </resources>

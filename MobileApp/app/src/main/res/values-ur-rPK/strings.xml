@@ -21,4 +21,5 @@
     <string name="text_view_fruits">پھل</string>
     <string name="text_view_vegetables">سبزیاں</string>
     <string name="view_crops">فصلیں</string>
+    <string name="broker_phone">" فون"</string>
 </resources>
