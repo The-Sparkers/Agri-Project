@@ -7,11 +7,16 @@
         android:title="@string/search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
-    <group android:id="@+id/menuGroupAccount" >
+    <group android:id="@+id/menuGroupAccount">
         <item
             android:id="@+id/menuItemFavoriteBrokers"
             android:icon="@drawable/ic_star_black_24dp"
             android:title="@string/favorites"
             app:showAsAction="ifRoom" />
     </group>
+    <item
+        android:id="@+id/menuItemRefresh"
+        android:icon="@drawable/ic_refresh_white_24dp"
+        android:title="@string/text_refresh"
+        app:showAsAction="ifRoom" />
 </menu>

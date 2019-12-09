@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/app_bar_search_Ads"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menuItemRefresh"
+        android:icon="@drawable/ic_refresh_white_24dp"
+        android:title="@string/text_refresh"
+        app:showAsAction="ifRoom" />
     <group android:id="@+id/menuGroupAccount" >
         <item
             android:id="@+id/menuItemFavoriteAds"
@@ -25,10 +36,5 @@
             android:title="@string/text_view_fruits"
             app:showAsAction="never" />
     </group>
-    <item
-        android:id="@+id/app_bar_search_Ads"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="@string/search"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="always" />
+
 </menu>

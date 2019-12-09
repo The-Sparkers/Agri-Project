@@ -91,6 +91,8 @@ public class SellAdFragment extends Fragment {
                 break;
             case R.id.menuItemFavoriteBrokers:
                 break;
+            case R.id.menuItemRefresh:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

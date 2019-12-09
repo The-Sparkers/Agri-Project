@@ -22,4 +22,6 @@
     <string name="text_view_vegetables">سبزیاں</string>
     <string name="view_crops">فصلیں</string>
     <string name="broker_phone">" فون"</string>
+    <string name="text_btn_buyer">خریدار</string>
+    <string name="text_btn_seller">بیچنے والے</string>
 </resources>

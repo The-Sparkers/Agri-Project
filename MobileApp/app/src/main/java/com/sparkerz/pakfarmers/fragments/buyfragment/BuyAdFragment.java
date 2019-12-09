@@ -100,6 +100,8 @@ public class BuyAdFragment extends Fragment {
                 break;
             case R.id.menuItemFavoriteAds:
                 break;
+            case  R.id.menuItemRefresh:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

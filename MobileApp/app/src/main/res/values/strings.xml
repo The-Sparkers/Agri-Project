@@ -22,4 +22,7 @@
     <string name="text_view_vegetables">View Vegetables (سبزیاں)</string>
     <string name="text_view_fruits">View Fruits (پھل)</string>
     <string name="broker_phone">Phone ( فون):</string>
+    <string name="text_refresh">Refresh</string>
+    <string name="text_btn_seller">Seller (بیچنے والے)</string>
+    <string name="text_btn_buyer">Buyer (خریدار)</string>
 </resources>
