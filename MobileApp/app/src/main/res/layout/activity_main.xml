@@ -31,17 +31,6 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/btnSearch"
-                style="@android:style/Widget.Material.ImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_btn_search"
-                app:srcCompat="@drawable/ic_my_location_white_24dp" />
-
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
@@ -53,6 +42,17 @@
                 android:text="@string/app_name"
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                 android:textColor="@color/colorTextNegative" />
+
+            <ImageButton
+                android:id="@+id/btnSearch"
+                style="@android:style/Widget.Material.ImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn_search"
+                app:srcCompat="@drawable/ic_search_black_24dp" />
 
         </LinearLayout>
 

@@ -1,7 +1,5 @@
 package com.sparkerz.pakfarmers.fragments.sellfragment;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +10,8 @@ import com.sparkerz.pakfarmers.fragments.sellfragment.SellAdFragment.OnListFragm
 import com.sparkerz.pakfarmers.fragments.sellfragment.dummy.DummyContent.DummyItem;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
@@ -38,8 +38,8 @@ public class MySellAdRecyclerViewAdapter extends RecyclerView.Adapter<MySellAdRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.txtTitle.setText(mValues.get(position).content);
+        holder.txtPrice.setText("1000");
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,20 +60,20 @@ public class MySellAdRecyclerViewAdapter extends RecyclerView.Adapter<MySellAdRe
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final TextView txtTitle;
+        public final TextView txtPrice;
         public DummyItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.item_number);
-            mContentView = view.findViewById(R.id.content);
+            txtTitle = view.findViewById(R.id.txtTitle);
+            txtPrice = view.findViewById(R.id.txtPrice);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + txtPrice.getText() + "'";
         }
     }
 }

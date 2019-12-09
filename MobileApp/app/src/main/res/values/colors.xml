@@ -5,7 +5,7 @@
     <color name="colorPrimaryLight">#ffad33</color>
     <color name="colorSecondary">#006600</color>
     <color name="colorSecondaryDark">#003300</color>
-    <color name="colorSecondaryLight">#009900</color>
+    <color name="colorSecondaryLight">#69009900</color>
     <color name="colorAccent">#404040</color>
     <color name="colorTextPositive">#000000</color>
     <color name="colorTextNegative">#FFFFFF</color>
