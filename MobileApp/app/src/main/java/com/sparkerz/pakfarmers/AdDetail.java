@@ -7,11 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AdDetail extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad_detail);
         initToolbar();
+
     }
 
     private void initToolbar(){
@@ -21,6 +23,8 @@ public class AdDetail extends AppCompatActivity {
             toolbar.setDisplayHomeAsUpEnabled(true);
         }
     }
+
+
 
     @Override
     public boolean onSupportNavigateUp() {
