@@ -15,4 +15,10 @@
     <string name="txt_name_field_label">مالک کا نام:</string>
     <string name="text_address_field_label">پتہ:</string>
     <string name="text_city_label">شہر/گاؤں:</string>
+    <string name="search">تلاش کریں</string>
+    <string name="favorites">پسندیدہ</string>
+    <string name="text_profile">پروفائل</string>
+    <string name="text_view_fruits">پھل</string>
+    <string name="text_view_vegetables">سبزیاں</string>
+    <string name="view_crops">فصلیں</string>
 </resources>

@@ -1,22 +1,22 @@
 package com.sparkerz.pakfarmers;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
-
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
 import com.sparkerz.pakfarmers.fragments.buyfragment.BuyAdFragment;
 import com.sparkerz.pakfarmers.fragments.buyfragment.dummy.DummyContent;
 import com.sparkerz.pakfarmers.fragments.sellfragment.SellAdFragment;
 import com.sparkerz.pakfarmers.ui.main.SectionsPagerAdapter;
+
+import java.util.Objects;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 public class MainActivity extends AppCompatActivity implements BuyAdFragment.OnListFragmentInteractionListener, SellAdFragment.OnListFragmentInteractionListener {
 
@@ -38,6 +38,14 @@ public class MainActivity extends AppCompatActivity implements BuyAdFragment.OnL
                         .setAction("Action", null).show();
             }
         });
+        Toolbar toolbar =findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.app_name);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

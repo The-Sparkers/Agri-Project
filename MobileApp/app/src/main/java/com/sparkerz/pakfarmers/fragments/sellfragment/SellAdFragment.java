@@ -2,13 +2,10 @@ package com.sparkerz.pakfarmers.fragments.sellfragment;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,7 +13,10 @@ import com.sparkerz.pakfarmers.R;
 import com.sparkerz.pakfarmers.fragments.sellfragment.dummy.DummyContent;
 import com.sparkerz.pakfarmers.fragments.sellfragment.dummy.DummyContent.DummyItem;
 
-import java.util.List;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A fragment representing a list of Items.
@@ -56,6 +56,7 @@ public class SellAdFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -77,7 +78,22 @@ public class SellAdFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.sell_menu,menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.app_bar_search_brokers:
+                break;
+            case R.id.menuItemFavoriteBrokers:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

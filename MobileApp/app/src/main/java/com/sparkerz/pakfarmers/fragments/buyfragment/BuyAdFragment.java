@@ -3,6 +3,9 @@ package com.sparkerz.pakfarmers.fragments.buyfragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -54,6 +57,7 @@ public class BuyAdFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -75,6 +79,30 @@ public class BuyAdFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.buy_menu,menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.app_bar_search_Ads:
+                break;
+            case R.id.menuItemProfile:
+                break;
+            case R.id.menuItemViewCrops:
+                break;
+            case R.id.menuItemViewFruits:
+                break;
+            case  R.id.menuItemViewVegetables:
+                break;
+            case R.id.menuItemFavoriteAds:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onAttach(Context context) {
