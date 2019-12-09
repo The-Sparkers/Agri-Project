@@ -24,4 +24,8 @@
     <string name="broker_phone">" فون"</string>
     <string name="text_btn_buyer">خریدار</string>
     <string name="text_btn_seller">بیچنے والے</string>
+    <string name="text_enter_your_address">اپنا پتہ درج کریں</string>
+    <string name="text_enter_your_name">اپنا نام درج کریں</string>
+    <string name="text_enter_your_phone_number">اپنا فون نمبر درج کریں</string>
+    <string name="text_register">رجسٹر کریں</string>
 </resources>
