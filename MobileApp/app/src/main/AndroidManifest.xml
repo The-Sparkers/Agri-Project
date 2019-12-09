@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChooseBuySell"></activity>
+        <activity android:name=".SelectAdType"></activity>
+        <activity android:name=".ChooseBuySell" />
         <activity android:name=".AdDetail" />
         <activity
             android:name=".MainActivity"

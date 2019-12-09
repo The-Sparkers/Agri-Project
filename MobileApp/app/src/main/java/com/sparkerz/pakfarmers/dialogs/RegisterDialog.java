@@ -2,6 +2,7 @@ package com.sparkerz.pakfarmers.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.sparkerz.pakfarmers.R;
+import com.sparkerz.pakfarmers.SelectAdType;
 
 import androidx.annotation.NonNull;
 
@@ -34,7 +36,8 @@ public class RegisterDialog extends Dialog implements View.OnClickListener {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                getContext().startActivity(new Intent(getContext(), SelectAdType.class));
+                dismiss();
             }
         });
         btnCancel=findViewById(R.id.btnCancel);

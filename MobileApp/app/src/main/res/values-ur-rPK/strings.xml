@@ -28,4 +28,9 @@
     <string name="text_enter_your_name">اپنا نام درج کریں</string>
     <string name="text_enter_your_phone_number">اپنا فون نمبر درج کریں</string>
     <string name="text_register">رجسٹر کریں</string>
+    <string name="text_add_advertisement_activity">نیا اشتہار شامل کریں</string>
+    <string name="text_select_type">قسم منتخب کریں</string>
+    <string name="text_add_crop">فصل شامل کریں</string>
+    <string name="text_add_fruit">پھل شامل کریں</string>
+    <string name="text_add_vegetable">سبزی شامل کریں</string>
 </resources>
