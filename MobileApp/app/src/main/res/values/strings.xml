@@ -1,5 +1,13 @@
 <resources>
-    <string name="app_name">Pak Farmers</string>
     <string name="tab_text_1">Buy (خرید)</string>
     <string name="tab_text_2">Sell (فروخت)</string>
+    <string name="app_name">Pak Farmer</string>
+    <string name="quantity_scale">Ton (ٹن)</string>
+    <string name="currency">Rs. </string>
+    <string name="text_quantity">Quantity (مقدار): </string>
+    <string name="text_price">Price (قیمت):</string>
+    <string name="text_view_details_btn">Detail (تفصیل)</string>
+    <string name="text_advertisement_image">Advertisement Image</string>
+    <string name="text_interested_in">Interested In:</string>
+    <string name="text_phone">Phone (فون):</string>
 </resources>

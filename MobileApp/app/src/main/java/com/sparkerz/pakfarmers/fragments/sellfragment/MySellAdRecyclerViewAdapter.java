@@ -38,8 +38,8 @@ public class MySellAdRecyclerViewAdapter extends RecyclerView.Adapter<MySellAdRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.txtTitle.setText(mValues.get(position).content);
-        holder.txtPrice.setText("1000");
+        holder.txtBrokerName.setText("Asim Nadeem");
+        holder.txtPhoneNumber.setText("0300-1234567");
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,20 +60,20 @@ public class MySellAdRecyclerViewAdapter extends RecyclerView.Adapter<MySellAdRe
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView txtTitle;
-        public final TextView txtPrice;
+        public final TextView txtBrokerName;
+        public final TextView txtPhoneNumber;
         public DummyItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            txtTitle = view.findViewById(R.id.txtTitle);
-            txtPrice = view.findViewById(R.id.txtPrice);
+            txtBrokerName = view.findViewById(R.id.txtBrokerName);
+            txtPhoneNumber = view.findViewById(R.id.txtBrokerPhoneNumber);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + txtPrice.getText() + "'";
+            return super.toString() + " '" + txtBrokerName.getText() + "'";
         }
     }
 }

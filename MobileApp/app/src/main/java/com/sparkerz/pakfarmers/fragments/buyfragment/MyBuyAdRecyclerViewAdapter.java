@@ -39,7 +39,7 @@ public class MyBuyAdRecyclerViewAdapter extends RecyclerView.Adapter<MyBuyAdRecy
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.txtTitle.setText(mValues.get(position).content);
-        holder.txtPrice.setText("1000");
+        holder.txtPrice.setText("10,00,000");
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
