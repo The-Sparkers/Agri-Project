@@ -12,8 +12,6 @@ import com.sparkerz.pakfarmers.fragments.buyfragment.dummy.DummyContent;
 import com.sparkerz.pakfarmers.fragments.sellfragment.SellAdFragment;
 import com.sparkerz.pakfarmers.ui.main.SectionsPagerAdapter;
 
-import java.util.Objects;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
@@ -45,8 +43,10 @@ public class MainActivity extends AppCompatActivity implements BuyAdFragment.OnL
 
     private void initToolbar(){
         Toolbar toolbar =findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.app_name);
+        //Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.app_name);
+
     }
 
     @Override

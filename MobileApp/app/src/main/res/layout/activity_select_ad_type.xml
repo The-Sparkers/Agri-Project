@@ -1,50 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SelectAdType">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btnSelectCrop"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/bg_btn_select_buyer"
-        android:text="@string/text_add_vegetable"
-        android:textColor="@color/colorTextNegative"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageButton
+            android:id="@+id/btnCrops"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/text_add_crop"
+            android:scaleType="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/agri_crop" />
 
-    <Button
-        android:id="@+id/btnCrops"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/bg_btn_select_buyer"
-        android:text="@string/text_add_crop"
-        android:textColor="@color/colorTextNegative"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSelectCrop"
-        app:layout_constraintEnd_toEndOf="@+id/btnSelectCrop"
-        app:layout_constraintStart_toStartOf="@+id/btnSelectCrop" />
+        <ImageButton
+            android:id="@+id/btnVeg"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="32dp"
+            android:contentDescription="@string/text_add_vegetable"
+            android:scaleType="center"
+            app:layout_constraintEnd_toEndOf="@+id/btnCrops"
+            app:layout_constraintStart_toStartOf="@+id/btnCrops"
+            app:layout_constraintTop_toBottomOf="@+id/btnCrops"
+            app:srcCompat="@drawable/agri_veg" />
 
-    <Button
-        android:id="@+id/btnFruit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bg_btn_select_buyer"
-        android:text="@string/text_add_fruit"
-        android:textColor="@color/colorTextNegative"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/btnSelectCrop"
-        app:layout_constraintStart_toStartOf="@+id/btnSelectCrop"
-        app:layout_constraintTop_toBottomOf="@+id/btnSelectCrop" />
+        <ImageButton
+            android:id="@+id/btnFruits"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/text_add_fruit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btnVeg"
+            app:layout_constraintStart_toStartOf="@+id/btnVeg"
+            app:layout_constraintTop_toBottomOf="@+id/btnVeg"
+            app:srcCompat="@drawable/agri_fruit" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/bg_btn_fruits"
+            android:text="@string/text_add_vegetable"
+            android:textAlignment="center"
+            android:textColor="@color/colorTextNegative"
+            android:textSize="@dimen/list_title_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/btnVeg"
+            app:layout_constraintEnd_toEndOf="@+id/btnVeg"
+            app:layout_constraintStart_toStartOf="@+id/btnVeg"
+            app:layout_constraintTop_toTopOf="@+id/btnVeg"
+            app:layout_constraintVertical_bias="0.77" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/bg_btn_fruits"
+            android:text="@string/text_add_crop"
+            android:textAlignment="center"
+            android:textColor="@color/colorTextNegative"
+            android:textSize="@dimen/list_title_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/btnCrops"
+            app:layout_constraintEnd_toEndOf="@+id/btnCrops"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/btnCrops"
+            app:layout_constraintTop_toTopOf="@+id/btnCrops"
+            app:layout_constraintVertical_bias="0.779" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/bg_btn_fruits"
+            android:text="@string/text_add_fruit"
+            android:textAlignment="center"
+            android:textColor="@color/colorTextNegative"
+            android:textSize="@dimen/list_title_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btnFruits"
+            app:layout_constraintStart_toStartOf="@+id/btnFruits"
+            app:layout_constraintTop_toTopOf="@+id/btnFruits"
+            app:layout_constraintVertical_bias="0.77" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
