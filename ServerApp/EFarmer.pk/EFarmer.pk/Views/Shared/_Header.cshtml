@@ -1,0 +1,27 @@
+﻿<div class="head">
+    <div class="container">
+        <div class="navbar-top">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand logo ">
+                    <h1 class="animated wow pulse" data-wow-delay=".5s">
+                        <a asp-controller="Home" asp-action="Index" asp-area="">@EFarmer.pk.Common.CommonValues.APP_NAME<span>@EFarmer.pk.Common.CommonValues.APP_NAME_PART</span></a>
+                    </h1>
+                </div>
+
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <partial name="_NavBar" />
+            </div><!-- /.navbar-collapse -->
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

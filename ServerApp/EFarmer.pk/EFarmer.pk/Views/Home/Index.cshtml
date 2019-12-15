@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@section PageHeader{
+    <!-- banner-slider -->
+    <div class="banner-slider">
+        <div class="slider">
+            <div class="callbacks_container">
+                <ul class="rslides callbacks callbacks1" id="slider4">
+                    <li>
+                        <div class="jarallax agileits-banner-info">
+                            <div class="container">
+                                <div class="w3ls-banner-shadow">
+                                    <h3>Lorem ipsum dolor</h3>
+                                    <p>Ut iaculis at mauris ut maximus. Sed laoreet in quam sit amet elementum.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+            <script type="text/javascript" src="~/js/responsiveslides.min.js"></script>
+            <script type="text/javascript">
+                $(function () {
+                    // Slideshow 4
+                    $("#slider4").responsiveSlides({
+                        auto: true,
+                        pager: true,
+                        nav: false,
+                        speed: 500,
+                        namespace: "callbacks",
+                        before: function () {
+                            $('.events').append("<li>before event fired.</li>");
+                        },
+                        after: function () {
+                            $('.events').append("<li>after event fired.</li>");
+                        }
+                    });
+                });
+                //$(Document).ready(function () {
+                //    $(function () {
+                //        // Slideshow 4
+                //        $("#slider4").responsiveSlides({
+                //            auto: true,
+                //            pager: true,
+                //            nav: false,
+                //            speed: 500,
+                //            namespace: "callbacks",
+                //            before: function () {
+                //                $('.events').append("<li>before event fired.</li>");
+                //            },
+                //            after: function () {
+                //                $('.events').append("<li>after event fired.</li>");
+                //            }
+                //        });
+                //    });
+                //});
+            </script>
+            <!--banner Slider starts Here-->
+        </div>
+    </div>
+    <!-- //banner-slider -->
+}
+<div class="a-grid">
+    <div class="agileits-a-about-grids">
+        <h1>Home</h1>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/jarallax.js"></script>
+    <script src="~/js/SmoothScroll.min.js"></script>
+    <script type="text/javascript">
+        /* init Jarallax */
+        $('.jarallax').jarallax({
+            speed: 0.5,
+            imgWidth: 1366,
+            imgHeight: 768
+        })
+    </script>
+}

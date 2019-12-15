@@ -328,3 +328,5 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/MobileApp/app/src/androidTest/java/com/sparkerz/pakfarmers
+/MobileApp/app/src/test/java/com/sparkerz/pakfarmers

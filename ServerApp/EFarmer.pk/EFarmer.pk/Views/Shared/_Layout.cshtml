@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] | @EFarmer.pk.Common.CommonValues.APP_NAME</title>
+    <meta name="keywords" content="Agriculture and farming" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/style.css" type="text/css" media="all" />
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/style.css" type="text/css" media="all" />
+        <link href="https://fonts.googleapis.com/css?family=Laila:300,400,500,600,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    </environment>
+    <link href="~/css/font-awesome.css" rel="stylesheet">
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>
+</head>
+<body>
+    <partial name="_CookieConsentPartial" />
+    <div class="banner">
+        <partial name="_Header" />
+        @RenderSection("PageHeader", false)
+    </div>
+    @RenderBody()
+    <hr />
+    <partial name="_Footer" />
+
+    <script src="~/js/jarallax.js"></script>
+    <script src="~/js/SmoothScroll.min.js"></script>
+    <script type="text/javascript">
+        /* init Jarallax */
+        $('.jarallax').jarallax({
+            speed: 0.5,
+            imgWidth: 1366,
+            imgHeight: 768
+        })
+    </script>
+    <script type="text/javascript" src="~/js/move-top.js"></script>
+    <script type="text/javascript" src="~/js/easing.js"></script>
+    <!-- here stars scrolling icon -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*
+                var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+                };
+            */
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
