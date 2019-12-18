@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Threading.Tasks;
 
 namespace EFarmer.pk.Common
 {
@@ -14,9 +11,9 @@ namespace EFarmer.pk.Common
     {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         [DataMember]
-        public decimal Latitude { get; set; }
+        public decimal? Latitude { get; set; }
         [DataMember]
-        public decimal Longitude { get; set; }
+        public decimal? Longitude { get; set; }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         /// <summary>
         /// Returns the distance from a location point to this point
@@ -90,7 +87,7 @@ namespace EFarmer.pk.Common
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        private static double ToRadian(decimal val)
+        private static double ToRadian(decimal? val)
         {
             return (Math.PI / 180) * Convert.ToDouble(val);
         }
