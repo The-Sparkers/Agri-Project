@@ -35,9 +35,9 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Buyer Flag
         /// </summary>
-        public bool IsBuyer
+        public bool IsSeller
         {
-            get => isBuyer;
+            get => isSeller;
         }
         /// <summary>
         /// Returns a list for advertisments favorited by this user

@@ -36,7 +36,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Seller Flag
         /// </summary>
-        public bool IsSeller => isSeller;
+        public bool IsBuyer => isBuyer;
         /// <summary>
         /// Method which adds a buyer to the interest list of this user
         /// </summary>
