@@ -5,6 +5,9 @@ using System.Data.SqlClient;
 
 namespace EFarmer.pk.Models
 {
+    /// <summary>
+    /// Posted by a seller for an agro item
+    /// </summary>
     public class Advertisement : SQLConnection
     {
         private readonly long id;
@@ -16,10 +19,39 @@ namespace EFarmer.pk.Models
         private Seller seller;
         private City city;
         private AgroItem item;
-
+        /// <summary>
+        /// Constructor to initialize values from db by using primary key
+        /// </summary>
+        /// <param name="id">Primary Key</param>
         public Advertisement(long id)
         {
             this.id = id;
+            StoredProcedureCommand.CommandText = "GetAdvertisement";
+            StoredProcedureCommand.Parameters.Add(new SqlParameter("@id", System.Data.SqlDbType.BigInt)).Value = id;
+            Connection.Open();
+            try
+            {
+                using (SqlDataReader reader = StoredProcedureCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        quality = (short)reader["Quality"];
+                        quantity = (short)reader["Quantity"];
+                        dateTime = (DateTime)reader["PostedDateTime"];
+                        price = (double)reader["Price"];
+                        pictureName = (string)reader["Picture"];
+                        seller = new Seller((long)reader["SellerId"]);
+                        item = new AgroItem((int)reader["ItemId"]);
+                        city = new City((short)reader["CityId"]);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Connection.Close();
+                throw new DbQueryProcessingFailedException("Advertisement.Constructor(id)", ex);
+            }
+            Connection.Close();
         }
 
         internal Advertisement(short quality, short quantity, DateTime dateTime, double price, string pictureName, Seller seller, AgroItem item, City city)
