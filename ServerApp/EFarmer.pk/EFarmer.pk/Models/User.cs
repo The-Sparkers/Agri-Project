@@ -2,12 +2,14 @@
 using EFarmer.pk.Exceptions;
 using System;
 using System.Data.SqlClient;
+using System.Runtime.Serialization;
 
 namespace EFarmer.pk.Models
 {
     /// <summary>
     /// User is the actor of the system who interacts with the system (maybe a Buyer or seller)
     /// </summary>
+    [DataContract]
     public class User : SQLConnection
     {
         protected long id;
@@ -105,6 +107,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// City to which the user belongs
         /// </summary>
+        [DataMember]
         public City City
         {
             get => city;
@@ -134,6 +137,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Latest location based on the cellular GPS Information
         /// </summary>
+        [DataMember]
         public GeoLocation Location
         {
             get => location;
@@ -164,6 +168,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Physical Address of the User
         /// </summary>
+        [DataMember]
         public string Address
         {
             get => address;
@@ -193,6 +198,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Contact Number of the user
         /// </summary>
+        [DataMember]
         public ContactNumberFormat ContactNumber
         {
             get => contact;
@@ -224,6 +230,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Full Name of the user
         /// </summary>
+        [DataMember]
         public NameFormat Name
         {
             get => name;

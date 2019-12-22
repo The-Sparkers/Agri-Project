@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Runtime.Serialization;
 
 namespace EFarmer.pk.Models
 {
     /// <summary>
     /// Item for which the ads will be posted
     /// </summary>
+    [DataContract]
     public class AgroItem : SQLConnection
     {
         private readonly int id;
@@ -83,6 +85,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Category to which this item belongs
         /// </summary>
+        [DataMember]
         public Category Category
         {
             get => category;
@@ -116,6 +119,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Weight Scale in urdu
         /// </summary>
+        [DataMember]
         public string UrduWeightScale
         {
             get => uWeightScale;
@@ -149,6 +153,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Weight scale from which this item's weight is denoted
         /// </summary>
+        [DataMember]
         public string WeightScale
         {
             get => scale;
@@ -182,6 +187,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Name of this item in urdu
         /// </summary>
+        [DataMember]
         public string UrduName
         {
             get => uName;
@@ -215,6 +221,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Name of the item
         /// </summary>
+        [DataMember]
         public string Name
         {
             get => name;
@@ -248,6 +255,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Primary Key
         /// </summary>
+        [DataMember]
         public int Id { get; }
         /// <summary>
         /// Deletes this agro item from the db

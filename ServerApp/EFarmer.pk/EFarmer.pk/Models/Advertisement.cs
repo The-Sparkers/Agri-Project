@@ -4,12 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace EFarmer.pk.Models
 {
     /// <summary>
     /// Posted by a seller for an agro item
     /// </summary>
+    [DataContract]
     public class Advertisement : SQLConnection
     {
         private readonly long id;
@@ -99,39 +101,48 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Agro Item for which the Ad has been posted
         /// </summary>
+        [DataMember]
         public AgroItem Item => item;
         /// <summary>
         /// City for which the ad has been posted
         /// </summary>
+        [DataMember]
         public City City => city;
         /// <summary>
         /// Seller who posted the ad.
         /// </summary>
+        [DataMember]
         public Seller Seller => seller;
         /// <summary>
         /// Picture of the Ad.
         /// </summary>
+        [DataMember]
         public string Picture => pictureName;
         /// <summary>
         /// Price set by the seller at the time of posting
         /// </summary>
+        [DataMember]
         public double Price => price;
 
         /// <summary>
         /// Time Stamp
         /// </summary>
+        [DataMember]
         public DateTime PostedDateTime => dateTime;
         /// <summary>
         /// Quantity offered by the seller according to the weigh scale
         /// </summary>
+        [DataMember]
         public short Quantity => quantity;
         /// <summary>
         /// Set as stars(1-3)
         /// </summary>
+        [DataMember]
         public short Quality => quality;
         /// <summary>
         /// Primary Key
         /// </summary>
+        [DataMember]
         public long Id => id;
         /// <summary>
         /// Adds this advertsement to buyers favorites list

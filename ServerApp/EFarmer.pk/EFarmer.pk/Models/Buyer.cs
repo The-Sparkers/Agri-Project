@@ -2,12 +2,14 @@
 using EFarmer.pk.Exceptions;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Runtime.Serialization;
 
 namespace EFarmer.pk.Models
 {
     /// <summary>
     /// User of the system which uses the system to post buying related advertisements
     /// </summary>
+    [DataContract]
     public class Buyer : User
     {
         /// <summary>
@@ -35,6 +37,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Buyer Flag
         /// </summary>
+        [DataMember]
         public bool IsSeller
         {
             get => isSeller;
@@ -87,7 +90,7 @@ namespace EFarmer.pk.Models
                 {
                     while (reader.Read())
                     {
-                        agroItems.Add(new AgroItem((long)reader[0]));
+                        agroItems.Add(new AgroItem((int)reader[0]));
                     }
                 }
             }

@@ -2,6 +2,7 @@
 using System;
 namespace EFarmer.pk.Common
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class CommonValues
     {
         public static readonly string APP_NAME = "e-Farmer";
@@ -24,4 +25,5 @@ namespace EFarmer.pk.Common
             CONNECTION_STRING = configuration.GetConnectionString("DefaultConnection");
         }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

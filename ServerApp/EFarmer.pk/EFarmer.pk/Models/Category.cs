@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Runtime.Serialization;
 
 namespace EFarmer.pk.Models
 {
     /// <summary>
     /// An items belongs to a category
     /// </summary>
+    [DataContract]
     public class Category : SQLConnection
     {
         private readonly short id;
@@ -69,6 +71,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Urdu Name of the category
         /// </summary>
+        [DataMember]
         public string UrduName
         {
             get => uName;
@@ -103,6 +106,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Name of the category
         /// </summary>
+        [DataMember]
         public string Name
         {
             get => name;
@@ -137,6 +141,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Primary Key
         /// </summary>
+        [DataMember]
         public short Id
         {
             get => id;

@@ -4,12 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace EFarmer.pk.Models
 {
     /// <summary>
     /// City on any geography from which a user and advertisment belongs
     /// </summary>
+    [DataContract]
     public class City : SQLConnection
     {
         private readonly short id;
@@ -79,6 +81,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Location of the city onto the Geo Map
         /// </summary>
+        [DataMember]
         public GeoLocation GeoLocation
         {
             get => geoLocation;
@@ -109,6 +112,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Name of the city
         /// </summary>
+        [DataMember]
         public string Name
         {
             get => name;
@@ -142,6 +146,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Primary Key
         /// </summary>
+        [DataMember]
         public short Id => id;
         /// <summary>
         /// Returns a list of users belong to this city

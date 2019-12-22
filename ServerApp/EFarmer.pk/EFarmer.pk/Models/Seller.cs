@@ -3,12 +3,14 @@ using EFarmer.pk.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Runtime.Serialization;
 
 namespace EFarmer.pk.Models
 {
     /// <summary>
     /// User of the system who posts different Ads
     /// </summary>
+    [DataContract]
     public class Seller : User
     {
         /// <summary>
@@ -36,6 +38,7 @@ namespace EFarmer.pk.Models
         /// <summary>
         /// Seller Flag
         /// </summary>
+        [DataMember]
         public bool IsBuyer => isBuyer;
         /// <summary>
         /// Method which adds a buyer to the interest list of this user
