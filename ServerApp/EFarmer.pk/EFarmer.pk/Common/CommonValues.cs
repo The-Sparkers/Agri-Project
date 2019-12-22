@@ -10,6 +10,8 @@ namespace EFarmer.pk.Common
         public static readonly string CROP_DEFAULT_PIC = "agri_crop.jpg";
         public static readonly string VEG_DEFAULT_PIC = "agri_veg.jpg";
         public static readonly string FRUIT_DEFAULT_PIC = "agri_fruit.jpg";
+        public static readonly double RADIUS_IN_KM = 25;
+        public static readonly double RADIUS_IN_MILES = 25;
         static CommonValues()
         {
             //getting connection string from appsettings.json

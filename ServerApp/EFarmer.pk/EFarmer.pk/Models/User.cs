@@ -42,10 +42,10 @@ namespace EFarmer.pk.Models
                         address = (string)reader["Address"];
                         location = new GeoLocation
                         {
-                            Latitude = (decimal)reader["GLat"],
-                            Longitude = (decimal)reader["GLng"]
+                            Latitude = Convert.ToDecimal(reader["GLat"]),
+                            Longitude = Convert.ToDecimal((decimal)reader["GLng"])
                         };
-                        city = new City((int)reader["CityId"]);
+                        city = new City((short)reader["CityId"]);
                         isBuyer = (bool)reader["BuyerFlag"];
                         isSeller = (bool)reader["SellerFlag"];
                     }
