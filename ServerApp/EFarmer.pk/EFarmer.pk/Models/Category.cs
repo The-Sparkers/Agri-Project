@@ -30,7 +30,7 @@ namespace EFarmer.pk.Models
                     while (reader.Read())
                     {
                         name = (string)reader["Name"];
-                        uName = (string)reader["uName"];
+                        uName = (string)reader["UName"];
                     }
                 }
             }
@@ -140,6 +140,36 @@ namespace EFarmer.pk.Models
         public short Id
         {
             get => id;
+        }
+        /// <summary>
+        /// Returns all agro items belong to this category
+        /// </summary>
+        /// <returns></returns>
+        public List<AgroItem> GetAgroItems()
+        {
+            List<AgroItem> agroItems = new List<AgroItem>();
+            const string _PATH = "Category->GetAgroItems";
+            ResetCommands();
+            StoredProcedureCommand.CommandText = "GetItemsCat";
+            StoredProcedureCommand.Parameters.Add(new SqlParameter("@catId", System.Data.SqlDbType.SmallInt)).Value = id;
+            Connection.Open();
+            try
+            {
+                using (var reader = StoredProcedureCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        agroItems.Add(new AgroItem((int)reader[0]));
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Connection.Close();
+                throw new DbQueryProcessingFailedException(_PATH, ex);
+            }
+            Connection.Close();
+            return agroItems;
         }
         /// <summary>
         /// Static method to get all categories present into the database
