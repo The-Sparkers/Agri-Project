@@ -1,7 +1,9 @@
-﻿using EFarmer.pk.Exceptions;
+﻿using EFarmer.pk.Common;
+using EFarmer.pk.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace EFarmer.pk.Models
 {
@@ -187,6 +189,33 @@ namespace EFarmer.pk.Models
             return advertisements;
         }
         /// <summary>
+        /// Returns a list of advertisements near a certain location
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        public static List<Advertisement> GetNearbyAdvertisements(GeoLocation location)
+        {
+            List<Advertisement> nearbyAdvertisements = new List<Advertisement>();
+            List<GeoLocationDistanceAd> temp = new List<GeoLocationDistanceAd>();
+            foreach (var item in GetAdvertisements())
+            {
+                var distance = item.City.GeoLocation.DistanceFromAPoint(location); //in km
+                if (distance < CommonValues.RADIUS_IN_KM)
+                {
+                    temp.Add(new GeoLocationDistanceAd { DistanceFromOrigion = distance, Advertisement = item });
+                }
+            }
+            if (temp.Count > 0)
+            {
+                temp = temp.OrderBy(x => x.DistanceFromOrigion).ToList();
+                foreach (var item in temp)
+                {
+                    nearbyAdvertisements.Add(item.Advertisement);
+                }
+            }
+            return nearbyAdvertisements;
+        }
+        /// <summary>
         /// Copies the content of an object to this object
         /// </summary>
         /// <param name="object"></param>
@@ -215,6 +244,11 @@ namespace EFarmer.pk.Models
                 price = 0;
                 pictureName = string.Empty;
             }
+        }
+        struct GeoLocationDistanceAd
+        {
+            public Advertisement Advertisement { get; set; }
+            public double DistanceFromOrigion { get; set; }
         }
     }
 }
