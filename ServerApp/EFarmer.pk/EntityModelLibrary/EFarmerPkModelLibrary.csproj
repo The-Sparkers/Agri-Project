@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <Reference Include="EntityGrabber">
-      <HintPath>..\Packages\EntityGrabber\EntityGrabber.dll</HintPath>
+      <HintPath>..\..\..\..\..\Visual Studio 2017\Projects\ModelRepositoryFactory\ModelRepositoryFactory\bin\Release\netcoreapp2.0\EntityGrabber.dll</HintPath>
     </Reference>
   </ItemGroup>
 

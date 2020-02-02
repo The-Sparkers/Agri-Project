@@ -8,24 +8,5 @@ namespace EFarmer.Models
     [DataContract]
     public class Buyer : User
     {
-        /// <summary>
-        /// Initializes Values from Db
-        /// </summary>
-        /// <param name="id">Primary Key</param>
-        public Buyer(long id) : base(id)
-        {
-            if (!isBuyer)
-            {
-                Copy(null);
-            }
-        }
-        /// <summary>
-        /// Buyer Flag
-        /// </summary>
-        [DataMember]
-        public bool IsSeller
-        {
-            get => isSeller;
-        }
     }
 }

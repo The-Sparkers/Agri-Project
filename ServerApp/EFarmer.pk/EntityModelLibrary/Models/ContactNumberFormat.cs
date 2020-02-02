@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using EFarmer.Models.Exceptions;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
