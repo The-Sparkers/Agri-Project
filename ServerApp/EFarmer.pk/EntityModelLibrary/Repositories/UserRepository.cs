@@ -1,174 +1,278 @@
-﻿using EFarmer.Connections;
-using EFarmer.Models;
-using EFarmer.Models.Exceptions;
+﻿using EFarmer.Exceptions;
 using EFarmer.Models.Helpers;
+using EFarmerPkModelLibrary.Entities;
 using EntityGrabber;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EFarmerPkModelLibrary.Repositories
 {
-    internal class UserRepository : SQLConnection, IModelRepository<User, long>
+    public class UserRepository : ModelRepository<EFarmer.Models.User, long>, IDisposable
     {
         readonly IDbConnection dbConnection;
+        readonly Context.EFarmerDbModel dbContext;
+        readonly DbSet<USER> users;
         public UserRepository(IDbConnection connectionString) : base(connectionString)
         {
+            dbConnection = connectionString;
+            dbContext = new Context.EFarmerDbModel(connectionString.GetConnectionString());
+            users = dbContext.USERs;
         }
 
-        public long Create(IDataModel<long> model)
+        public EFarmer.Models.User GetUser(ContactNumberFormat contact)
         {
-            ResetCommands();
+            var user = users
+                .Where(x => x.CCountryCode == contact.CountryCode
+                && x.CCompanyCode == contact.CompanyCode
+                && x.CPhone == contact.PhoneNumber).First() ?? null;
+            return (user != null) ? new EFarmer.Models.User
+            {
+                Address = user.Address,
+                City = EFarmer.Models.City.Convert(user.City),
+                ContactNumber = new ContactNumberFormat(user.CCountryCode, user.CCompanyCode, user.CPhone),
+                IsBuyer = user.BuyerFlag,
+                IsSeller = user.SellerFlag,
+                Location = new GeoLocation { Latitude = user.GLat, Longitude = user.GLng },
+                Name = new NameFormat { FirstName = user.FName, LastName = user.LName },
+                Id = user.Id
+            } : null;
+        }
+        public override long Create(EFarmer.Models.User model)
+        {
+            var result = users.Add(new USER
+            {
+                Address = model.Address,
+                BuyerFlag = model.IsBuyer,
+                CCompanyCode = model.ContactNumber.CompanyCode,
+                CCountryCode = model.ContactNumber.CountryCode,
+                CPhone = model.ContactNumber.PhoneNumber,
+                City = dbContext.CITIES.Find(model.City.Id),
+                LName = model.Name.LastName,
+                SellerFlag = model.IsSeller,
+                FName = model.Name.FirstName,
+                GLat = (model.Location != null) ? model.Location.Latitude : 0,
+                GLng = (model.Location != null) ? model.Location.Longitude : 0
+            });
             try
             {
-                User user = (User)model;
-                long id = 0;
-                StoredProcedureCommand.CommandText = "AddNewUser";
-                StoredProcedureCommand.Parameters.Add("@fName", System.Data.SqlDbType.VarChar).Value = user.Name.FirstName;
-                StoredProcedureCommand.Parameters.Add("@lName", System.Data.SqlDbType.VarChar).Value = user.Name.LastName;
-                StoredProcedureCommand.Parameters.Add("@countryCode", System.Data.SqlDbType.NChar).Value = user.ContactNumber.CountryCode;
-                StoredProcedureCommand.Parameters.Add("@companyCode", System.Data.SqlDbType.NChar).Value = user.ContactNumber.CompanyCode;
-                StoredProcedureCommand.Parameters.Add("@phone", System.Data.SqlDbType.NChar).Value = user.ContactNumber.PhoneNumber;
-                StoredProcedureCommand.Parameters.Add("@address", System.Data.SqlDbType.VarChar).Value = user.Address;
-                StoredProcedureCommand.Parameters.Add("@cityId", System.Data.SqlDbType.SmallInt).Value = user.City.Id;
-                Connection.Open();
-                try
+                dbContext.SaveChanges();
+                return result.Entity.Id;
+            }
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException.GetType() == typeof(SqlException))
                 {
-                    id = Convert.ToInt64(StoredProcedureCommand.ExecuteScalar());
-                }
-                catch (SqlException ex)
-                {
-                    Connection.Close();
-                    if (ex.Number == 2601 || ex.Number == 2627)
+                    var sqlException = (SqlException)ex.InnerException;
+                    if (sqlException.Number == 2601 || sqlException.Number == 2627)
                     {
                         //Unique key handler
                         //returns the already created driver in the System
-                        var u = GetUser(user.ContactNumber);
-                        id = u.Id;
-                        return id;
+                        var user = GetUser(model.ContactNumber);
+                        return user.Id;
                     }
-                    throw new DbQueryProcessingFailedException("User->Create", ex);
                 }
-                Connection.Close();
-                return id;
-            }
-            catch (Exception)
-            {
-                throw new InvalidCastException("The passed aurgument is not able to cast into User Model");
+                throw;
             }
         }
 
-        public User GetUser(ContactNumberFormat contact)
-        {
-            ResetCommands();
-            StoredProcedureCommand.CommandText = "GetUserByContact";
-            StoredProcedureCommand.Parameters.Add(new SqlParameter("@countryCode", System.Data.SqlDbType.NChar)).Value = contact.CountryCode;
-            StoredProcedureCommand.Parameters.Add(new SqlParameter("@companyCode", System.Data.SqlDbType.NChar)).Value = contact.CompanyCode;
-            StoredProcedureCommand.Parameters.Add(new SqlParameter("@phone", System.Data.SqlDbType.NChar)).Value = contact.PhoneNumber;
-            User user;
-            Connection.Open();
-            try
-            {
-                user = Read(Convert.ToInt64(StoredProcedureCommand.ExecuteScalar()));
-            }
-            catch (SqlException ex)
-            {
-                Connection.Close();
-                throw new DbQueryProcessingFailedException("User->GetUser(contact)", ex);
-            }
-            Connection.Close();
-            return user;
-        }
-
-        public bool Delete(long id)
+        public override bool Delete(long id)
         {
             return false;
         }
 
-        public User Read(long id)
+        public override EFarmer.Models.User Read(long id)
         {
-            User user = null;
-            StoredProcedureCommand.CommandText = "GetUser";
-            StoredProcedureCommand.Parameters.Add(new SqlParameter("@id", System.Data.SqlDbType.BigInt)).Value = id;
-            Connection.Open();
-            try
+            var user = users.Find(id);
+            return (user != null) ? new EFarmer.Models.User
             {
-                using (SqlDataReader reader = StoredProcedureCommand.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        user = new User
-                        {
-                            Name = new NameFormat
-                            {
-                                FirstName = (string)reader["FName"],
-                                LastName = (string)reader["LName"]
-                            },
-                            ContactNumber = new ContactNumberFormat((string)reader["CCountryCode"], (string)reader["CCompanyCode"], (string)reader["CPhone"]),
-                            Address = (string)reader["Address"],
-                            Location = new GeoLocation
-                            {
-                                Latitude = Convert.ToDecimal(reader["GLat"]),
-                                Longitude = Convert.ToDecimal((decimal)reader["GLng"])
-                            },
-                            City = new CityRepository(dbConnection).Read((short)reader["CityId"]),
-                            IsBuyer = (bool)reader["BuyerFlag"],
-                            IsSeller = (bool)reader["SellerFlag"]
-                        };
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                Connection.Close();
-                throw new DbQueryProcessingFailedException("User.Constructor(id)", ex);
-            }
-            Connection.Close();
-            return user;
+                Address = user.Address,
+                City = EFarmer.Models.City.Convert(user.City),
+                ContactNumber = new ContactNumberFormat(user.CCountryCode, user.CCompanyCode, user.CPhone),
+                IsBuyer = user.BuyerFlag,
+                IsSeller = user.SellerFlag,
+                Location = new GeoLocation { Latitude = user.GLat, Longitude = user.GLng },
+                Name = new NameFormat { FirstName = user.FName, LastName = user.LName },
+                Id = user.Id
+            } : null;
         }
 
-        public List<User> ReadAll()
+        public override async Task<List<EFarmer.Models.User>> ReadAllAsync()
         {
-            ResetCommands();
-            List<User> users = new List<User>();
-            QueryCommand.CommandText = "SELECT * FROM USERS";
-            Connection.Open();
-            try
-            {
-                using (var reader = QueryCommand.ExecuteReader())
+            List<EFarmer.Models.User> lstUsers = new List<EFarmer.Models.User>();
+            await users.ForEachAsync(x => lstUsers.Add(
+                new EFarmer.Models.User
                 {
-                    while (reader.Read())
-                    {
-                        users.Add(new User
-                        {
-                            Id = (long)reader[0],
-                            Name = new NameFormat { FirstName = (string)reader[1], LastName = (string)reader[2] },
-                            ContactNumber = new ContactNumberFormat((string)reader[3], (string)reader[4], (string)reader[5]),
-                            Address = (string)reader[6],
-                            Location = new GeoLocation
-                            {
-                                Latitude = (reader[7] != null) ? (decimal)reader[7] : 0
-                                 ,
-                                Longitude = (reader[8] != null) ? (decimal)reader[8] : 0
-                            },
-                            IsBuyer = (bool)reader[9],
-                            IsSeller = (bool)reader[10],
-                            City = new CityRepository(dbConnection).Read((short)reader[11])
-                        });
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new DbQueryProcessingFailedException("User->ReadAll", ex);
-            }
-            Connection.Close();
-            return users;
+                    Address = x.Address,
+                    City = EFarmer.Models.City.Convert(x.City),
+                    ContactNumber = new ContactNumberFormat(x.CCountryCode, x.CCompanyCode, x.CPhone),
+                    IsBuyer = x.BuyerFlag,
+                    IsSeller = x.SellerFlag,
+                    Location = new GeoLocation { Latitude = x.GLat, Longitude = x.GLng },
+                    Name = new NameFormat { FirstName = x.FName, LastName = x.LName },
+                    Id = x.Id
+                }));
+            return lstUsers;
         }
 
-        public bool Update(IDataModel<long> model)
+        public override bool Update(EFarmer.Models.User model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = users.Update(new USER
+                {
+                    Address = model.Address,
+                    BuyerFlag = model.IsBuyer,
+                    SellerFlag = model.IsSeller,
+                    CCompanyCode = model.ContactNumber.CompanyCode,
+                    CCountryCode = model.ContactNumber.CountryCode,
+                    CPhone = model.ContactNumber.PhoneNumber,
+                    City = dbContext.CITIES.Find(model.City.Id),
+                    LName = model.Name.LastName,
+                    FName = model.Name.FirstName,
+                    GLat = model.Location.Latitude,
+                    GLng = model.Location.Longitude,
+                    Id = model.Id
+                });
+                dbContext.SaveChanges();
+                return (result.State == EntityState.Modified) ? true : false;
+            }
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException.GetType() == typeof(SqlException))
+                {
+                    var sqlException = (SqlException)ex.InnerException;
+                    if (sqlException.Number == 2601 || sqlException.Number == 2627)
+                    {
+                        //Unique key handler
+                        //returns the already created driver in the System
+                        throw new UniqueKeyViolationException("The contact number is already added to the database");
+                    }
+                }
+                throw;
+            }
+        }
+        /// <summary>
+        /// Method to Make this user a buyer
+        /// </summary>
+        public void MakeBuyer(EFarmer.Models.User user)
+        {
+            var u = users.Find(user.Id);
+            u.BuyerFlag = true;
+            users.Update(u);
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                new UpdateUnsuccessfulException("User->MakeBuyer");
+            }
+        }
+        /// <summary>
+        /// Method to make this user a seller
+        /// </summary>
+        public void MakeSeller(EFarmer.Models.User user)
+        {
+            var u = users.Find(user.Id);
+            u.SellerFlag = true;
+            users.Update(u);
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                new UpdateUnsuccessfulException("User->MakeSeller");
+            }
+        }
+        public EFarmer.Models.User GetSeller(long id)
+        {
+            var seller = users.FirstOrDefault(x => x.Id == id && x.SellerFlag);
+            return new EFarmer.Models.User
+            {
+                Address = seller.Address,
+                City = EFarmer.Models.City.Convert(seller.City),
+                ContactNumber =
+                new ContactNumberFormat(seller.CCountryCode, seller.CCompanyCode, seller.CPhone),
+                Id = seller.Id,
+                IsBuyer = seller.BuyerFlag,
+                IsSeller = seller.SellerFlag,
+                Location = new GeoLocation { Latitude = seller.GLat, Longitude = seller.GLng },
+                Name = new NameFormat { FirstName = seller.FName, LastName = seller.LName }
+            };
+        }
+        /// <summary>
+        /// Returns a list for advertisments favorited by this user
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<EFarmer.Models.Advertisement>> GetFavoriteAdvertisementsAsync(EFarmer.Models.Buyer buyer)
+        {
+            List<EFarmer.Models.Advertisement> advertisements = new List<EFarmer.Models.Advertisement>();
+            await dbContext.BUYERADDSDIFFERENTADSTOFAVs
+                .Where(x => x.Buyer.Id == buyer.Id)
+                .Select(x => x.ADVERTISEMENT)
+                .ForEachAsync(x => advertisements.Add(new EFarmer.Models.Advertisement
+                {
+                    City = EFarmer.Models.City.Convert(x.City),
+                    Id = x.Id,
+                    Item = EFarmer.Models.AgroItem.Convert(x.AgroItem),
+                    Picture = x.Picture,
+                    PostedDateTime = x.PostedDateTime,
+                    Price = x.Price,
+                    Quality = x.Quality,
+                    Quantity = x.Quantity,
+                    Seller = (EFarmer.Models.Seller)EFarmer.Models.User.Convert(x.Seller)
+                }));
+            return advertisements;
+        }
+        /// <summary>
+        /// Returns a list of items interested by this user
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<EFarmer.Models.AgroItem>> GetInterestedItemsAsync(EFarmer.Models.Buyer buyer)
+        {
+            List<EFarmer.Models.AgroItem> agroItems = new List<EFarmer.Models.AgroItem>();
+            await dbContext.BUYERSADDAGROITEMTOINTERESTs
+                    .Where(x => x.User.Id == buyer.Id)
+                    .Select(x => x.AGROITEM)
+                    .ForEachAsync(x => agroItems.Add(new EFarmer.Models.AgroItem
+                    {
+                        Category = EFarmer.Models.Category.Convert(x.CATEGORY),
+                        Id = x.Id,
+                        Name = x.Name,
+                        UrduName = x.Uname,
+                        UrduWeightScale = x.UWeightScale,
+                        WeightScale = x.WeightScale
+                    }));
+            return agroItems;
+        }
+        /// <summary>
+        /// Static method to get buyers from database
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<EFarmer.Models.Buyer>> GetBuyersAsync()
+        {
+            List<EFarmer.Models.Buyer> buyers = new List<EFarmer.Models.Buyer>();
+            await users.Where(x => x.BuyerFlag).ForEachAsync(x => buyers.Add(new EFarmer.Models.Buyer
+            {
+                Address = x.Address,
+                City = EFarmer.Models.City.Convert(x.City),
+                ContactNumber = new ContactNumberFormat(x.CCountryCode, x.CCompanyCode, x.CPhone),
+                Id = x.Id,
+                IsBuyer = x.BuyerFlag,
+                IsSeller = x.SellerFlag,
+                Location = new GeoLocation { Latitude = x.GLat, Longitude = x.GLng },
+                Name = new NameFormat { FirstName = x.FName, LastName = x.LName }
+            }));
+            return buyers;
+        }
+        public void Dispose()
+        {
+            dbContext.Dispose();
         }
     }
 }

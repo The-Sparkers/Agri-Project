@@ -330,3 +330,4 @@ ASALocalRun/
 .mfractor/
 /MobileApp/app/src/androidTest/java/com/sparkerz/pakfarmers
 /MobileApp/app/src/test/java/com/sparkerz/pakfarmers
+/ServerApp/EFarmer.pk/ModelRepositoryTest

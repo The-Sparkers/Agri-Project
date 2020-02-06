@@ -1,0 +1,54 @@
+﻿{
+   "ContextClassName": "EfarmerdbContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "DoNotCombineNamespace": false,
+   "IdReplace": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Entities",
+   "ProjectRootNamespace": "EFarmerPkModelLibrary",
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[ADVERTISEMENTS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[AGRO_ITEMS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[BUYER_ADDS_DIFFERENT_ADS_TO_FAV]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[BUYERS_ADD_AGRO_ITEM_TO_INTEREST]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[CATEGORIES]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[CITIES]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[SELLERS_FAVORITES_BUYERS]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[USERS]"
+      }
+   ],
+   "UseDatabaseNames": false,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseSpatial": false
+}
