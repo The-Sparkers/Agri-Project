@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<efcore context-namespace="EFarmerPkModelLibrary.Context" namespace="EFarmerPkModelLibrary.Entities" p1:Guid="eb84ee0c-1eaa-48e9-ac58-3b237a693292" xmlns:p1="http://devart.com/schemas/EntityDeveloper/1.0">
+  <class name="$ComplexTypes">
+    <component class="AddNewAdvertisementResult" p1:Guid="0ba2b43b-dda8-4593-a9c0-4ea7fc3b660a">
+      <property name="Column0" type="Decimal" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="701318c2-5a77-45ed-b6bc-24bcfcb10db1">
+        <column name="column0" not-null="False" sql-type="decimal" p1:unicode="False" />
+      </property>
+    </component>
+    <component class="GetAdsCityResult" p1:Guid="64e107d6-e3cd-48a3-8296-8a214f20937f">
+      <property name="Id" type="Int64" p1:ValidateRequired="true" p1:Guid="bb3a184f-352c-4cdc-89e1-e34de45e6efb">
+        <column name="Id" not-null="True" sql-type="bigint" p1:unicode="False" />
+      </property>
+    </component>
+    <component class="GetAgroItem1Result" p1:Guid="21550cbf-94c9-449e-acb3-cd91012434f4">
+      <property name="Id" type="Int32" p1:ValidateRequired="true" p1:Guid="e542046a-3c15-48e5-994d-6215fbbda853">
+        <column name="Id" not-null="True" sql-type="int" p1:unicode="False" />
+      </property>
+    </component>
+    <component class="GetCategoryResult" p1:Guid="43766e54-ff66-4ccb-89ff-ed013f838c12">
+      <property name="Id" type="Int16" p1:ValidateRequired="true" p1:Guid="5ad9adae-eb74-4a7f-b98b-78db3f504116">
+        <column name="Id" not-null="True" sql-type="smallint" p1:unicode="False" />
+      </property>
+    </component>
+    <component class="GetFavAdvertismentResult" p1:Guid="740cd56d-dac6-46b9-8e9e-ba425cddc5fa">
+      <property name="AdId" type="Int64" p1:ValidateRequired="true" p1:Guid="a0365502-93c2-4d11-8137-92689b10a14f">
+        <column name="AdId" not-null="True" sql-type="bigint" p1:unicode="False" />
+      </property>
+    </component>
+    <component class="GetFavBuyerResult" p1:Guid="2d4aa08d-043b-4b36-a200-6d0c3ce5e36f">
+      <property name="BuyerId" type="Int64" p1:ValidateRequired="true" p1:Guid="1a311d86-dfd5-4962-81ef-c2fd7e59d45d">
+        <column name="BuyerId" not-null="True" sql-type="bigint" p1:unicode="False" />
+      </property>
+    </component>
+    <component class="GetInterestedItemResult" p1:Guid="231027ab-a789-4095-89a4-a764e56426c3">
+      <property name="ItemId" type="Int32" p1:ValidateRequired="true" p1:Guid="7e338ba4-c637-4f11-9d32-1b29bdb6fc80">
+        <column name="ItemId" not-null="True" sql-type="int" p1:unicode="False" />
+      </property>
+    </component>
+  </class>
+  <class name="ADVERTISEMENT" entity-set="ADVERTISEMENTs" table="ADVERTISEMENTS" schema="dbo" p1:Guid="334e7c57-6f37-4fd7-ab8d-ba25cc2aae68">
+    <id name="Id" type="Int64" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="4b438759-6107-4280-a4f8-58a41d20d09e">
+      <column name="Id" not-null="True" precision="19" scale="0" sql-type="bigint" p1:unicode="False" />
+    </id>
+    <property name="Quality" type="Int16" p1:ValidateRequired="true" p1:Guid="f80acad2-3836-43a4-887a-ab8902b37698">
+      <column name="Quality" not-null="True" precision="5" scale="0" sql-type="smallint" p1:unicode="False" />
+    </property>
+    <property name="Quantity" type="Int16" p1:ValidateRequired="true" p1:Guid="733f9504-0dc4-4136-897b-809c5b253929">
+      <column name="Quantity" not-null="True" precision="5" scale="0" sql-type="smallint" p1:unicode="False" />
+    </property>
+    <property name="PostedDateTime" type="DateTime" p1:ValidateRequired="true" p1:Guid="595ceaea-f01c-413d-a678-d778a0709776">
+      <column name="PostedDateTime" not-null="True" sql-type="datetime" p1:unicode="False" />
+    </property>
+    <property name="Price" type="Decimal" p1:ValidateRequired="true" p1:Guid="af69f9ca-5729-4aa4-a31b-65ae81c0478e">
+      <column name="Price" not-null="True" precision="19" scale="4" sql-type="money" p1:unicode="False" />
+    </property>
+    <property name="Picture" type="String" p1:ValidateRequired="true" p1:Guid="e2876d58-ec89-4f26-a085-2417390dbb16">
+      <column name="Picture" not-null="True" sql-type="varchar(max)" p1:unicode="False" />
+    </property>
+    <property name="SellerId" type="Int64" shadow="True" p1:ValidateRequired="true" p1:Guid="bfb8f0dd-2166-407b-a213-e893a0ec71d0">
+      <column name="SellerId" not-null="True" precision="19" scale="0" sql-type="bigint" p1:unicode="False" />
+    </property>
+    <property name="ItemId" type="Int32" shadow="True" p1:ValidateRequired="true" p1:Guid="239665ed-2f96-43cf-af01-b17bb75f8d69">
+      <column name="ItemId" not-null="True" precision="10" scale="0" sql-type="int" p1:unicode="False" />
+    </property>
+    <property name="CityId" type="Int16" shadow="True" p1:ValidateRequired="true" p1:Guid="c75de662-eec3-4c51-b228-36c4b31f37b5">
+      <column name="CityId" not-null="True" precision="5" scale="0" sql-type="smallint" p1:unicode="False" />
+    </property>
+  </class>
+  <class name="AGROITEM" entity-set="AGROITEMs" table="AGRO_ITEMS" schema="dbo" p1:Guid="98fbbaed-99c0-4770-8139-e4f2fe0953d0">
+    <id name="Id" type="Int32" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="8b9060ed-e035-473b-b402-1e841cef5417">
+      <column name="Id" not-null="True" precision="10" scale="0" sql-type="int" p1:unicode="False" />
+    </id>
+    <property name="Name" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="true" p1:Guid="7ba8dc30-9c6d-4c29-8c7f-dd08be11ff42">
+      <column name="Name" not-null="True" length="50" sql-type="varchar" p1:unicode="False" />
+    </property>
+    <property name="Uname" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="738def65-6ec7-41c0-9a1f-aba652d44a85">
+      <column name="Uname" not-null="False" length="50" sql-type="varchar" p1:unicode="False" />
+    </property>
+    <property name="WeightScale" type="String" p1:ValidateMaxLength="10" p1:ValidateRequired="true" p1:Guid="fdafcdbc-90d0-4f20-9ac0-72f3f2da6e49">
+      <column name="WeightScale" not-null="True" length="10" sql-type="nchar" p1:fixed-length="True" p1:unicode="True" />
+    </property>
+    <property name="UWeightScale" type="String" p1:nullable="True" p1:ValidateMaxLength="10" p1:ValidateRequired="false" p1:Guid="9b4033ae-46c0-49e9-8add-649922528cdb">
+      <column name="UWeightScale" not-null="False" length="10" sql-type="nchar" p1:fixed-length="True" p1:unicode="True" />
+    </property>
+    <property name="CategoryId" type="Int16" shadow="True" p1:ValidateRequired="true" p1:Guid="fe62c4c5-6b8a-43b9-9d58-38384d426f9d">
+      <column name="CategoryId" not-null="True" precision="5" scale="0" sql-type="smallint" p1:unicode="False" />
+    </property>
+  </class>
+  <class name="BUYERADDSDIFFERENTADSTOFAV" entity-set="BUYERADDSDIFFERENTADSTOFAVs" table="BUYER_ADDS_DIFFERENT_ADS_TO_FAV" schema="dbo" p1:Guid="d041009d-cde3-47c9-8cb2-0173da917e33">
+    <composite-id>
+      <key-property name="BuyerId" type="Int64" shadow="True" p1:ValidateRequired="true" p1:Guid="6bb33e04-32d1-4b9a-ba27-8d8743b77afd">
+        <column name="BuyerId" not-null="True" precision="19" scale="0" sql-type="bigint" p1:unicode="False" />
+      </key-property>
+      <key-property name="AdId" type="Int64" shadow="True" primary-key-index="1" p1:ValidateRequired="true" p1:Guid="86aef283-4b45-4606-a5d8-3b83f0296a87">
+        <column name="AdId" not-null="True" precision="19" scale="0" sql-type="bigint" p1:unicode="False" />
+      </key-property>
+    </composite-id>
+  </class>
+  <class name="BUYERSADDAGROITEMTOINTEREST" entity-set="BUYERSADDAGROITEMTOINTERESTs" table="BUYERS_ADD_AGRO_ITEM_TO_INTEREST" schema="dbo" p1:Guid="c8089319-eff1-4ba7-b12c-cae2cf668be4">
+    <composite-id>
+      <key-property name="BuyerId" type="Int64" shadow="True" p1:ValidateRequired="true" p1:Guid="cbfa99ba-0c65-4c0f-8425-7e8b9dffe6fa">
+        <column name="BuyerId" not-null="True" precision="19" scale="0" sql-type="bigint" p1:unicode="False" />
+      </key-property>
+      <key-property name="ItemId" type="Int32" shadow="True" primary-key-index="1" p1:ValidateRequired="true" p1:Guid="3c0b7b80-2731-4352-b127-5d0dcda9c4e4">
+        <column name="ItemId" not-null="True" precision="10" scale="0" sql-type="int" p1:unicode="False" />
+      </key-property>
+    </composite-id>
+  </class>
+  <class name="CATEGORY" entity-set="CATEGORIES" table="CATEGORIES" schema="dbo" p1:Guid="800a6337-3f7f-4256-8bbb-9712c17925ab">
+    <id name="Id" type="Int16" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="716edbcf-3e53-4ddb-b6b5-8b253e9ee213">
+      <column name="Id" not-null="True" precision="5" scale="0" sql-type="smallint" p1:unicode="False" />
+    </id>
+    <property name="Name" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="true" p1:Guid="b3e2c644-2939-4d32-ab9f-7ef3b8c86549">
+      <column name="Name" not-null="True" length="50" sql-type="varchar" p1:unicode="False" />
+    </property>
+    <property name="UName" type="String" p1:nullable="True" p1:ValidateMaxLength="50" p1:ValidateRequired="false" p1:Guid="92f3f670-271d-415f-a77a-cbb164d3677b">
+      <column name="UName" not-null="False" length="50" sql-type="varchar" p1:unicode="False" />
+    </property>
+  </class>
+  <class name="CITY" entity-set="CITIES" table="CITIES" schema="dbo" p1:Guid="57e2cf31-5005-4030-b529-83eaf37eb663">
+    <id name="Id" type="Int16" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="377d9b13-6d5d-41b1-8a69-e90d26b38d0b">
+      <column name="Id" not-null="True" precision="5" scale="0" sql-type="smallint" unique="True" p1:unicode="False" />
+    </id>
+    <property name="Name" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="true" p1:Guid="89e8f620-4f48-4683-995e-62bdd12107fd">
+      <column name="Name" not-null="True" length="50" sql-type="varchar" p1:unicode="False" />
+    </property>
+    <property name="GLat" type="Decimal" p1:ValidateRequired="true" p1:Guid="de8e7b37-e9ff-4536-942d-63bbe0c58bba">
+      <column name="GLat" not-null="True" precision="10" scale="8" sql-type="decimal" p1:unicode="False" />
+    </property>
+    <property name="GLng" type="Decimal" p1:ValidateRequired="true" p1:Guid="f9167394-c2ed-4ca2-a76c-87f17c3187bf">
+      <column name="GLng" not-null="True" precision="11" scale="8" sql-type="decimal" p1:unicode="False" />
+    </property>
+  </class>
+  <class name="SELLERSFAVORITESBUYER" entity-set="SELLERSFAVORITESBUYERs" table="SELLERS_FAVORITES_BUYERS" schema="dbo" p1:Guid="051780d6-edec-42c7-8309-062447d41b84">
+    <composite-id>
+      <key-property name="SellerId" type="Int64" shadow="True" p1:ValidateRequired="true" p1:Guid="23ab9779-41d3-4621-8896-dd7ff547e54d">
+        <column name="SellerId" not-null="True" precision="19" scale="0" sql-type="bigint" p1:unicode="False" />
+      </key-property>
+      <key-property name="BuyerId" type="Int64" shadow="True" primary-key-index="1" p1:ValidateRequired="true" p1:Guid="79cb30df-74f1-4cf7-a296-ab2b024bd2a2">
+        <column name="BuyerId" not-null="True" precision="19" scale="0" sql-type="bigint" p1:unicode="False" />
+      </key-property>
+    </composite-id>
+  </class>
+  <class name="USER" entity-set="USERs" table="USERS" schema="dbo" p1:Guid="8a574ded-0026-4a78-9e78-c35eb6781a50">
+    <id name="Id" type="Int64" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="1d39256b-273c-468e-acce-ce4987c98443">
+      <column name="Id" not-null="True" precision="19" scale="0" sql-type="bigint" p1:unicode="False" />
+    </id>
+    <property name="FName" type="String" p1:ValidateRequired="true" p1:Guid="667e37b5-5a9a-4814-8b98-ae504bd5685a">
+      <column name="FName" not-null="True" sql-type="varchar(max)" p1:unicode="False" />
+    </property>
+    <property name="LName" type="String" p1:ValidateRequired="true" p1:Guid="c32be11e-d7a9-4599-8191-1212f6585c9a">
+      <column name="LName" not-null="True" sql-type="varchar(max)" p1:unicode="False" />
+    </property>
+    <property name="CCompanyCode" type="String" p1:ValidateMaxLength="3" p1:ValidateRequired="true" p1:Guid="defe36e5-68b4-4499-8fe1-c74d91e8036a">
+      <column name="CCompanyCode" not-null="True" length="3" sql-type="nchar" unique-key="UNIQUE_CONTACT" p1:fixed-length="True" p1:unicode="True" />
+    </property>
+    <property name="CCountryCode" type="String" p1:ValidateMaxLength="3" p1:ValidateRequired="true" p1:Guid="fb89b10e-96b0-4999-be91-fa344d1f9354">
+      <column name="CCountryCode" not-null="True" length="3" sql-type="nchar" unique-key="UNIQUE_CONTACT" p1:fixed-length="True" p1:unicode="True" />
+    </property>
+    <property name="CPhone" type="String" p1:ValidateMaxLength="7" p1:ValidateRequired="true" p1:Guid="9c9ad2d4-6506-42d1-b52b-f8548221986e">
+      <column name="CPhone" not-null="True" length="7" sql-type="nchar" unique-key="UNIQUE_CONTACT" p1:fixed-length="True" p1:unicode="True" />
+    </property>
+    <property name="Address" type="String" p1:ValidateRequired="true" p1:Guid="e97907f8-32b5-4591-a0a6-7e059477238a">
+      <column name="Address" not-null="True" sql-type="varchar(max)" p1:unicode="False" />
+    </property>
+    <property name="GLat" type="Decimal" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="9a95bfb8-a499-407b-8806-068555819616">
+      <column name="GLat" not-null="False" precision="10" scale="8" sql-type="decimal" p1:unicode="False" />
+    </property>
+    <property name="GLng" type="Decimal" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="c6d6bf3c-a4ff-4ffc-95fd-f74fcff220c8">
+      <column name="GLng" not-null="False" precision="11" scale="8" sql-type="decimal" p1:unicode="False" />
+    </property>
+    <property name="BuyerFlag" type="Boolean" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="481b8df5-b1a8-4f6d-b65b-6d38b522f001">
+      <column name="BuyerFlag" default="0" not-null="True" sql-type="bit" p1:unicode="False" />
+    </property>
+    <property name="SellerFlag" type="Boolean" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="bc526c48-1a1d-4921-96d8-080aaf4b30a2">
+      <column name="SellerFlag" default="0" not-null="True" sql-type="bit" p1:unicode="False" />
+    </property>
+    <property name="CityId" type="Int16" shadow="True" p1:ValidateRequired="true" p1:Guid="bd3f3925-47e5-4bb1-b7ed-41ed5f4ff8ed">
+      <column name="CityId" not-null="True" precision="5" scale="0" sql-type="smallint" p1:unicode="False" />
+    </property>
+  </class>
+  <associations>
+    <association name="CITY_ADVERTISEMENT" cardinality="OneToMany" p1:Guid="55b3204e-f14e-4d5c-9fa7-dd031f346a6d">
+      <end1 multiplicity="One" name="CITY_CityId" class="ADVERTISEMENT" relation-class="CITY" constrained="True" lazy="False" p1:Guid="d4a2a799-0dbe-462f-b115-be7728068648">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="ADVERTISEMENTs_CityId" class="CITY" relation-class="ADVERTISEMENT" lazy="False" p1:Guid="5f9b9179-b278-45d1-a665-e9b5531f9382">
+        <property name="CityId" />
+      </end2>
+    </association>
+    <association name="AGROITEM_ADVERTISEMENT" cardinality="OneToMany" on-delete="Cascade" p1:Guid="b5713ed5-a8a7-463a-9f7b-c097930ac485">
+      <end1 multiplicity="One" name="AGROITEM_ItemId" class="ADVERTISEMENT" relation-class="AGROITEM" constrained="True" lazy="False" p1:Guid="deb1820c-9e0c-4adc-8b5f-affd5933b1fe">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="ADVERTISEMENTs_ItemId" class="AGROITEM" relation-class="ADVERTISEMENT" lazy="False" p1:Guid="463f440f-accb-44f9-90d2-b5aed6804b10">
+        <property name="ItemId" />
+      </end2>
+    </association>
+    <association name="USER_ADVERTISEMENT" cardinality="OneToMany" on-delete="Cascade" p1:Guid="16e9881e-c9cb-4efe-9d1f-78f2884b5523">
+      <end1 multiplicity="One" name="USER_SellerId" class="ADVERTISEMENT" relation-class="USER" constrained="True" lazy="False" p1:Guid="f5eee4d8-c79e-4730-b8c3-d28579daf5a4">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="ADVERTISEMENTs_SellerId" class="USER" relation-class="ADVERTISEMENT" lazy="False" p1:Guid="8daf426e-e033-4acb-94f7-4f41d87747d6">
+        <property name="SellerId" />
+      </end2>
+    </association>
+    <association name="CATEGORY_AGROITEM" cardinality="OneToMany" p1:Guid="29c6fdb6-3cb2-4307-bd86-97cb3a473bad">
+      <end1 multiplicity="One" name="CATEGORY_CategoryId" class="AGROITEM" relation-class="CATEGORY" constrained="True" lazy="False" p1:Guid="ce5c6757-f690-4b33-93d9-ed58466a2336">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="AGROITEMs_CategoryId" class="CATEGORY" relation-class="AGROITEM" lazy="False" p1:Guid="c214c099-cff2-476d-940b-9718015d31e1">
+        <property name="CategoryId" />
+      </end2>
+    </association>
+    <association name="ADVERTISEMENT_BUYERADDSDIFFERENTADSTOFAV" cardinality="OneToMany" p1:Guid="11d56e25-8fc9-45d3-a167-7bdf21b9c848">
+      <end1 multiplicity="One" name="ADVERTISEMENT_AdId" class="BUYERADDSDIFFERENTADSTOFAV" relation-class="ADVERTISEMENT" constrained="True" lazy="False" p1:Guid="edf61594-bb29-40f2-bc66-8f1b2ca5cff3">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="BUYERADDSDIFFERENTADSTOFAVs_AdId" class="ADVERTISEMENT" relation-class="BUYERADDSDIFFERENTADSTOFAV" lazy="False" p1:Guid="3682a579-c52c-4999-80b2-4aee3f090ab0">
+        <property name="AdId" />
+      </end2>
+    </association>
+    <association name="USER_BUYERADDSDIFFERENTADSTOFAV" cardinality="OneToMany" on-delete="Cascade" p1:Guid="b0c8860a-8eb6-4e97-9c34-10b74b146ec8">
+      <end1 multiplicity="One" name="USER_BuyerId" class="BUYERADDSDIFFERENTADSTOFAV" relation-class="USER" constrained="True" lazy="False" p1:Guid="b7ba79f5-77f0-45a0-8ea3-cb1ba5ced6b8">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="BUYERADDSDIFFERENTADSTOFAVs_BuyerId" class="USER" relation-class="BUYERADDSDIFFERENTADSTOFAV" lazy="False" p1:Guid="9cf9e7ef-05e6-441e-a016-031216614656">
+        <property name="BuyerId" />
+      </end2>
+    </association>
+    <association name="AGROITEM_BUYERSADDAGROITEMTOINTEREST" cardinality="OneToMany" p1:Guid="66fa8146-4cab-4d31-a050-33a79423ba61">
+      <end1 multiplicity="One" name="AGROITEM_ItemId" class="BUYERSADDAGROITEMTOINTEREST" relation-class="AGROITEM" constrained="True" lazy="False" p1:Guid="d678a7a3-04b6-418c-81e2-e896ec8586a4">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="BUYERSADDAGROITEMTOINTERESTs_ItemId" class="AGROITEM" relation-class="BUYERSADDAGROITEMTOINTEREST" lazy="False" p1:Guid="4b66d2fa-7efe-4cf4-b412-604e161a8c2c">
+        <property name="ItemId" />
+      </end2>
+    </association>
+    <association name="USER_BUYERSADDAGROITEMTOINTEREST" cardinality="OneToMany" p1:Guid="1bad6215-03fb-4701-870c-b36d75fc6521">
+      <end1 multiplicity="One" name="USER_BuyerId" class="BUYERSADDAGROITEMTOINTEREST" relation-class="USER" constrained="True" lazy="False" p1:Guid="d3b950e8-4911-4223-bbf2-1f3d2a81f80e">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="BUYERSADDAGROITEMTOINTERESTs_BuyerId" class="USER" relation-class="BUYERSADDAGROITEMTOINTEREST" lazy="False" p1:Guid="98b3e04b-1cfb-4f3e-a803-28685be0c8c2">
+        <property name="BuyerId" />
+      </end2>
+    </association>
+    <association name="USER_SELLERSFAVORITESBUYER" cardinality="OneToMany" p1:Guid="12db3be8-6afc-4a90-9998-820cf467fc14">
+      <end1 multiplicity="One" name="USER_SellerId" class="SELLERSFAVORITESBUYER" relation-class="USER" constrained="True" lazy="False" p1:Guid="adf45e45-7286-4edf-820e-5f4bcfe71083">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="SELLERSFAVORITESBUYERs_SellerId" class="USER" relation-class="SELLERSFAVORITESBUYER" lazy="False" p1:Guid="9a72d2ec-0ae5-47b9-9eed-7c3323cef99c">
+        <property name="SellerId" />
+      </end2>
+    </association>
+    <association name="USER_SELLERSFAVORITESBUYER1" cardinality="OneToMany" on-delete="Cascade" p1:Guid="23e328b4-cf0c-4e29-a15b-fad4ce10be2f">
+      <end1 multiplicity="One" name="USER_BuyerId" class="SELLERSFAVORITESBUYER" relation-class="USER" constrained="True" lazy="False" p1:Guid="a31817e0-950d-443c-8e46-e55104c07f71">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="SELLERSFAVORITESBUYERs_BuyerId" class="USER" relation-class="SELLERSFAVORITESBUYER" lazy="False" p1:Guid="85680f6e-defb-42fd-83f9-ea2b1234a3e3">
+        <property name="BuyerId" />
+      </end2>
+    </association>
+    <association name="CITY_USER" cardinality="OneToMany" p1:Guid="c6f72cf3-1b16-4daf-919f-aa557f1f2f02">
+      <end1 multiplicity="One" name="CITY_CityId" class="USER" relation-class="CITY" constrained="True" lazy="False" p1:Guid="c26058fc-d786-4dfc-b2ea-a9bcca5fddb6">
+        <property name="Id" />
+      </end1>
+      <end2 multiplicity="Many" name="USERs_CityId" class="CITY" relation-class="USER" lazy="False" p1:Guid="3030f5f3-072d-4883-8e8d-0023beb6ec3b">
+        <property name="CityId" />
+      </end2>
+    </association>
+  </associations>
+  <method name="AddBuyerToInterest" p1:procedure="dbo.AddBuyerToInterest" p1:Guid="6d847046-ee2d-4f01-9b00-4101a339f27d">
+    <parameter name="sellerId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+    <parameter name="buyerId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+  </method>
+  <method name="AddNewAdvertisement" p1:procedure="dbo.AddNewAdvertisement" p1:Guid="2de24062-efc1-44ce-aa9b-c7b2370e063b">
+    <return class="AddNewAdvertisementResult">
+      <return-property name="Column0" column="column0" />
+    </return>
+    <parameter name="quality" type="Int16" sql-type="smallint" precision="5" scale="0" />
+    <parameter name="quantity" type="Int16" sql-type="smallint" precision="5" scale="0" />
+    <parameter name="dateTime" type="DateTime" sql-type="datetime" />
+    <parameter name="price" type="Decimal" sql-type="money" precision="19" scale="4" />
+    <parameter name="picture" type="String" sql-type="varchar" />
+    <parameter name="sellerId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+    <parameter name="itemId" type="Int32" sql-type="int" precision="10" scale="0" />
+    <parameter name="cityId" type="Int16" sql-type="smallint" precision="5" scale="0" />
+  </method>
+  <method name="AddNewAgroItem" p1:procedure="dbo.AddNewAgroItem" p1:Guid="f05643d9-ad46-4fde-a076-111afd0f3531">
+    <return class="AddNewAdvertisementResult">
+      <return-property name="Column0" column="column0" />
+    </return>
+    <parameter name="name" type="String" sql-type="varchar" length="50" />
+    <parameter name="uName" type="String" sql-type="varchar" length="50" />
+    <parameter name="scale" type="String" sql-type="nchar" length="20" />
+    <parameter name="uScale" type="String" sql-type="nchar" length="20" />
+    <parameter name="catId" type="Int16" sql-type="smallint" precision="5" scale="0" />
+  </method>
+  <method name="AddNewCategory" p1:procedure="dbo.AddNewCategory" p1:Guid="9a9426db-f7b5-4db3-845b-262f13ea8c4f">
+    <return class="AddNewAdvertisementResult">
+      <return-property name="Column0" column="column0" />
+    </return>
+    <parameter name="name" type="String" sql-type="varchar" length="50" />
+    <parameter name="uName" type="String" sql-type="varchar" length="50" />
+  </method>
+  <method name="AddNewCity" p1:procedure="dbo.AddNewCity" p1:Guid="5ce8cc7e-525d-4683-bfa3-5d0e66c11f77">
+    <return class="AddNewAdvertisementResult">
+      <return-property name="Column0" column="column0" />
+    </return>
+    <parameter name="name" type="String" sql-type="varchar" length="50" />
+    <parameter name="lat" type="Decimal" sql-type="decimal" precision="10" scale="8" />
+    <parameter name="lng" type="Decimal" sql-type="decimal" precision="11" scale="8" />
+  </method>
+  <method name="AddNewUser" p1:procedure="dbo.AddNewUser" p1:Guid="c61236c9-ace4-49ab-96c3-75f8f204ee1e">
+    <return class="AddNewAdvertisementResult">
+      <return-property name="Column0" column="column0" />
+    </return>
+    <parameter name="fName" type="String" sql-type="varchar" />
+    <parameter name="lName" type="String" sql-type="varchar" />
+    <parameter name="countryCode" type="String" sql-type="nchar" length="6" />
+    <parameter name="companyCode" type="String" sql-type="nchar" length="6" />
+    <parameter name="phone" type="String" sql-type="nchar" length="14" />
+    <parameter name="address" type="String" sql-type="varchar" />
+    <parameter name="cityId" type="Int16" sql-type="smallint" precision="5" scale="0" />
+  </method>
+  <method name="DeleteAgroItem" p1:procedure="dbo.DeleteAgroItem" p1:Guid="7d31f066-60b6-4e3d-90ba-54c90fb4c5a9">
+    <parameter name="itemId" type="Int32" sql-type="int" precision="10" scale="0" />
+    <parameter name="name" type="String" sql-type="varchar" length="50" />
+  </method>
+  <method name="FavAd" p1:procedure="dbo.FavAd" p1:Guid="e5f61327-cadc-40ae-b6dc-ee6179b6ec6e">
+    <parameter name="buyerId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+    <parameter name="adId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+  </method>
+  <method name="GetAdsCity" p1:procedure="dbo.GetAdsCity" p1:Guid="936eab39-e4ec-4e6d-9c3e-711f96901b5d">
+    <return class="GetAdsCityResult">
+      <return-property name="Id" column="Id" />
+    </return>
+    <parameter name="cityId" type="Int16" sql-type="smallint" precision="5" scale="0" />
+  </method>
+  <method name="GetAdvertisement" p1:procedure="dbo.GetAdvertisement" p1:Guid="3b317e55-a666-4d49-a49d-119f599cea27">
+    <return class="ADVERTISEMENT" />
+    <parameter name="id" type="Int64" sql-type="bigint" precision="19" scale="0" />
+  </method>
+  <method name="GetAdvertisement" p1:procedure="dbo.GetAdvertisements" p1:Guid="5d004292-12a6-4e5c-8a47-0cfe692c9c58">
+    <return class="GetAdsCityResult">
+      <return-property name="Id" column="Id" />
+    </return>
+    <parameter name="max" type="Int32" sql-type="int" precision="10" scale="0" />
+  </method>
+  <method name="GetAgroItem" p1:procedure="dbo.GetAgroItem" p1:Guid="b23bd092-515a-4a2c-8aae-07303420c85f">
+    <return class="AGROITEM" />
+    <parameter name="id" type="Int32" sql-type="int" precision="10" scale="0" />
+  </method>
+  <method name="GetAgroItem1" p1:procedure="dbo.GetAgroItems" p1:Guid="17a59d8d-6e96-4529-a485-038a5d9186aa">
+    <return class="GetAgroItem1Result">
+      <return-property name="Id" column="Id" />
+    </return>
+    <parameter name="max" type="Int32" sql-type="int" precision="10" scale="0" />
+  </method>
+  <method name="GetBuyer" p1:procedure="dbo.GetBuyers" p1:Guid="85c48a30-0643-4def-bbc3-7d42acfddb73">
+    <return class="GetAdsCityResult">
+      <return-property name="Id" column="Id" />
+    </return>
+  </method>
+  <method name="GetCategory" p1:procedure="dbo.GetCategories" p1:Guid="5e942a40-df4e-4f63-9a3b-defe04517f32">
+    <return class="GetCategoryResult">
+      <return-property name="Id" column="Id" />
+    </return>
+    <parameter name="max" type="Int32" sql-type="int" precision="10" scale="0" />
+  </method>
+  <method name="GetCategory" p1:procedure="dbo.GetCategory" p1:Guid="e67e29f3-9509-4baa-80df-97d30e459011">
+    <return class="CATEGORY" />
+    <parameter name="id" type="Int16" sql-type="smallint" precision="5" scale="0" />
+  </method>
+  <method name="GetCity" p1:procedure="dbo.GetCities" p1:Guid="8746c3a2-0d7e-4756-b412-5beff014a94b">
+    <return class="GetCategoryResult">
+      <return-property name="Id" column="Id" />
+    </return>
+    <parameter name="max" type="Int32" sql-type="int" precision="10" scale="0" />
+  </method>
+  <method name="GetCity" p1:procedure="dbo.GetCity" p1:Guid="0ecfe8fe-af1a-4d7b-bb02-538c457cfaeb">
+    <return class="CITY" />
+    <parameter name="id" type="Int16" sql-type="smallint" precision="5" scale="0" />
+  </method>
+  <method name="GetFavAdvertisment" p1:procedure="dbo.GetFavAdvertisments" p1:Guid="37a76f9e-26fa-41e2-a215-12d21abc5ec7">
+    <return class="GetFavAdvertismentResult">
+      <return-property name="AdId" column="AdId" />
+    </return>
+    <parameter name="buyerId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+  </method>
+  <method name="GetFavBuyer" p1:procedure="dbo.GetFavBuyers" p1:Guid="3e77ee99-3aef-4de5-9cdc-d610e7cb579d">
+    <return class="GetFavBuyerResult">
+      <return-property name="BuyerId" column="BuyerId" />
+    </return>
+    <parameter name="sellerId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+  </method>
+  <method name="GetInterestedItem" p1:procedure="dbo.GetInterestedItems" p1:Guid="dc87e543-35c2-499b-b4b3-e7436af36bab">
+    <return class="GetInterestedItemResult">
+      <return-property name="ItemId" column="ItemId" />
+    </return>
+    <parameter name="buyerId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+  </method>
+  <method name="GetItemAd" p1:procedure="dbo.GetItemAds" p1:Guid="44135b7c-005e-4cc9-9439-0ce39952f0da">
+    <return class="GetAdsCityResult">
+      <return-property name="Id" column="Id" />
+    </return>
+    <parameter name="itemId" type="Int32" sql-type="int" precision="10" scale="0" />
+    <parameter name="max" type="Int32" sql-type="int" precision="10" scale="0" />
+  </method>
+  <method name="GetItemsCat" p1:procedure="dbo.GetItemsCat" p1:Guid="ac6c60f2-fc01-46ac-a429-c53e9b821307">
+    <return class="GetAgroItem1Result">
+      <return-property name="Id" column="Id" />
+    </return>
+    <parameter name="catId" type="Int16" sql-type="smallint" precision="5" scale="0" />
+  </method>
+  <method name="GetPostedAdvertisment" p1:procedure="dbo.GetPostedAdvertisments" p1:Guid="70625dc8-22ee-49ec-9e80-92d7e03dfa00">
+    <return class="GetAdsCityResult">
+      <return-property name="Id" column="Id" />
+    </return>
+    <parameter name="sellerId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+    <parameter name="startDate" type="DateTime" sql-type="datetime" />
+    <parameter name="endDate" type="DateTime" sql-type="datetime" />
+  </method>
+  <method name="GetSeller" p1:procedure="dbo.GetSellers" p1:Guid="669dc705-402c-4f1e-983b-85dcbb4bd290">
+    <return class="GetAdsCityResult">
+      <return-property name="Id" column="Id" />
+    </return>
+  </method>
+  <method name="GetUser" p1:procedure="dbo.GetUser" p1:Guid="e7338710-fe6a-4b0a-9183-6ead969c9722">
+    <return class="USER" />
+    <parameter name="id" type="Int64" sql-type="bigint" precision="19" scale="0" />
+  </method>
+  <method name="GetUserByContact" p1:procedure="dbo.GetUserByContact" p1:Guid="663f59f5-8a31-4141-9c3a-da6fe56f99e6">
+    <return class="GetAdsCityResult">
+      <return-property name="Id" column="Id" />
+    </return>
+    <parameter name="countryCode" type="String" sql-type="nchar" length="6" />
+    <parameter name="companyCode" type="String" sql-type="nchar" length="6" />
+    <parameter name="phone" type="String" sql-type="nchar" length="14" />
+  </method>
+  <method name="GetUsersCity" p1:procedure="dbo.GetUsersCity" p1:Guid="fd45fc7d-60d9-4530-a5b7-2d5a1c6755c8">
+    <return class="GetAdsCityResult">
+      <return-property name="Id" column="Id" />
+    </return>
+    <parameter name="cityId" type="Int16" sql-type="smallint" precision="5" scale="0" />
+  </method>
+  <method name="MakeBuyer" p1:procedure="dbo.MakeBuyer" p1:Guid="d2eafa68-f370-4d8b-8b25-2ed28eded07d">
+    <parameter name="userId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+  </method>
+  <method name="MakeSeller" p1:procedure="dbo.MakeSeller" p1:Guid="1124ef77-4e1b-4bd4-ae8c-7ebb012b3e86">
+    <parameter name="userId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+  </method>
+  <method name="UpdateCategoryName" p1:procedure="dbo.UpdateCategoryName" p1:Guid="d577f84a-b212-4aa4-9e5e-52a718d992f5">
+    <parameter name="catId" type="Int16" sql-type="smallint" precision="5" scale="0" />
+    <parameter name="name" type="String" sql-type="varchar" />
+  </method>
+  <method name="UpdateCategoryUName" p1:procedure="dbo.UpdateCategoryUName" p1:Guid="f78054d2-d6a5-4bdf-a2de-14a9965d02b4">
+    <parameter name="catId" type="Int16" sql-type="smallint" precision="5" scale="0" />
+    <parameter name="uName" type="String" sql-type="varchar" />
+  </method>
+  <method name="UpdateCityGeoLocation" p1:procedure="dbo.UpdateCityGeoLocation" p1:Guid="bba41143-f533-49e6-a39c-982f3756b8fe">
+    <parameter name="cityId" type="Int16" sql-type="smallint" precision="5" scale="0" />
+    <parameter name="lat" type="Decimal" sql-type="decimal" precision="10" scale="8" />
+    <parameter name="lng" type="Decimal" sql-type="decimal" precision="11" scale="8" />
+  </method>
+  <method name="UpdateCityName" p1:procedure="dbo.UpdateCityName" p1:Guid="eb6283d9-8d86-4c36-ba3a-b0f74a894748">
+    <parameter name="cityId" type="Int16" sql-type="smallint" precision="5" scale="0" />
+    <parameter name="name" type="String" sql-type="varchar" length="50" />
+  </method>
+  <method name="UpdateItemCategory" p1:procedure="dbo.UpdateItemCategory" p1:Guid="774c0d78-8857-4a86-ac02-f09213de4d06">
+    <parameter name="itemId" type="Int32" sql-type="int" precision="10" scale="0" />
+    <parameter name="catId" type="Int16" sql-type="smallint" precision="5" scale="0" />
+  </method>
+  <method name="UpdateItemName" p1:procedure="dbo.UpdateItemName" p1:Guid="5a081495-9817-439a-8ffb-88967778c0e7">
+    <parameter name="itemId" type="Int32" sql-type="int" precision="10" scale="0" />
+    <parameter name="name" type="String" sql-type="varchar" length="50" />
+  </method>
+  <method name="UpdateItemUName" p1:procedure="dbo.UpdateItemUName" p1:Guid="f68a270a-f915-4966-bad2-e0b3c46cd611">
+    <parameter name="itemId" type="Int32" sql-type="int" precision="10" scale="0" />
+    <parameter name="uName" type="String" sql-type="varchar" length="50" />
+  </method>
+  <method name="UpdateItemUWeightScale" p1:procedure="dbo.UpdateItemUWeightScale" p1:Guid="144c1011-e51f-4263-b880-2a270fdd57b9">
+    <parameter name="itemId" type="Int32" sql-type="int" precision="10" scale="0" />
+    <parameter name="uScale" type="String" sql-type="nchar" length="20" />
+  </method>
+  <method name="UpdateItemWeightScale" p1:procedure="dbo.UpdateItemWeightScale" p1:Guid="028655af-acf6-448f-bb7a-c43ee7d3e5f1">
+    <parameter name="itemId" type="Int32" sql-type="int" precision="10" scale="0" />
+    <parameter name="scale" type="String" sql-type="nchar" length="20" />
+  </method>
+  <method name="UpdateUserAddress" p1:procedure="dbo.UpdateUserAddress" p1:Guid="7110528c-e822-4d67-a895-01b08676c4f8">
+    <parameter name="userId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+    <parameter name="address" type="String" sql-type="varchar" />
+  </method>
+  <method name="UpdateUserCity" p1:procedure="dbo.UpdateUserCity" p1:Guid="fbfa93c8-6b66-477c-91c7-35e17686ab4f">
+    <parameter name="userId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+    <parameter name="cityId" type="Int16" sql-type="smallint" precision="5" scale="0" />
+  </method>
+  <method name="UpdateUserContact" p1:procedure="dbo.UpdateUserContact" p1:Guid="82b8869a-9643-4165-8723-460a09ed8cc5">
+    <parameter name="userId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+    <parameter name="countryCode" type="String" sql-type="nchar" length="6" />
+    <parameter name="comapnyCode" type="String" sql-type="nchar" length="6" />
+    <parameter name="phone" type="String" sql-type="nchar" length="14" />
+  </method>
+  <method name="UpdateUserLocation" p1:procedure="dbo.UpdateUserLocation" p1:Guid="798b68dc-0f3b-4972-9f7d-8f2d6c91b5de">
+    <parameter name="userId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+    <parameter name="lat" type="Decimal" sql-type="decimal" precision="10" scale="8" />
+    <parameter name="lng" type="Decimal" sql-type="decimal" precision="11" scale="8" />
+  </method>
+  <method name="UpdateUserName" p1:procedure="dbo.UpdateUserName" p1:Guid="a9682203-ca9c-461e-904a-b37f0dcf8850">
+    <parameter name="userId" type="Int64" sql-type="bigint" precision="19" scale="0" />
+    <parameter name="fName" type="String" sql-type="varchar" />
+    <parameter name="lName" type="String" sql-type="varchar" />
+  </method>
+</efcore>
