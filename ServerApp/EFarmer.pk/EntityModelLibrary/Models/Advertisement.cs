@@ -8,7 +8,7 @@ namespace EFarmer.Models
     /// Posted by a seller for an agro item
     /// </summary>
     [DataContract]
-    public class Advertisement : IDataModel<long>
+    public class Advertisement : IEntityModel<long>
     {
         public long Id { get; set; }
         /// <summary>
@@ -35,7 +35,7 @@ namespace EFarmer.Models
         /// Price set by the seller at the time of posting
         /// </summary>
         [DataMember]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         /// Time Stamp
@@ -52,5 +52,20 @@ namespace EFarmer.Models
         /// </summary>
         [DataMember]
         public short Quality { get; set; }
+        public static Advertisement Convert(EFarmerPkModelLibrary.Entities.Advertisement advertisement)
+        {
+            return new Advertisement
+            {
+                City = City.Convert(advertisement.City),
+                Id = advertisement.Id,
+                Item = AgroItem.Convert(advertisement.Item),
+                Picture = advertisement.Picture,
+                PostedDateTime = advertisement.PostedDateTime,
+                Price = advertisement.Price,
+                Quality = advertisement.Quality,
+                Quantity = advertisement.Quantity,
+                Seller = (User)User.Convert(advertisement.Seller)
+            };
+        }
     }
 }

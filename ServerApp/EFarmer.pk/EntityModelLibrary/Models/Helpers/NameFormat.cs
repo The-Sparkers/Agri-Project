@@ -1,4 +1,4 @@
-﻿using EFarmer.Models.Exceptions;
+﻿using EFarmer.Exceptions;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 

@@ -7,7 +7,7 @@ namespace EFarmer.Models
     /// An items belongs to a category
     /// </summary>
     [DataContract]
-    public class Category : IDataModel<short>
+    public class Category : IEntityModel<short>
     {
         /// <summary>
         /// Urdu Name of the category
@@ -34,6 +34,14 @@ namespace EFarmer.Models
         {
             get; set;
         }
-
+        public static Category Convert(EFarmerPkModelLibrary.Entities.CATEGORY category)
+        {
+            return new Category
+            {
+                Id = category.Id,
+                Name = category.Name,
+                UrduName = category.UName
+            };
+        }
     }
 }

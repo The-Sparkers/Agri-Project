@@ -7,7 +7,7 @@ namespace EFarmer.Models
     /// Item for which the ads will be posted
     /// </summary>
     [DataContract]
-    public class AgroItem : IDataModel<int>
+    public class AgroItem : IEntityModel<int>
     {
         private readonly int id;
         private readonly string name;
@@ -61,6 +61,17 @@ namespace EFarmer.Models
         /// </summary>
         [DataMember]
         public int Id { get; set; }
-
+        public static AgroItem Convert(EFarmerPkModelLibrary.Entities.AGROITEM agroItem)
+        {
+            return new AgroItem
+            {
+                Category = Category.Convert(agroItem.CATEGORY),
+                Id = agroItem.Id,
+                Name = agroItem.Name,
+                UrduName = agroItem.Uname,
+                UrduWeightScale = agroItem.UWeightScale,
+                WeightScale = agroItem.WeightScale
+            };
+        }
     }
 }

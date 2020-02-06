@@ -8,7 +8,7 @@ namespace EFarmer.Models
     /// City on any geography from which a user and advertisment belongs
     /// </summary>
     [DataContract]
-    public class City : IDataModel<short>
+    public class City : IEntityModel<short>
     {
         /// <summary>
         /// Location of the city onto the Geo Map
@@ -31,6 +31,14 @@ namespace EFarmer.Models
         /// </summary>
         [DataMember]
         public short Id { get; set; }
-
+        public static City Convert(EFarmerPkModelLibrary.Entities.CITY city)
+        {
+            return new City
+            {
+                GeoLocation = new GeoLocation { Latitude = city.GLat, Longitude = city.GLng },
+                Id = city.Id,
+                Name = city.Name
+            };
+        }
     }
 }
