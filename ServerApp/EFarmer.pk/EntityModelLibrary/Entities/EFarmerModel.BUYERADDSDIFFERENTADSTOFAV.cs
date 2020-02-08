@@ -15,11 +15,17 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Data.Common;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace EFarmerPkModelLibrary.Entities
 {
     public partial class BUYERADDSDIFFERENTADSTOFAV {
 
+        private ILazyLoader lazyLoader;
+        protected BUYERADDSDIFFERENTADSTOFAV(ILazyLoader lazyLoader)
+        {
+            this.lazyLoader = lazyLoader;
+        }
         public BUYERADDSDIFFERENTADSTOFAV()
         {
             OnCreated();

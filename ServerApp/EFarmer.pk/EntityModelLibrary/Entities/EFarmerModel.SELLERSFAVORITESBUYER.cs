@@ -15,11 +15,17 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Data.Common;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace EFarmerPkModelLibrary.Entities
 {
     public partial class SELLERSFAVORITESBUYER {
 
+        private ILazyLoader lazyLoader;
+        protected SELLERSFAVORITESBUYER(ILazyLoader lazyLoader)
+        {
+            this.lazyLoader = lazyLoader;
+        }
         public SELLERSFAVORITESBUYER()
         {
             OnCreated();

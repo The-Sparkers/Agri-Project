@@ -15,6 +15,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Data.Common;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace EFarmerPkModelLibrary.Entities
 {
@@ -24,7 +25,11 @@ namespace EFarmerPkModelLibrary.Entities
         {
             OnCreated();
         }
-
+        private ILazyLoader lazyLoader;
+        protected AddNewAdvertisementResult(ILazyLoader lazyLoader)
+        {
+            this.lazyLoader = lazyLoader;
+        }
         public virtual decimal? Column0
         {
             get;

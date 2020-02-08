@@ -15,10 +15,17 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Data.Common;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace EFarmerPkModelLibrary.Entities
 {
     public partial class BUYERSADDAGROITEMTOINTEREST {
+
+        private ILazyLoader lazyLoader;
+        protected BUYERSADDAGROITEMTOINTEREST(ILazyLoader lazyLoader)
+        {
+            this.lazyLoader = lazyLoader;
+        }
 
         public BUYERSADDAGROITEMTOINTEREST()
         {

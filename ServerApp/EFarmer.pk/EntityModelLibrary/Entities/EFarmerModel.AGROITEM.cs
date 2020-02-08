@@ -15,11 +15,17 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Data.Common;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace EFarmerPkModelLibrary.Entities
 {
     public partial class AGROITEM {
 
+        private ILazyLoader lazyLoader;
+        protected AGROITEM(ILazyLoader lazyLoader)
+        {
+            this.lazyLoader = lazyLoader;
+        }
         public AGROITEM()
         {
             this.ADVERTISEMENTs_ItemId = new List<ADVERTISEMENT>();

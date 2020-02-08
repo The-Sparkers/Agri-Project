@@ -16,7 +16,6 @@ namespace EFarmerPkModelLibrary.Entities
     public partial class USER
     {
 
-        private ILazyLoader lazyLoader;
         public USER()
         {
             this.PostedAdvertisements = new List<ADVERTISEMENT>();
@@ -26,6 +25,7 @@ namespace EFarmerPkModelLibrary.Entities
             this.FavoriteSellers = new List<SELLERSFAVORITESBUYER>();
             OnCreated();
         }
+        private ILazyLoader lazyLoader;
         protected USER(ILazyLoader lazyLoader)
         {
             this.lazyLoader = lazyLoader;

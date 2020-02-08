@@ -15,11 +15,17 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Data.Common;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace EFarmerPkModelLibrary.Entities
 {
     public partial class CITY {
 
+        private ILazyLoader lazyLoader;
+        protected CITY(ILazyLoader lazyLoader)
+        {
+            this.lazyLoader = lazyLoader;
+        }
         public CITY()
         {
             this.ADVERTISEMENTs_CityId = new List<ADVERTISEMENT>();
