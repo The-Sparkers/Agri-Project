@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace EFarmerPkModelLibrary.Repositories
 {
-    public class AgroItemRepository : ModelRepository<AgroItem, int>, IAgroItemRepository
+    internal class AgroItemRepository : ModelRepository<AgroItem, int>, IAgroItemRepository
     {
         private Context.EFarmerDbModel dbContext;
         private readonly DbSet<AGROITEM> agroItems;
@@ -60,7 +60,8 @@ namespace EFarmerPkModelLibrary.Repositories
 
         public override AgroItem Read(int id)
         {
-            return AgroItem.Convert(agroItems.Find(id));
+            var item = agroItems.Find(id);
+            return (item != null) ? AgroItem.Convert(item) : null;
         }
 
         public override async Task<List<AgroItem>> ReadAllAsync()

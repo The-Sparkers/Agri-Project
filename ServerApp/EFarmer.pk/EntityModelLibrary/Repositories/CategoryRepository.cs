@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EFarmerPkModelLibrary.Repositories
 {
-    public class CategoryRepository : ModelRepository<Category, short>, ICategoryRepository
+    internal class CategoryRepository : ModelRepository<Category, short>, ICategoryRepository
     {
         Context.EFarmerDbModel dbContext;
         readonly DbSet<CATEGORY> categories;
@@ -65,7 +65,8 @@ namespace EFarmerPkModelLibrary.Repositories
 
         public override Category Read(short id)
         {
-            return Category.Convert(categories.Find(id));
+            var category = categories.Find(id);
+            return (category != null) ? Category.Convert(category) : null;
         }
 
         public override async Task<List<Category>> ReadAllAsync()

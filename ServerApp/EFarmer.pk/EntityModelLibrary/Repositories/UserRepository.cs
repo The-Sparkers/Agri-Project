@@ -104,7 +104,7 @@ namespace EFarmerPkModelLibrary.Repositories
         public override async Task<List<User>> ReadAllAsync()
         {
             List<User> lstUsers = new List<User>();
-            await Task.Run(() => users.ForEachAsync(x => lstUsers.Add(
+            await users.ForEachAsync(x => lstUsers.Add(
                  new User
                  {
                      Address = x.Address,
@@ -115,7 +115,7 @@ namespace EFarmerPkModelLibrary.Repositories
                      Location = new GeoLocation { Latitude = x.GLat, Longitude = x.GLng },
                      Name = new NameFormat { FirstName = x.FName, LastName = x.LName },
                      Id = x.Id
-                 })));
+                 }));
             return lstUsers;
         }
 

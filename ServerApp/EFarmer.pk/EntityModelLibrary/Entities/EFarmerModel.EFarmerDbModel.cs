@@ -56,11 +56,8 @@ namespace EFarmerPkModelLibrary.Context
         {
                 optionsBuilder.UseLazyLoadingProxies()
                 .UseSqlServer(connectionString);
-            if (!optionsBuilder.IsConfigured ||
-                (!optionsBuilder.Options.Extensions.OfType<RelationalOptionsExtension>().Any(ext => !string.IsNullOrEmpty(ext.ConnectionString) || ext.Connection != null) &&
-                 !optionsBuilder.Options.Extensions.Any(ext => !(ext is RelationalOptionsExtension) && !(ext is CoreOptionsExtension))))
-            {
-            }
+            optionsBuilder.UseSqlServer(connectionString,
+                x => x.MigrationsAssembly("EFarmerPkModelLibrary.Migrations"));
             CustomizeConfiguration(ref optionsBuilder);
             base.OnConfiguring(optionsBuilder);
         }
