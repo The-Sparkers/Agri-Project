@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace EFarmer.pk.Models
+namespace EFarmer.ViewModels
 {
     [DataContract]
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

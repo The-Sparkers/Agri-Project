@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using EFarmer.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using EFarmer.pk.Models;
+using System.Diagnostics;
 
 namespace EFarmer.pk.Controllers
 {

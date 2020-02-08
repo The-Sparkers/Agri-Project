@@ -105,6 +105,36 @@
             Exception thrown whenever the update process remain unsuccessful
             </summary>
         </member>
+        <member name="T:EFarmer.pk.Controllers.ApiControllers.UsersController">
+            <summary>
+            Controls the requests and responses for users
+            </summary>
+        </member>
+        <member name="M:EFarmer.pk.Controllers.ApiControllers.UsersController.GetBuyers">
+            <summary>
+            Returns a list of registered buyers
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EFarmer.pk.Controllers.ApiControllers.UsersController.GetSellers">
+            <summary>
+            Returns a list of sellers in the system
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EFarmer.pk.Controllers.ApiControllers.UsersController.Get(System.Int64)">
+            <summary>
+            Returns a user
+            </summary>
+            <param name="id">Primary Key</param>
+            <returns></returns>
+        </member>
+        <member name="M:EFarmer.pk.Controllers.ApiControllers.UsersController.PostBuyer(System.String)">
+            <summary>
+            Creates a new user
+            </summary>
+            <param name="user">Data for User</param>
+        </member>
         <member name="T:EFarmer.pk.Models.Advertisement">
             <summary>
             Posted by a seller for an agro item
