@@ -1,11 +1,7 @@
 ﻿using Autofac;
-using Autofac.Core;
 using EFarmer.Connections;
 using EFarmerPkModelLibrary.Repositories;
 using EntityGrabber;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EFarmerPkModelLibrary.Factories
 {
