@@ -312,8 +312,11 @@ namespace EFarmerPkModelLibrary.Repositories
         {
             try
             {
-                var advertisement = dbContext.ADVERTISEMENTs.Find((long)dbContext.AddNewAdvertisement(quality, quality, dateTime, price, picture, seller.Id, item.Id, city.Id).FirstOrDefault().Column0.Value);
-                return new Advertisement
+                var advertisement = dbContext.ADVERTISEMENTs
+                    .Find((long)dbContext
+                    .AddNewAdvertisement(quality, quality, dateTime, price, picture, seller.Id, item.Id, city.Id).FirstOrDefault().Column0.Value);
+                var result = dbContext.SaveChanges();
+                return (result > 0) ? new Advertisement
                 {
                     City = City.Convert(advertisement.City),
                     Id = advertisement.Id,
@@ -324,7 +327,7 @@ namespace EFarmerPkModelLibrary.Repositories
                     Quality = advertisement.Quality,
                     Quantity = advertisement.Quantity,
                     Seller = (Seller)User.Convert(advertisement.Seller)
-                };
+                } : null;
             }
             catch (Exception ex)
             {
@@ -344,7 +347,7 @@ namespace EFarmerPkModelLibrary.Repositories
         public async Task<List<Advertisement>> GetPostedAdvertismentsAsync(DateTime startDate, DateTime endDate, Seller seller)
         {
             List<Advertisement> advertisements = new List<Advertisement>();
-            await Task.Run(()=>dbContext.ADVERTISEMENTs
+            await Task.Run(() => dbContext.ADVERTISEMENTs
                 .Where(x => x.Seller.Id == seller.Id)
                 .ForEachAsync(x => advertisements.Add(Advertisement.Convert(x))));
             return advertisements;

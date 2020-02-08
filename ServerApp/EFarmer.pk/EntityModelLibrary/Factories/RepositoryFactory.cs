@@ -27,7 +27,10 @@ namespace EFarmerPkModelLibrary.Factories
                 .As<IUserRepository>();
             builder.RegisterType<CityRepository>()
                 .As<ICityRepository>();
-
+            builder.RegisterType<CategoryRepository>()
+                .As<ICategoryRepository>();
+            builder.RegisterType<AgroItemRepository>()
+                .As<IAgroItemRepository>();
             return builder.Build();
         }
         public class BuildOptions
