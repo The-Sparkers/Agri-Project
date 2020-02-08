@@ -9,7 +9,6 @@ namespace EFarmerPkModelLibrary.Repositories
     {
         short Create(Category model);
         bool Delete(short id);
-        Task<List<AgroItem>> GetRelatedAgroItemsAsync(Category category);
         Category Read(short id);
         Task<List<Category>> ReadAllAsync();
         bool Update(Category model);

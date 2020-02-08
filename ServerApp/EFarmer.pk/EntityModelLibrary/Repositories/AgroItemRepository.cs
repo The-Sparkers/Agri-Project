@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace EFarmerPkModelLibrary.Repositories
 {
-    internal class AgroItemRepository : ModelRepository<AgroItem, int>, IAgroItemRepository
+    internal class AgroItemRepository : ModelRepository<AgroItem, int>,IAgroItemRepository
     {
         private Context.EFarmerDbModel dbContext;
         private readonly DbSet<AGROITEM> agroItems;
@@ -86,19 +86,37 @@ namespace EFarmerPkModelLibrary.Repositories
             return (result > 0);
         }
         /// <summary>
-        /// Returns the ads in which this item is used
+        /// Returns a list of items interested by this user
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Advertisement>> GetAdvertisementsRelatedToItemsAsync(AgroItem item,int max = int.MaxValue)
+        public async Task<List<AgroItem>> GetInterestedItemsAsync(Buyer buyer)
         {
-            List<Advertisement> advertisements = new List<Advertisement>();
-            List<Task<Advertisement>> _tAdvertisements = new List<Task<Advertisement>>();
-            agroItems.Find(item.Id).ADVERTISEMENTs_ItemId
-                .ToList()
-                .ForEach(x => _tAdvertisements.Add(Task.Run(() => Advertisement.Convert(x))));
-            var _tResults = await Task.WhenAll(_tAdvertisements);
-            advertisements = _tResults.ToList();
-            return advertisements;
+            List<AgroItem> agroItems = new List<EFarmer.Models.AgroItem>();
+            await Task.Run(() => dbContext.BUYERSADDAGROITEMTOINTERESTs
+                    .Where(x => x.User.Id == buyer.Id)
+                    .Select(x => x.AGROITEM)
+                    .ForEachAsync(x => agroItems.Add(new AgroItem
+                    {
+                        Category = Category.Convert(x.CATEGORY),
+                        Id = x.Id,
+                        Name = x.Name,
+                        UrduName = x.Uname,
+                        UrduWeightScale = x.UWeightScale,
+                        WeightScale = x.WeightScale
+                    })));
+            return agroItems;
+        }
+        public async Task<List<AgroItem>> GetAgroItemsByCategoryAsync(Category category)
+        {
+            List<AgroItem> lstAgroItems = new List<AgroItem>();
+            List<Task<AgroItem>> _tAgroItems = new List<Task<AgroItem>>();
+            foreach (var item in dbContext.CATEGORIES.Find(category.Id).AGROITEMS)
+            {
+                _tAgroItems.Add(Task.Run(() => AgroItem.Convert(item)));
+            }
+            var _tResults = await Task.WhenAll(_tAgroItems);
+            lstAgroItems = _tResults.ToList();
+            return lstAgroItems;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace EFarmerPkModelLibrary.Factories
             builder.RegisterType<AgroItemRepository>()
                 .As<IAgroItemRepository>();
             builder.RegisterType<AdvertisementRepository>()
-                .As<>
+                .As<IAdvertisementRepository>();
             return builder.Build();
         }
         public class BuildOptions

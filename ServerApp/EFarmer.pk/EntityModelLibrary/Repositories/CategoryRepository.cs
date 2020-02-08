@@ -98,17 +98,6 @@ namespace EFarmerPkModelLibrary.Repositories
                 throw;
             }
         }
-        public async Task<List<AgroItem>> GetRelatedAgroItemsAsync(Category category)
-        {
-            List<AgroItem> lstAgroItems = new List<AgroItem>();
-            List<Task<AgroItem>> _tAgroItems = new List<Task<AgroItem>>();
-            foreach (var item in categories.Find(category.Id).AGROITEMS)
-            {
-                _tAgroItems.Add(Task.Run(() => AgroItem.Convert(item)));
-            }
-            var _tResults = await Task.WhenAll(_tAgroItems);
-            lstAgroItems = _tResults.ToList();
-            return lstAgroItems;
-        }
+        
     }
 }

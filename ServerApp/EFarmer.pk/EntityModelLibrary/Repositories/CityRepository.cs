@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EFarmerPkModelLibrary.Repositories
 {
-    internal class CityRepository : ModelRepository<City, short>, ICityRepository
+    internal class CityRepository : ModelRepository<City, short>,ICityRepository
     {
         Context.EFarmerDbModel dbContext;
         readonly DbSet<Entities.CITY> cities;
@@ -80,7 +80,6 @@ namespace EFarmerPkModelLibrary.Repositories
             }));
             return lstCities;
         }
-
         public override bool Update(City model)
         {
             cities.Update(new Entities.CITY
@@ -100,61 +99,6 @@ namespace EFarmerPkModelLibrary.Repositories
                 throw new UpdateUnsuccessfulException("City->Update");
             }
         }
-        /// <summary>
-        /// Returns a list of Users belong to this city
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public async Task<List<User>> GetUsers(City model)
-        {
-            var city = cities.Find(model.Id);
-            List<User> lstUsers = new List<User>();
-            List<Task<User>> _tUsers = new List<Task<User>>();
-            var users = city.Users;
-            foreach (var item in users.Where(x => x.City.Id == model.Id).ToList())
-            {
-                _tUsers.Add(Task.Run(() => new User
-                {
-                    Address = item.Address,
-                    City = City.Convert(city),
-                    ContactNumber = new EFarmer.Models.Helpers.ContactNumberFormat(item.CCountryCode, item.CCompanyCode, item.CPhone),
-                    Name = new EFarmer.Models.Helpers.NameFormat { FirstName = item.FName, LastName = item.LName },
-                    Id = item.Id,
-                    IsBuyer = item.BuyerFlag,
-                    IsSeller = item.SellerFlag,
-                    Location = new EFarmer.Models.Helpers.GeoLocation { Latitude = item.GLat, Longitude = item.GLng }
-
-                }));
-            }
-            var _tResults = await Task.WhenAll(_tUsers);
-            lstUsers = _tResults.ToList();
-            return lstUsers;
-        }
-        /// <summary>
-        /// Returns a list of advertisements associated to this city
-        /// </summary>
-        /// <returns></returns>
-        public async Task<List<Advertisement>> GetAdvertisementsAsync(City city)
-        {
-            var _city = cities.Find(city.Id);
-            List<Advertisement> advertisements = new List<Advertisement>();
-            var ads = dbContext.ADVERTISEMENTs;
-            await ads.Where(x => x.City.Id == city.Id).ForEachAsync(x => advertisements.Add(
-                    new Advertisement
-                    {
-                        Id = x.Id,
-                        Picture = x.Picture,
-                        PostedDateTime = x.PostedDateTime,
-                        Price = x.Price,
-                        Quality = x.Quality,
-                        Quantity = x.Quantity,
-                        Seller = (Seller)User.Convert(x.Seller),
-                        City = City.Convert(x.City),
-                        Item = AgroItem.Convert(x.AgroItem)
-                    }));
-            return advertisements;
-        }
-
         public void Dispose()
         {
             dbContext.Dispose();

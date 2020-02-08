@@ -206,51 +206,8 @@ namespace EFarmerPkModelLibrary.Repositories
                 Name = new NameFormat { FirstName = seller.FName, LastName = seller.LName }
             };
         }
-        /// <summary>
-        /// Returns a list for advertisments favorited by this user
-        /// </summary>
-        /// <returns></returns>
-        public async Task<List<Advertisement>> GetFavoriteAdvertisementsAsync(Buyer buyer)
-        {
-            List<Advertisement> advertisements = new List<Advertisement>();
-            await Task.Run(() => dbContext.BUYERADDSDIFFERENTADSTOFAVs
-                .Where(x => x.Buyer.Id == buyer.Id)
-                .Select(x => x.ADVERTISEMENT)
-                .ForEachAsync(x => advertisements.Add(new Advertisement
-                {
-                    City = EFarmer.Models.City.Convert(x.City),
-                    Id = x.Id,
-                    Item = EFarmer.Models.AgroItem.Convert(x.AgroItem),
-                    Picture = x.Picture,
-                    PostedDateTime = x.PostedDateTime,
-                    Price = x.Price,
-                    Quality = x.Quality,
-                    Quantity = x.Quantity,
-                    Seller = (EFarmer.Models.Seller)EFarmer.Models.User.Convert(x.Seller)
-                })));
-            return advertisements;
-        }
-        /// <summary>
-        /// Returns a list of items interested by this user
-        /// </summary>
-        /// <returns></returns>
-        public async Task<List<AgroItem>> GetInterestedItemsAsync(Buyer buyer)
-        {
-            List<AgroItem> agroItems = new List<EFarmer.Models.AgroItem>();
-            await Task.Run(() => dbContext.BUYERSADDAGROITEMTOINTERESTs
-                    .Where(x => x.User.Id == buyer.Id)
-                    .Select(x => x.AGROITEM)
-                    .ForEachAsync(x => agroItems.Add(new AgroItem
-                    {
-                        Category = Category.Convert(x.CATEGORY),
-                        Id = x.Id,
-                        Name = x.Name,
-                        UrduName = x.Uname,
-                        UrduWeightScale = x.UWeightScale,
-                        WeightScale = x.WeightScale
-                    })));
-            return agroItems;
-        }
+
+
         /// <summary>
         /// Static method to get buyers from database
         /// </summary>
@@ -297,61 +254,7 @@ namespace EFarmerPkModelLibrary.Repositories
                 .ForEachAsync(x => buyers.Add((Buyer)User.Convert(x)));
             return buyers;
         }
-        /// <summary>
-        /// Method which seller uses to post a new advertisement
-        /// </summary>
-        /// <param name="quality">mainly from 1-3</param>
-        /// <param name="quantity"></param>
-        /// <param name="dateTime"></param>
-        /// <param name="price"></param>
-        /// <param name="item"></param>
-        /// <param name="city"></param>
-        /// <param name="picture"></param>
-        /// <returns></returns>
-        public Advertisement PostAdvertisement(Seller seller, short quality, short quantity, DateTime dateTime, decimal price, EFarmer.Models.AgroItem item, EFarmer.Models.City city, string picture = "")
-        {
-            try
-            {
-                var advertisement = dbContext.ADVERTISEMENTs
-                    .Find((long)dbContext
-                    .AddNewAdvertisement(quality, quality, dateTime, price, picture, seller.Id, item.Id, city.Id).FirstOrDefault().Column0.Value);
-                var result = dbContext.SaveChanges();
-                return (result > 0) ? new Advertisement
-                {
-                    City = City.Convert(advertisement.City),
-                    Id = advertisement.Id,
-                    Item = AgroItem.Convert(advertisement.AgroItem),
-                    Picture = advertisement.Picture,
-                    PostedDateTime = advertisement.PostedDateTime,
-                    Price = advertisement.Price,
-                    Quality = advertisement.Quality,
-                    Quantity = advertisement.Quantity,
-                    Seller = (Seller)User.Convert(advertisement.Seller)
-                } : null;
-            }
-            catch (Exception ex)
-            {
-                if (ex.GetType() == typeof(SqlException))
-                {
-                    throw new DbQueryProcessingFailedException("User->PostAdvertisement", (SqlException)ex.InnerException);
-                }
-                throw;
-            }
-        }
-        /// <summary>
-        /// Method to get a list of advertisments posted by this user
-        /// </summary>
-        /// <param name="startDate"></param>
-        /// <param name="endDate"></param>
-        /// <returns></returns>
-        public async Task<List<Advertisement>> GetPostedAdvertismentsAsync(DateTime startDate, DateTime endDate, Seller seller)
-        {
-            List<Advertisement> advertisements = new List<Advertisement>();
-            await Task.Run(() => dbContext.ADVERTISEMENTs
-                .Where(x => x.Seller.Id == seller.Id)
-                .ForEachAsync(x => advertisements.Add(Advertisement.Convert(x))));
-            return advertisements;
-        }
+
         /// <summary>
         /// Static Method to get all sellers present into the database
         /// </summary>
@@ -363,6 +266,40 @@ namespace EFarmerPkModelLibrary.Repositories
             await users.Where(x => x.SellerFlag)
                 .ForEachAsync(x => sellers.Add((Seller)User.Convert(x)));
             return sellers;
+        }
+        /// <summary>
+        /// Returns a list of Users belong to this city
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<List<User>> GetUsersAsync(City model)
+        {
+            var city = dbContext.CITIES.Find(model.Id);
+            List<User> lstUsers = new List<User>();
+            List<Task<User>> _tUsers = new List<Task<User>>();
+            var users = city.Users;
+            foreach (var item in users.Where(x => x.City.Id == model.Id).ToList())
+            {
+                _tUsers.Add(Task.Run(() => new User
+                {
+                    Address = item.Address,
+                    City = City.Convert(city),
+                    ContactNumber = new ContactNumberFormat(item.CCountryCode, item.CCompanyCode, item.CPhone),
+                    Name = new NameFormat { FirstName = item.FName, LastName = item.LName },
+                    Id = item.Id,
+                    IsBuyer = item.BuyerFlag,
+                    IsSeller = item.SellerFlag,
+                    Location = new GeoLocation { Latitude = item.GLat, Longitude = item.GLng }
+
+                }));
+            }
+            var _tResults = await Task.WhenAll(_tUsers);
+            lstUsers = _tResults.ToList();
+            return lstUsers;
+        }
+        public void UpdateLocation(User user, GeoLocation location)
+        {
+            dbContext.UpdateUserLocation(user.Id, location.Latitude, location.Longitude);
         }
         public void Dispose()
         {

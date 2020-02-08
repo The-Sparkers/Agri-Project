@@ -9,7 +9,9 @@ namespace EFarmerPkModelLibrary.Repositories
     {
         int Create(AgroItem model);
         bool Delete(int id);
-        Task<List<Advertisement>> GetAdvertisementsRelatedToItemsAsync(AgroItem item, int max = int.MaxValue);
+        void Dispose();
+        Task<List<AgroItem>> GetAgroItemsByCategoryAsync(Category category);
+        Task<List<AgroItem>> GetInterestedItemsAsync(Buyer buyer);
         AgroItem Read(int id);
         Task<List<AgroItem>> ReadAllAsync();
         bool Update(AgroItem model);
