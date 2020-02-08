@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EFarmerPkModelLibrary.Repositories
 {
-    internal class CityRepository : ModelRepository<City, short>, IDisposable, ICityRepository
+    internal class CityRepository : ModelRepository<City, short>, ICityRepository
     {
         Context.EFarmerDbModel dbContext;
         readonly DbSet<Entities.CITY> cities;

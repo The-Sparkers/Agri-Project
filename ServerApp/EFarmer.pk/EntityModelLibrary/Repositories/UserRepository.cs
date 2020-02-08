@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace EFarmerPkModelLibrary.Repositories
 {
-    internal class UserRepository : ModelRepository<EFarmer.Models.User, long>, IDisposable, IUserRepository
+    internal class UserRepository : ModelRepository<User, long>, IUserRepository
     {
         readonly IDbConnection dbConnection;
         readonly Context.EFarmerDbModel dbContext;

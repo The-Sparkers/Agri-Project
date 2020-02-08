@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using EFarmer.Models;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using EFarmer.Models;
 
 namespace EFarmerPkModelLibrary.Repositories
 {
-    public interface ICityRepository
+    public interface ICityRepository : IDisposable
     {
         short Create(City model);
         bool Delete(short id);

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using EFarmer.Models;
+using EFarmer.Models.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EFarmer.Models;
-using EFarmer.Models.Helpers;
 
 namespace EFarmerPkModelLibrary.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : IDisposable
     {
         Task AddToFavoritesAsync(Seller seller, Buyer buyer);
         long Create(User model);
