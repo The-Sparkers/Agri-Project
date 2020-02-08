@@ -10,7 +10,9 @@
 
 using EFarmerPkModelLibrary.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -23,33 +25,45 @@ namespace EFarmerPkModelLibrary.Context
 
     public partial class EFarmerDbModel : DbContext
     {
-
+        string connectionString;
         public EFarmerDbModel() :
             base()
         {
             OnCreated();
         }
-
-        public EFarmerDbModel(string connectionString) :
-            base(GetOptions(connectionString))
+        public EFarmerDbModel(DbContextOptions options) :
+            base(options)
         {
             OnCreated();
         }
+        public EFarmerDbModel(string connectionString) :
+            base(GetOptions(connectionString))
+        {
+            this.connectionString = connectionString;
+            OnCreated();
+        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseLazyLoadingProxies()
+        //        .UseSqlServer(connectionString);
+        //    base.OnConfiguring(optionsBuilder);
+        //}
         private static DbContextOptions GetOptions(string connectionString)
         {
             return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder(), connectionString).Options;
         }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (!optionsBuilder.IsConfigured ||
-        //        (!optionsBuilder.Options.Extensions.OfType<RelationalOptionsExtension>().Any(ext => !string.IsNullOrEmpty(ext.ConnectionString) || ext.Connection != null) &&
-        //         !optionsBuilder.Options.Extensions.Any(ext => !(ext is RelationalOptionsExtension) && !(ext is CoreOptionsExtension))))
-        //    {
-        //        optionsBuilder.UseSqlServer(GetConnectionString("DbConnectionString"));
-        //    }
-        //    CustomizeConfiguration(ref optionsBuilder);
-        //    base.OnConfiguring(optionsBuilder);
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+                optionsBuilder.UseLazyLoadingProxies()
+                .UseSqlServer(connectionString);
+            if (!optionsBuilder.IsConfigured ||
+                (!optionsBuilder.Options.Extensions.OfType<RelationalOptionsExtension>().Any(ext => !string.IsNullOrEmpty(ext.ConnectionString) || ext.Connection != null) &&
+                 !optionsBuilder.Options.Extensions.Any(ext => !(ext is RelationalOptionsExtension) && !(ext is CoreOptionsExtension))))
+            {
+            }
+            CustomizeConfiguration(ref optionsBuilder);
+            base.OnConfiguring(optionsBuilder);
+        }
 
         //private static string GetConnectionString(string connectionStringName)
         //{
@@ -7487,33 +7501,33 @@ namespace EFarmerPkModelLibrary.Context
 
             modelBuilder.Entity<ADVERTISEMENT>().HasOne(x => x.City).WithMany(op => op.ADVERTISEMENTs_CityId).IsRequired(true).HasForeignKey(@"CityId");
             modelBuilder.Entity<ADVERTISEMENT>().HasOne(x => x.AgroItem).WithMany(op => op.ADVERTISEMENTs_ItemId).OnDelete(DeleteBehavior.Cascade).IsRequired(true).HasForeignKey(@"ItemId");
-            modelBuilder.Entity<ADVERTISEMENT>().HasOne(x => x.Seller).WithMany(op => op.ADVERTISEMENTs_SellerId).OnDelete(DeleteBehavior.Cascade).IsRequired(true).HasForeignKey(@"SellerId");
+            modelBuilder.Entity<ADVERTISEMENT>().HasOne(x => x.Seller).WithMany(op => op.PostedAdvertisements).OnDelete(DeleteBehavior.Cascade).IsRequired(true).HasForeignKey(@"SellerId");
             modelBuilder.Entity<ADVERTISEMENT>().HasMany(x => x.BUYERADDSDIFFERENTADSTOFAVs_AdId).WithOne(op => op.ADVERTISEMENT).IsRequired(true).HasForeignKey(@"AdId");
 
             modelBuilder.Entity<AGROITEM>().HasMany(x => x.ADVERTISEMENTs_ItemId).WithOne(op => op.AgroItem).OnDelete(DeleteBehavior.Cascade).IsRequired(true).HasForeignKey(@"ItemId");
-            modelBuilder.Entity<AGROITEM>().HasOne(x => x.CATEGORY).WithMany(op => op.AGROITEMs_CategoryId).IsRequired(true).HasForeignKey(@"CategoryId");
+            modelBuilder.Entity<AGROITEM>().HasOne(x => x.CATEGORY).WithMany(op => op.AGROITEMS).IsRequired(true).HasForeignKey(@"CategoryId");
             modelBuilder.Entity<AGROITEM>().HasMany(x => x.BUYERSADDAGROITEMTOINTERESTs_ItemId).WithOne(op => op.AGROITEM).IsRequired(true).HasForeignKey(@"ItemId");
 
             modelBuilder.Entity<BUYERADDSDIFFERENTADSTOFAV>().HasOne(x => x.ADVERTISEMENT).WithMany(op => op.BUYERADDSDIFFERENTADSTOFAVs_AdId).IsRequired(true).HasForeignKey(@"AdId");
-            modelBuilder.Entity<BUYERADDSDIFFERENTADSTOFAV>().HasOne(x => x.Buyer).WithMany(op => op.BUYERADDSDIFFERENTADSTOFAVs_BuyerId).OnDelete(DeleteBehavior.Cascade).IsRequired(true).HasForeignKey(@"BuyerId");
+            modelBuilder.Entity<BUYERADDSDIFFERENTADSTOFAV>().HasOne(x => x.Buyer).WithMany(op => op.InterestedAdvertisements).OnDelete(DeleteBehavior.Cascade).IsRequired(true).HasForeignKey(@"BuyerId");
 
             modelBuilder.Entity<BUYERSADDAGROITEMTOINTEREST>().HasOne(x => x.AGROITEM).WithMany(op => op.BUYERSADDAGROITEMTOINTERESTs_ItemId).IsRequired(true).HasForeignKey(@"ItemId");
-            modelBuilder.Entity<BUYERSADDAGROITEMTOINTEREST>().HasOne(x => x.User).WithMany(op => op.BUYERSADDAGROITEMTOINTERESTs_BuyerId).IsRequired(true).HasForeignKey(@"BuyerId");
+            modelBuilder.Entity<BUYERSADDAGROITEMTOINTEREST>().HasOne(x => x.User).WithMany(op => op.InterestedAgroItems).IsRequired(true).HasForeignKey(@"BuyerId");
 
-            modelBuilder.Entity<CATEGORY>().HasMany(x => x.AGROITEMs_CategoryId).WithOne(op => op.CATEGORY).IsRequired(true).HasForeignKey(@"CategoryId");
+            modelBuilder.Entity<CATEGORY>().HasMany(x => x.AGROITEMS).WithOne(op => op.CATEGORY).IsRequired(true).HasForeignKey(@"CategoryId");
 
             modelBuilder.Entity<CITY>().HasMany(x => x.ADVERTISEMENTs_CityId).WithOne(op => op.City).IsRequired(true).HasForeignKey(@"CityId");
-            modelBuilder.Entity<CITY>().HasMany(x => x.USERs_CityId).WithOne(op => op.City).IsRequired(true).HasForeignKey(@"CityId");
+            modelBuilder.Entity<CITY>().HasMany(x => x.Users).WithOne(op => op.City).IsRequired(true).HasForeignKey(@"CityId");
 
-            modelBuilder.Entity<SELLERSFAVORITESBUYER>().HasOne(x => x.USER_SellerId).WithMany(op => op.SELLERSFAVORITESBUYERs_SellerId).IsRequired(true).HasForeignKey(@"SellerId");
-            modelBuilder.Entity<SELLERSFAVORITESBUYER>().HasOne(x => x.USER_BuyerId).WithMany(op => op.SELLERSFAVORITESBUYERs_BuyerId).OnDelete(DeleteBehavior.Cascade).IsRequired(true).HasForeignKey(@"BuyerId");
+            modelBuilder.Entity<SELLERSFAVORITESBUYER>().HasOne(x => x.USER_SellerId).WithMany(op => op.FavoriteBuyers).IsRequired(true).HasForeignKey(@"SellerId");
+            modelBuilder.Entity<SELLERSFAVORITESBUYER>().HasOne(x => x.USER_BuyerId).WithMany(op => op.FavoriteSellers).OnDelete(DeleteBehavior.Cascade).IsRequired(true).HasForeignKey(@"BuyerId");
 
-            modelBuilder.Entity<USER>().HasMany(x => x.ADVERTISEMENTs_SellerId).WithOne(op => op.Seller).OnDelete(DeleteBehavior.Cascade).IsRequired(true).HasForeignKey(@"SellerId");
-            modelBuilder.Entity<USER>().HasMany(x => x.BUYERADDSDIFFERENTADSTOFAVs_BuyerId).WithOne(op => op.Buyer).OnDelete(DeleteBehavior.Cascade).IsRequired(true).HasForeignKey(@"BuyerId");
-            modelBuilder.Entity<USER>().HasMany(x => x.BUYERSADDAGROITEMTOINTERESTs_BuyerId).WithOne(op => op.User).IsRequired(true).HasForeignKey(@"BuyerId");
-            modelBuilder.Entity<USER>().HasMany(x => x.SELLERSFAVORITESBUYERs_SellerId).WithOne(op => op.USER_SellerId).IsRequired(true).HasForeignKey(@"SellerId");
-            modelBuilder.Entity<USER>().HasMany(x => x.SELLERSFAVORITESBUYERs_BuyerId).WithOne(op => op.USER_BuyerId).OnDelete(DeleteBehavior.Cascade).IsRequired(true).HasForeignKey(@"BuyerId");
-            modelBuilder.Entity<USER>().HasOne(x => x.City).WithMany(op => op.USERs_CityId).IsRequired(true).HasForeignKey(@"CityId");
+            modelBuilder.Entity<USER>().HasMany(x => x.PostedAdvertisements).WithOne(op => op.Seller).OnDelete(DeleteBehavior.Cascade).IsRequired(true).HasForeignKey(@"SellerId");
+            modelBuilder.Entity<USER>().HasMany(x => x.InterestedAdvertisements).WithOne(op => op.Buyer).OnDelete(DeleteBehavior.Cascade).IsRequired(true).HasForeignKey(@"BuyerId");
+            modelBuilder.Entity<USER>().HasMany(x => x.InterestedAgroItems).WithOne(op => op.User).IsRequired(true).HasForeignKey(@"BuyerId");
+            modelBuilder.Entity<USER>().HasMany(x => x.FavoriteBuyers).WithOne(op => op.USER_SellerId).IsRequired(true).HasForeignKey(@"SellerId");
+            modelBuilder.Entity<USER>().HasMany(x => x.FavoriteSellers).WithOne(op => op.USER_BuyerId).OnDelete(DeleteBehavior.Cascade).IsRequired(true).HasForeignKey(@"BuyerId");
+            modelBuilder.Entity<USER>().HasOne(x => x.City).WithMany(op => op.Users).IsRequired(true).HasForeignKey(@"CityId");
         }
 
         partial void CustomizeMapping(ref ModelBuilder modelBuilder);

@@ -103,18 +103,18 @@ namespace EFarmerPkModelLibrary.Repositories
         public override async Task<List<EFarmer.Models.User>> ReadAllAsync()
         {
             List<EFarmer.Models.User> lstUsers = new List<EFarmer.Models.User>();
-            await users.ForEachAsync(x => lstUsers.Add(
-                new EFarmer.Models.User
-                {
-                    Address = x.Address,
-                    City = EFarmer.Models.City.Convert(x.City),
-                    ContactNumber = new ContactNumberFormat(x.CCountryCode, x.CCompanyCode, x.CPhone),
-                    IsBuyer = x.BuyerFlag,
-                    IsSeller = x.SellerFlag,
-                    Location = new GeoLocation { Latitude = x.GLat, Longitude = x.GLng },
-                    Name = new NameFormat { FirstName = x.FName, LastName = x.LName },
-                    Id = x.Id
-                }));
+            await Task.Run(() => users.ForEachAsync(x => lstUsers.Add(
+                 new EFarmer.Models.User
+                 {
+                     Address = x.Address,
+                     City = EFarmer.Models.City.Convert(x.City),
+                     ContactNumber = new ContactNumberFormat(x.CCountryCode, x.CCompanyCode, x.CPhone),
+                     IsBuyer = x.BuyerFlag,
+                     IsSeller = x.SellerFlag,
+                     Location = new GeoLocation { Latitude = x.GLat, Longitude = x.GLng },
+                     Name = new NameFormat { FirstName = x.FName, LastName = x.LName },
+                     Id = x.Id
+                 })));
             return lstUsers;
         }
 

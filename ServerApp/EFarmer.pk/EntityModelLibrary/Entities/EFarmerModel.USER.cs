@@ -15,21 +15,28 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Data.Common;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace EFarmerPkModelLibrary.Entities
 {
     public partial class USER {
 
+        private CITY city;
+        private ILazyLoader lazyLoader;
         public USER()
         {
-            this.ADVERTISEMENTs_SellerId = new List<ADVERTISEMENT>();
-            this.BUYERADDSDIFFERENTADSTOFAVs_BuyerId = new List<BUYERADDSDIFFERENTADSTOFAV>();
-            this.BUYERSADDAGROITEMTOINTERESTs_BuyerId = new List<BUYERSADDAGROITEMTOINTEREST>();
-            this.SELLERSFAVORITESBUYERs_SellerId = new List<SELLERSFAVORITESBUYER>();
-            this.SELLERSFAVORITESBUYERs_BuyerId = new List<SELLERSFAVORITESBUYER>();
+            this.PostedAdvertisements = new List<ADVERTISEMENT>();
+            this.InterestedAdvertisements = new List<BUYERADDSDIFFERENTADSTOFAV>();
+            this.InterestedAgroItems = new List<BUYERSADDAGROITEMTOINTEREST>();
+            this.FavoriteBuyers = new List<SELLERSFAVORITESBUYER>();
+            this.FavoriteSellers = new List<SELLERSFAVORITESBUYER>();
             OnCreated();
         }
-
+        protected USER(ILazyLoader lazyLoader)
+        {
+            this.lazyLoader = lazyLoader;
+        }
         public virtual long Id
         {
             get;
@@ -96,31 +103,31 @@ namespace EFarmerPkModelLibrary.Entities
             set;
         }
 
-        public virtual IList<ADVERTISEMENT> ADVERTISEMENTs_SellerId
+        public virtual IList<ADVERTISEMENT> PostedAdvertisements
         {
             get;
             set;
         }
 
-        public virtual IList<BUYERADDSDIFFERENTADSTOFAV> BUYERADDSDIFFERENTADSTOFAVs_BuyerId
+        public virtual IList<BUYERADDSDIFFERENTADSTOFAV> InterestedAdvertisements
         {
             get;
             set;
         }
 
-        public virtual IList<BUYERSADDAGROITEMTOINTEREST> BUYERSADDAGROITEMTOINTERESTs_BuyerId
+        public virtual IList<BUYERSADDAGROITEMTOINTEREST> InterestedAgroItems
         {
             get;
             set;
         }
 
-        public virtual IList<SELLERSFAVORITESBUYER> SELLERSFAVORITESBUYERs_SellerId
+        public virtual IList<SELLERSFAVORITESBUYER> FavoriteBuyers
         {
             get;
             set;
         }
 
-        public virtual IList<SELLERSFAVORITESBUYER> SELLERSFAVORITESBUYERs_BuyerId
+        public virtual IList<SELLERSFAVORITESBUYER> FavoriteSellers
         {
             get;
             set;
@@ -128,8 +135,7 @@ namespace EFarmerPkModelLibrary.Entities
 
         public virtual CITY City
         {
-            get;
-            set;
+            get;set;
         }
 
         #region Extensibility Method Definitions

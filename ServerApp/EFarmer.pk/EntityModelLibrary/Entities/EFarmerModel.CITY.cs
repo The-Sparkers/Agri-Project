@@ -23,7 +23,7 @@ namespace EFarmerPkModelLibrary.Entities
         public CITY()
         {
             this.ADVERTISEMENTs_CityId = new List<ADVERTISEMENT>();
-            this.USERs_CityId = new List<USER>();
+            this.Users = new List<USER>();
             OnCreated();
         }
 
@@ -57,7 +57,7 @@ namespace EFarmerPkModelLibrary.Entities
             set;
         }
 
-        public virtual IList<USER> USERs_CityId
+        public virtual IList<USER> Users
         {
             get;
             set;

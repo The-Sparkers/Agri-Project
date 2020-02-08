@@ -52,19 +52,19 @@ namespace EFarmer.Models
         /// </summary>
         [DataMember]
         public short Quality { get; set; }
-        public static Advertisement Convert(EFarmerPkModelLibrary.Entities.Advertisement advertisement)
+        public static Advertisement Convert(EFarmerPkModelLibrary.Entities.ADVERTISEMENT advertisement)
         {
             return new Advertisement
             {
                 City = City.Convert(advertisement.City),
                 Id = advertisement.Id,
-                Item = AgroItem.Convert(advertisement.Item),
+                Item = AgroItem.Convert(advertisement.AgroItem),
                 Picture = advertisement.Picture,
                 PostedDateTime = advertisement.PostedDateTime,
                 Price = advertisement.Price,
                 Quality = advertisement.Quality,
                 Quantity = advertisement.Quantity,
-                Seller = (User)User.Convert(advertisement.Seller)
+                Seller = (Seller)User.Convert(advertisement.Seller)
             };
         }
     }
