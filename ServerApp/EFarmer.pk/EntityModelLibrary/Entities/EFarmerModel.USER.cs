@@ -8,21 +8,14 @@
 // the code is regenerated.
 //------------------------------------------------------------------------------
 
-using System;
-using System.Data;
-using System.ComponentModel;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Data.Common;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Collections.Generic;
 
 namespace EFarmerPkModelLibrary.Entities
 {
-    public partial class USER {
+    public partial class USER
+    {
 
-        private CITY city;
         private ILazyLoader lazyLoader;
         public USER()
         {
@@ -135,7 +128,7 @@ namespace EFarmerPkModelLibrary.Entities
 
         public virtual CITY City
         {
-            get;set;
+            get; set;
         }
 
         #region Extensibility Method Definitions

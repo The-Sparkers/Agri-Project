@@ -1,4 +1,5 @@
 ﻿using EFarmer.Exceptions;
+using EFarmer.Models;
 using EFarmer.Models.Helpers;
 using EFarmerPkModelLibrary.Entities;
 using EntityGrabber;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace EFarmerPkModelLibrary.Repositories
 {
-    public class UserRepository : ModelRepository<EFarmer.Models.User, long>, IDisposable
+    internal class UserRepository : ModelRepository<EFarmer.Models.User, long>, IDisposable, IUserRepository
     {
         readonly IDbConnection dbConnection;
         readonly Context.EFarmerDbModel dbContext;
@@ -23,7 +24,7 @@ namespace EFarmerPkModelLibrary.Repositories
             users = dbContext.USERs;
         }
 
-        public EFarmer.Models.User GetUser(ContactNumberFormat contact)
+        public User GetUser(ContactNumberFormat contact)
         {
             var user = users
                 .Where(x => x.CCountryCode == contact.CountryCode
@@ -41,7 +42,7 @@ namespace EFarmerPkModelLibrary.Repositories
                 Id = user.Id
             } : null;
         }
-        public override long Create(EFarmer.Models.User model)
+        public override long Create(User model)
         {
             var result = users.Add(new USER
             {
@@ -84,7 +85,7 @@ namespace EFarmerPkModelLibrary.Repositories
             return false;
         }
 
-        public override EFarmer.Models.User Read(long id)
+        public override User Read(long id)
         {
             var user = users.Find(id);
             return (user != null) ? new EFarmer.Models.User
@@ -100,11 +101,11 @@ namespace EFarmerPkModelLibrary.Repositories
             } : null;
         }
 
-        public override async Task<List<EFarmer.Models.User>> ReadAllAsync()
+        public override async Task<List<User>> ReadAllAsync()
         {
-            List<EFarmer.Models.User> lstUsers = new List<EFarmer.Models.User>();
+            List<User> lstUsers = new List<User>();
             await Task.Run(() => users.ForEachAsync(x => lstUsers.Add(
-                 new EFarmer.Models.User
+                 new User
                  {
                      Address = x.Address,
                      City = EFarmer.Models.City.Convert(x.City),
@@ -118,7 +119,7 @@ namespace EFarmerPkModelLibrary.Repositories
             return lstUsers;
         }
 
-        public override bool Update(EFarmer.Models.User model)
+        public override bool Update(User model)
         {
             try
             {
@@ -158,7 +159,7 @@ namespace EFarmerPkModelLibrary.Repositories
         /// <summary>
         /// Method to Make this user a buyer
         /// </summary>
-        public void MakeBuyer(EFarmer.Models.User user)
+        public void MakeBuyer(User user)
         {
             var u = users.Find(user.Id);
             u.BuyerFlag = true;
@@ -175,7 +176,7 @@ namespace EFarmerPkModelLibrary.Repositories
         /// <summary>
         /// Method to make this user a seller
         /// </summary>
-        public void MakeSeller(EFarmer.Models.User user)
+        public void MakeSeller(User user)
         {
             var u = users.Find(user.Id);
             u.SellerFlag = true;
@@ -189,13 +190,13 @@ namespace EFarmerPkModelLibrary.Repositories
                 new UpdateUnsuccessfulException("User->MakeSeller");
             }
         }
-        public EFarmer.Models.User GetSeller(long id)
+        public User GetSeller(long id)
         {
             var seller = users.FirstOrDefault(x => x.Id == id && x.SellerFlag);
-            return new EFarmer.Models.User
+            return new User
             {
                 Address = seller.Address,
-                City = EFarmer.Models.City.Convert(seller.City),
+                City = City.Convert(seller.City),
                 ContactNumber =
                 new ContactNumberFormat(seller.CCountryCode, seller.CCompanyCode, seller.CPhone),
                 Id = seller.Id,
@@ -209,13 +210,13 @@ namespace EFarmerPkModelLibrary.Repositories
         /// Returns a list for advertisments favorited by this user
         /// </summary>
         /// <returns></returns>
-        public async Task<List<EFarmer.Models.Advertisement>> GetFavoriteAdvertisementsAsync(EFarmer.Models.Buyer buyer)
+        public async Task<List<Advertisement>> GetFavoriteAdvertisementsAsync(Buyer buyer)
         {
-            List<EFarmer.Models.Advertisement> advertisements = new List<EFarmer.Models.Advertisement>();
-            await dbContext.BUYERADDSDIFFERENTADSTOFAVs
+            List<Advertisement> advertisements = new List<Advertisement>();
+            await Task.Run(() => dbContext.BUYERADDSDIFFERENTADSTOFAVs
                 .Where(x => x.Buyer.Id == buyer.Id)
                 .Select(x => x.ADVERTISEMENT)
-                .ForEachAsync(x => advertisements.Add(new EFarmer.Models.Advertisement
+                .ForEachAsync(x => advertisements.Add(new Advertisement
                 {
                     City = EFarmer.Models.City.Convert(x.City),
                     Id = x.Id,
@@ -226,49 +227,139 @@ namespace EFarmerPkModelLibrary.Repositories
                     Quality = x.Quality,
                     Quantity = x.Quantity,
                     Seller = (EFarmer.Models.Seller)EFarmer.Models.User.Convert(x.Seller)
-                }));
+                })));
             return advertisements;
         }
         /// <summary>
         /// Returns a list of items interested by this user
         /// </summary>
         /// <returns></returns>
-        public async Task<List<EFarmer.Models.AgroItem>> GetInterestedItemsAsync(EFarmer.Models.Buyer buyer)
+        public async Task<List<AgroItem>> GetInterestedItemsAsync(Buyer buyer)
         {
-            List<EFarmer.Models.AgroItem> agroItems = new List<EFarmer.Models.AgroItem>();
-            await dbContext.BUYERSADDAGROITEMTOINTERESTs
+            List<AgroItem> agroItems = new List<EFarmer.Models.AgroItem>();
+            await Task.Run(() => dbContext.BUYERSADDAGROITEMTOINTERESTs
                     .Where(x => x.User.Id == buyer.Id)
                     .Select(x => x.AGROITEM)
-                    .ForEachAsync(x => agroItems.Add(new EFarmer.Models.AgroItem
+                    .ForEachAsync(x => agroItems.Add(new AgroItem
                     {
-                        Category = EFarmer.Models.Category.Convert(x.CATEGORY),
+                        Category = Category.Convert(x.CATEGORY),
                         Id = x.Id,
                         Name = x.Name,
                         UrduName = x.Uname,
                         UrduWeightScale = x.UWeightScale,
                         WeightScale = x.WeightScale
-                    }));
+                    })));
             return agroItems;
         }
         /// <summary>
         /// Static method to get buyers from database
         /// </summary>
         /// <returns></returns>
-        public async Task<List<EFarmer.Models.Buyer>> GetBuyersAsync()
+        public async Task<List<Buyer>> GetBuyersAsync()
         {
-            List<EFarmer.Models.Buyer> buyers = new List<EFarmer.Models.Buyer>();
-            await users.Where(x => x.BuyerFlag).ForEachAsync(x => buyers.Add(new EFarmer.Models.Buyer
-            {
-                Address = x.Address,
-                City = EFarmer.Models.City.Convert(x.City),
-                ContactNumber = new ContactNumberFormat(x.CCountryCode, x.CCompanyCode, x.CPhone),
-                Id = x.Id,
-                IsBuyer = x.BuyerFlag,
-                IsSeller = x.SellerFlag,
-                Location = new GeoLocation { Latitude = x.GLat, Longitude = x.GLng },
-                Name = new NameFormat { FirstName = x.FName, LastName = x.LName }
-            }));
+            List<Buyer> buyers = new List<Buyer>();
+            await Task.Run(() => users.Where(x => x.BuyerFlag)
+            .ForEachAsync(x => buyers.Add((Buyer)User.Convert(x))));
             return buyers;
+        }
+        /// <summary>
+        /// Method which adds a buyer to the interest list of this user
+        /// </summary>
+        /// <param name="buyer"></param>
+
+        public async Task AddToFavoritesAsync(EFarmer.Models.Seller seller, EFarmer.Models.Buyer buyer)
+        {
+            const string _PATH = "Seller->AddToInterest(buyer)";
+            try
+            {
+                await dbContext.AddBuyerToInterestAsync(seller.Id, buyer.Id);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException.GetType() == typeof(SqlException))
+                {
+                    throw new DbQueryProcessingFailedException(_PATH, (SqlException)ex.InnerException);
+                }
+
+                throw;
+            }
+        }
+        /// <summary>
+        /// Mehtod to get list of buyers favorited by this user
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Buyer>> GetFavoriteBuyersAsync(Seller seller)
+        {
+            List<Buyer> buyers = new List<Buyer>();
+            await dbContext.SELLERSFAVORITESBUYERs
+                .Where(x => x.USER_SellerId.Id == seller.Id)
+                .Select(x => x.USER_BuyerId)
+                .ForEachAsync(x => buyers.Add((Buyer)User.Convert(x)));
+            return buyers;
+        }
+        /// <summary>
+        /// Method which seller uses to post a new advertisement
+        /// </summary>
+        /// <param name="quality">mainly from 1-3</param>
+        /// <param name="quantity"></param>
+        /// <param name="dateTime"></param>
+        /// <param name="price"></param>
+        /// <param name="item"></param>
+        /// <param name="city"></param>
+        /// <param name="picture"></param>
+        /// <returns></returns>
+        public Advertisement PostAdvertisement(Seller seller, short quality, short quantity, DateTime dateTime, decimal price, EFarmer.Models.AgroItem item, EFarmer.Models.City city, string picture = "")
+        {
+            try
+            {
+                var advertisement = dbContext.ADVERTISEMENTs.Find((long)dbContext.AddNewAdvertisement(quality, quality, dateTime, price, picture, seller.Id, item.Id, city.Id).FirstOrDefault().Column0.Value);
+                return new Advertisement
+                {
+                    City = City.Convert(advertisement.City),
+                    Id = advertisement.Id,
+                    Item = AgroItem.Convert(advertisement.AgroItem),
+                    Picture = advertisement.Picture,
+                    PostedDateTime = advertisement.PostedDateTime,
+                    Price = advertisement.Price,
+                    Quality = advertisement.Quality,
+                    Quantity = advertisement.Quantity,
+                    Seller = (Seller)User.Convert(advertisement.Seller)
+                };
+            }
+            catch (Exception ex)
+            {
+                if (ex.GetType() == typeof(SqlException))
+                {
+                    throw new DbQueryProcessingFailedException("User->PostAdvertisement", (SqlException)ex.InnerException);
+                }
+                throw;
+            }
+        }
+        /// <summary>
+        /// Method to get a list of advertisments posted by this user
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public async Task<List<Advertisement>> GetPostedAdvertismentsAsync(DateTime startDate, DateTime endDate, Seller seller)
+        {
+            List<Advertisement> advertisements = new List<Advertisement>();
+            await Task.Run(()=>dbContext.ADVERTISEMENTs
+                .Where(x => x.Seller.Id == seller.Id)
+                .ForEachAsync(x => advertisements.Add(Advertisement.Convert(x))));
+            return advertisements;
+        }
+        /// <summary>
+        /// Static Method to get all sellers present into the database
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Seller>> GetSellersAsync()
+        {
+            List<Seller> sellers = new List<Seller>();
+            List<Task<Seller>> _tSellers = new List<Task<Seller>>();
+            await users.Where(x => x.SellerFlag)
+                .ForEachAsync(x => sellers.Add((Seller)User.Convert(x)));
+            return sellers;
         }
         public void Dispose()
         {
