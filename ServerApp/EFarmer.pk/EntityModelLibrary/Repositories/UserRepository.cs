@@ -212,11 +212,11 @@ namespace EFarmerPkModelLibrary.Repositories
         /// Static method to get buyers from database
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Buyer>> GetBuyersAsync()
+        public async Task<List<User>> GetBuyersAsync()
         {
-            List<Buyer> buyers = new List<Buyer>();
+            List<User> buyers = new List<User>();
             await Task.Run(() => users.Where(x => x.BuyerFlag)
-            .ForEachAsync(x => buyers.Add((Buyer)User.Convert(x))));
+            .ForEachAsync(x => buyers.Add((User)User.Convert(x))));
             return buyers;
         }
         /// <summary>
@@ -224,7 +224,7 @@ namespace EFarmerPkModelLibrary.Repositories
         /// </summary>
         /// <param name="buyer"></param>
 
-        public async Task AddToFavoritesAsync(EFarmer.Models.Seller seller, EFarmer.Models.Buyer buyer)
+        public async Task AddToFavoritesAsync(User seller, User buyer)
         {
             const string _PATH = "Seller->AddToInterest(buyer)";
             try
@@ -245,13 +245,13 @@ namespace EFarmerPkModelLibrary.Repositories
         /// Mehtod to get list of buyers favorited by this user
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Buyer>> GetFavoriteBuyersAsync(Seller seller)
+        public async Task<List<User>> GetFavoriteBuyersAsync(User seller)
         {
-            List<Buyer> buyers = new List<Buyer>();
+            List<User> buyers = new List<User>();
             await dbContext.SELLERSFAVORITESBUYERs
                 .Where(x => x.USER_SellerId.Id == seller.Id)
                 .Select(x => x.USER_BuyerId)
-                .ForEachAsync(x => buyers.Add((Buyer)User.Convert(x)));
+                .ForEachAsync(x => buyers.Add((User)User.Convert(x)));
             return buyers;
         }
 
@@ -259,12 +259,12 @@ namespace EFarmerPkModelLibrary.Repositories
         /// Static Method to get all sellers present into the database
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Seller>> GetSellersAsync()
+        public async Task<List<User>> GetSellersAsync()
         {
-            List<Seller> sellers = new List<Seller>();
-            List<Task<Seller>> _tSellers = new List<Task<Seller>>();
+            List<User> sellers = new List<User>();
+            List<Task<User>> _tSellers = new List<Task<User>>();
             await users.Where(x => x.SellerFlag)
-                .ForEachAsync(x => sellers.Add((Seller)User.Convert(x)));
+                .ForEachAsync(x => sellers.Add((User)User.Convert(x)));
             return sellers;
         }
         /// <summary>

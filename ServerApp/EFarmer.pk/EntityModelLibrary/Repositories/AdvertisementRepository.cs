@@ -65,7 +65,7 @@ namespace EFarmerPkModelLibrary.Repositories
         /// Adds this advertsement to buyers favorites list
         /// </summary>
         /// <param name="buyer"></param>
-        public bool Favorite(Advertisement ad, Buyer buyer)
+        public bool Favorite(Advertisement ad, User buyer)
         {
             try
             {
@@ -115,7 +115,7 @@ namespace EFarmerPkModelLibrary.Repositories
         /// Returns a list for advertisments favorited by this user
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Advertisement>> GetFavoriteAdvertisementsAsync(Buyer buyer)
+        public async Task<List<Advertisement>> GetFavoriteAdvertisementsAsync(User buyer)
         {
             List<Advertisement> advertisements = new List<Advertisement>();
             await Task.Run(() => dbContext.BUYERADDSDIFFERENTADSTOFAVs
@@ -131,7 +131,7 @@ namespace EFarmerPkModelLibrary.Repositories
                     Price = x.Price,
                     Quality = x.Quality,
                     Quantity = x.Quantity,
-                    Seller = (EFarmer.Models.Seller)EFarmer.Models.User.Convert(x.Seller)
+                    Seller = User.Convert(x.Seller)
                 })));
             return advertisements;
         }
@@ -153,7 +153,7 @@ namespace EFarmerPkModelLibrary.Repositories
                         Price = x.Price,
                         Quality = x.Quality,
                         Quantity = x.Quantity,
-                        Seller = (Seller)User.Convert(x.Seller),
+                        Seller = User.Convert(x.Seller),
                         City = City.Convert(x.City),
                         Item = AgroItem.Convert(x.AgroItem)
                     }));
@@ -165,7 +165,7 @@ namespace EFarmerPkModelLibrary.Repositories
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        public async Task<List<Advertisement>> GetPostedAdvertismentsAsync(DateTime startDate, DateTime endDate, Seller seller)
+        public async Task<List<Advertisement>> GetPostedAdvertismentsAsync(DateTime startDate, DateTime endDate, User seller)
         {
             List<Advertisement> advertisements = new List<Advertisement>();
             await Task.Run(() => dbContext.ADVERTISEMENTs

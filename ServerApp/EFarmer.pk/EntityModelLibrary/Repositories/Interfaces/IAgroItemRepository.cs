@@ -11,7 +11,7 @@ namespace EFarmerPkModelLibrary.Repositories
         bool Delete(int id);
         void Dispose();
         Task<List<AgroItem>> GetAgroItemsByCategoryAsync(Category category);
-        Task<List<AgroItem>> GetInterestedItemsAsync(Buyer buyer);
+        Task<List<AgroItem>> GetInterestedItemsAsync(User buyer);
         AgroItem Read(int id);
         Task<List<AgroItem>> ReadAllAsync();
         bool Update(AgroItem model);

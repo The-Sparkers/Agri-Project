@@ -25,7 +25,7 @@ namespace EFarmer.Models
         /// Seller who posted the ad.
         /// </summary>
         [DataMember]
-        public Seller Seller { get; set; }
+        public User Seller { get; set; }
         /// <summary>
         /// Picture of the Ad.
         /// </summary>
@@ -64,7 +64,7 @@ namespace EFarmer.Models
                 Price = advertisement.Price,
                 Quality = advertisement.Quality,
                 Quantity = advertisement.Quantity,
-                Seller = (Seller)User.Convert(advertisement.Seller)
+                Seller = User.Convert(advertisement.Seller)
             };
         }
     }

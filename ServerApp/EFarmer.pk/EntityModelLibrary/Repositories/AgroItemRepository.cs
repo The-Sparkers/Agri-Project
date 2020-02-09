@@ -89,9 +89,9 @@ namespace EFarmerPkModelLibrary.Repositories
         /// Returns a list of items interested by this user
         /// </summary>
         /// <returns></returns>
-        public async Task<List<AgroItem>> GetInterestedItemsAsync(Buyer buyer)
+        public async Task<List<AgroItem>> GetInterestedItemsAsync(User buyer)
         {
-            List<AgroItem> agroItems = new List<EFarmer.Models.AgroItem>();
+            List<AgroItem> agroItems = new List<AgroItem>();
             await Task.Run(() => dbContext.BUYERSADDAGROITEMTOINTERESTs
                     .Where(x => x.User.Id == buyer.Id)
                     .Select(x => x.AGROITEM)
