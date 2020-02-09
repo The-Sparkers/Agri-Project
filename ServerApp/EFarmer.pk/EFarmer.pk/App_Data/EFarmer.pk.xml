@@ -171,6 +171,46 @@
             Initializer
             </summary>
         </member>
+        <member name="T:EFarmer.pk.ApiModels.UserApiModel">
+            <summary>
+            Data of user
+            </summary>
+        </member>
+        <member name="P:EFarmer.pk.ApiModels.UserApiModel.Name">
+            <summary>
+            Name of the user
+            </summary>
+        </member>
+        <member name="P:EFarmer.pk.ApiModels.UserApiModel.CountryCode">
+            <summary>
+            Country Code of the phone number
+            </summary>
+        </member>
+        <member name="P:EFarmer.pk.ApiModels.UserApiModel.CompanyCode">
+            <summary>
+            Comapny Code of the phone number
+            </summary>
+        </member>
+        <member name="P:EFarmer.pk.ApiModels.UserApiModel.Phone">
+            <summary>
+            Rest phone number
+            </summary>
+        </member>
+        <member name="P:EFarmer.pk.ApiModels.UserApiModel.Address">
+            <summary>
+            Address of the user
+            </summary>
+        </member>
+        <member name="P:EFarmer.pk.ApiModels.UserApiModel.CityId">
+             <summary>
+            Id of the city to which the user belongs
+             </summary>
+        </member>
+        <member name="P:EFarmer.pk.ApiModels.UserApiModel.Location">
+            <summary>
+            Location of the user
+            </summary>
+        </member>
         <member name="M:ImageWriter.ImageWriter.CheckIfImageFile(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             Method to check if file is image file
