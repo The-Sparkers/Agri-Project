@@ -1,9 +1,13 @@
-﻿using EFarmer.Models;
+﻿using Autofac;
+using EFarmer.Models;
 using EFarmer.pk.Models;
+using EFarmerPkModelLibrary.Factories;
+using EFarmerPkModelLibrary.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EFarmer.pk.Controllers.ApiControllers
 {
@@ -14,18 +18,36 @@ namespace EFarmer.pk.Controllers.ApiControllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly IContainer container;
+        private RepositoryFactory repositoryFactory;
+        /// <summary>
+        /// Initializer
+        /// </summary>
+        public UsersController()
+        {
+            repositoryFactory = new ModelsFactory();
+            container = repositoryFactory.Build();
+        }
         /// <summary>
         /// Returns a list of registered buyers
         /// </summary>
         /// <returns></returns>
-        [HttpGet("Buyers", Name ="GetBuyers")]
-        [ProducesResponseType(typeof(Buyer), StatusCodes.Status200OK)]
+        [HttpGet("Buyers", Name = "GetBuyers")]
+        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<List<Buyer>> GetBuyers()
+        public async Task<ActionResult<List<User>>> GetBuyers()
         {
             try
             {
-                return null;
+                List<User> buyers = new List<User>();
+                using (var scope = container.BeginLifetimeScope())
+                {
+                    using (var userFactory = scope.Resolve<IUserRepository>())
+                    {
+                        buyers = await userFactory.GetBuyersAsync();
+                    }
+                }
+                return Ok(buyers);
             }
             catch (Exception ex)
             {
@@ -36,14 +58,22 @@ namespace EFarmer.pk.Controllers.ApiControllers
         /// Returns a list of sellers in the system
         /// </summary>
         /// <returns></returns>
-        [HttpGet("Sellers",Name ="GetSellers")]
-        [ProducesResponseType(typeof(Seller), StatusCodes.Status200OK)]
+        [HttpGet("Sellers", Name = "GetSellers")]
+        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<List<Seller>> GetSellers()
+        public async Task<ActionResult<List<User>>> GetSellers()
         {
             try
             {
-                return null;
+                List<User> sellers = new List<User>();
+                using (var scope = container.BeginLifetimeScope())
+                {
+                    using (var userFactory = scope.Resolve<IUserRepository>())
+                    {
+                        sellers = await userFactory.GetSellersAsync();
+                    }
+                }
+                return Ok(sellers);
             }
             catch (Exception ex)
             {
@@ -62,45 +92,129 @@ namespace EFarmer.pk.Controllers.ApiControllers
         {
             try
             {
-                //var user = new User(id);
-                return null;
+                User user = null;
+                using (var scope = container.BeginLifetimeScope())
+                {
+                    using (var userRepository = scope.Resolve<IUserRepository>())
+                    {
+                        user = userRepository.Read(id);
+                    }
+                }
+                return user;
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Returns a user by its contact number
+        /// </summary>
+        /// <param name="countryCode"></param>
+        /// <param name="companyCode"></param>
+        /// <param name="phone"></param>
+        /// <returns></returns>
+        [HttpGet("GetByContactNumber", Name = "GetUserByContactNumber")]
+        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<User> GetByContactNumber(string countryCode, string companyCode, string phone)
+        {
+            Common.ContactNumberFormat contactNumber = new Common.ContactNumberFormat(countryCode, companyCode, phone);
+            try
+            {
+                User user = null;
+                using (var scope = container.BeginLifetimeScope())
+                {
+                    using (var userRepository = scope.Resolve<IUserRepository>())
+                    {
+                        user = userRepository.GetUser(new EFarmer.Models.Helpers.ContactNumberFormat(contactNumber.CountryCode, contactNumber.CompanyCode, contactNumber.PhoneNumber));
+                    }
+                }
+                return user;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         /// <summary>
         /// Creates a new user
         /// </summary>
         /// <param name="user">Data for User</param>
-        [HttpPost("Buyer", Name ="PostBuyer")]
+        [HttpPost("", Name = "PostUser")]
+        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<User> PostUser([FromBody] User user)
+        {
+            try
+            {
+                User _user = null;
+                using (var scope = container.BeginLifetimeScope())
+                {
+                    using (var repository = scope.Resolve<IUserRepository>())
+                    {
+                        _user = repository.Read(repository.Create(user));
+                    }
+                }
+                return _user;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Updates the user
+        /// </summary>
+        /// <param name="user">User to be updated</param>
+        // PUT: api/Users/5
+        [HttpPut("Update", Name = "UpdateUser")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult PostBuyer([FromBody] string user)
+        public IActionResult Put([FromBody] User user)
         {
-            //try
-            //{
-            //    return Ok(new Buyer(,user.ContactNumber, user.Address, user.City))
-            //}
-            //catch (Exception ex)
-            //{
-            //    return BadRequest(ex.Message);
-            //}
-            return Ok();
+            try
+            {
+                using (var scope = container.BeginLifetimeScope())
+                {
+                    using (var repository = scope.Resolve<IUserRepository>())
+                    {
+                        repository.Update(user);
+                    }
+                }
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-
-        // PUT: api/Users/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        /// <summary>
+        /// Deletes this user
+        /// </summary>
+        /// <param name="id"></param>
+        // DELETE: api/Delete/5
+        [HttpDelete("Delete/{id}", Name = "DeleteUser")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<bool> Delete(long id)
         {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            try
+            {
+                bool flag = false;
+                using (var scope = container.BeginLifetimeScope())
+                {
+                    using (var repository = container.Resolve<IUserRepository>())
+                    {
+                        flag = repository.Delete(id);
+                    }
+                }
+                return flag;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -12,6 +12,9 @@ namespace EFarmer.pk.Models
     /// </summary>
     public class ModelsFactory : RepositoryFactory
     {
+        /// <summary>
+        /// Initializer
+        /// </summary>
         public ModelsFactory() : base(new BuildOptions { ConnectionString=Common.CommonValues.CONNECTION_STRING })
         {
         }

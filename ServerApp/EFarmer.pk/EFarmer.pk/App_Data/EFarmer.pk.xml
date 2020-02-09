@@ -110,6 +110,11 @@
             Controls the requests and responses for users
             </summary>
         </member>
+        <member name="M:EFarmer.pk.Controllers.ApiControllers.UsersController.#ctor">
+            <summary>
+            Initializer
+            </summary>
+        </member>
         <member name="M:EFarmer.pk.Controllers.ApiControllers.UsersController.GetBuyers">
             <summary>
             Returns a list of registered buyers
@@ -129,459 +134,42 @@
             <param name="id">Primary Key</param>
             <returns></returns>
         </member>
-        <member name="M:EFarmer.pk.Controllers.ApiControllers.UsersController.PostBuyer(System.String)">
+        <member name="M:EFarmer.pk.Controllers.ApiControllers.UsersController.GetByContactNumber(System.String,System.String,System.String)">
+            <summary>
+            Returns a user by its contact number
+            </summary>
+            <param name="countryCode"></param>
+            <param name="companyCode"></param>
+            <param name="phone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EFarmer.pk.Controllers.ApiControllers.UsersController.PostUser(EFarmer.Models.User)">
             <summary>
             Creates a new user
             </summary>
             <param name="user">Data for User</param>
         </member>
-        <member name="T:EFarmer.pk.Models.Advertisement">
+        <member name="M:EFarmer.pk.Controllers.ApiControllers.UsersController.Put(EFarmer.Models.User)">
             <summary>
-            Posted by a seller for an agro item
+            Updates the user
             </summary>
+            <param name="user">User to be updated</param>
         </member>
-        <member name="M:EFarmer.pk.Models.Advertisement.#ctor(System.Int64)">
+        <member name="M:EFarmer.pk.Controllers.ApiControllers.UsersController.Delete(System.Int64)">
             <summary>
-            Constructor to initialize values from db by using primary key
-            </summary>
-            <param name="id">Primary Key</param>
-        </member>
-        <member name="P:EFarmer.pk.Models.Advertisement.Item">
-            <summary>
-            Agro Item for which the Ad has been posted
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.Advertisement.City">
-            <summary>
-            City for which the ad has been posted
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.Advertisement.Seller">
-            <summary>
-            Seller who posted the ad.
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.Advertisement.Picture">
-            <summary>
-            Picture of the Ad.
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.Advertisement.Price">
-            <summary>
-            Price set by the seller at the time of posting
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.Advertisement.PostedDateTime">
-            <summary>
-            Time Stamp
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.Advertisement.Quantity">
-            <summary>
-            Quantity offered by the seller according to the weigh scale
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.Advertisement.Quality">
-            <summary>
-            Set as stars(1-3)
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.Advertisement.Id">
-            <summary>
-            Primary Key
-            </summary>
-        </member>
-        <member name="M:EFarmer.pk.Models.Advertisement.Favorite(EFarmer.pk.Models.Buyer)">
-            <summary>
-            Adds this advertsement to buyers favorites list
-            </summary>
-            <param name="buyer"></param>
-        </member>
-        <member name="M:EFarmer.pk.Models.Advertisement.GetAdvertisements(System.Int32)">
-            <summary>
-            Static method to get all advertisments present into the database
-            </summary>
-            <param name="max"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.Advertisement.GetNearbyAdvertisements(EFarmer.pk.Common.GeoLocation)">
-            <summary>
-            Returns a list of advertisements near a certain location
-            </summary>
-            <param name="location"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.Advertisement.Copy(EFarmer.pk.Models.SQLConnection)">
-            <summary>
-            Copies the content of an object to this object
-            </summary>
-            <param name="object"></param>
-        </member>
-        <member name="T:EFarmer.pk.Models.AgroItem">
-            <summary>
-            Item for which the ads will be posted
-            </summary>
-        </member>
-        <member name="M:EFarmer.pk.Models.AgroItem.#ctor(System.Int32)">
-            <summary>
-            Initializes values from db by using primary key
-            </summary>
-            <param name="id">Primary Key</param>
-        </member>
-        <member name="M:EFarmer.pk.Models.AgroItem.#ctor(System.String,System.String,System.String,System.String,EFarmer.pk.Models.Category)">
-            <summary>
-            Adds a new agro item into the database
-            </summary>
-            <param name="name"></param>
-            <param name="uName">Urdu Name</param>
-            <param name="scale">Weight Scale</param>
-            <param name="uScale">Urdu Weight Scale</param>
-            <param name="category"></param>
-        </member>
-        <member name="P:EFarmer.pk.Models.AgroItem.Category">
-            <summary>
-            Category to which this item belongs
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.AgroItem.UrduWeightScale">
-            <summary>
-            Weight Scale in urdu
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.AgroItem.WeightScale">
-            <summary>
-            Weight scale from which this item's weight is denoted
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.AgroItem.UrduName">
-            <summary>
-            Name of this item in urdu
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.AgroItem.Name">
-            <summary>
-            Name of the item
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.AgroItem.Id">
-            <summary>
-            Primary Key
-            </summary>
-        </member>
-        <member name="M:EFarmer.pk.Models.AgroItem.Delete">
-            <summary>
-            Deletes this agro item from the db
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.AgroItem.GetAdvertisements(System.Int32)">
-            <summary>
-            Returns the ads in which this item is used
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.AgroItem.GetAgroItems(System.Int32)">
-            <summary>
-            Static method to get all agro items into the database
-            </summary>
-            <param name="max"></param>
-            <returns></returns>
-        </member>
-        <member name="T:EFarmer.pk.Models.Buyer">
-            <summary>
-            User of the system which uses the system to post buying related advertisements
-            </summary>
-        </member>
-        <member name="M:EFarmer.pk.Models.Buyer.#ctor(System.Int64)">
-            <summary>
-            Initializes Values from Db
-            </summary>
-            <param name="id">Primary Key</param>
-        </member>
-        <member name="M:EFarmer.pk.Models.Buyer.#ctor(EFarmer.pk.Common.NameFormat,EFarmer.pk.Common.ContactNumberFormat,System.String,EFarmer.pk.Models.City)">
-            <summary>
-            Adds a new Buyer to the db
-            </summary>
-            <param name="name"></param>
-            <param name="contact"></param>
-            <param name="address"></param>
-            <param name="city"></param>
-        </member>
-        <member name="P:EFarmer.pk.Models.Buyer.IsSeller">
-            <summary>
-            Buyer Flag
-            </summary>
-        </member>
-        <member name="M:EFarmer.pk.Models.Buyer.GetFavoriteAdvertisements">
-            <summary>
-            Returns a list for advertisments favorited by this user
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.Buyer.GetInterestedItems">
-            <summary>
-            Returns a list of items interested by this user
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.Buyer.GetBuyers">
-            <summary>
-            Static method to get buyers from database
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:EFarmer.pk.Models.Category">
-            <summary>
-            An items belongs to a category
-            </summary>
-        </member>
-        <member name="M:EFarmer.pk.Models.Category.#ctor(System.Int16)">
-            <summary>
-            Initializes values from db using primary key
-            </summary>
-            <param name="id">Primary Key</param>
-        </member>
-        <member name="M:EFarmer.pk.Models.Category.#ctor(System.String,System.String)">
-            <summary>
-            Adds new category into the db
-            </summary>
-            <param name="name"></param>
-            <param name="uName">Urdu Name of the category</param>
-        </member>
-        <member name="P:EFarmer.pk.Models.Category.UrduName">
-            <summary>
-            Urdu Name of the category
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.Category.Name">
-            <summary>
-            Name of the category
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.Category.Id">
-            <summary>
-            Primary Key
-            </summary>
-        </member>
-        <member name="M:EFarmer.pk.Models.Category.GetAgroItems">
-            <summary>
-            Returns all agro items belong to this category
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.Category.GetCategories(System.Int32)">
-            <summary>
-            Static method to get all categories present into the database
-            </summary>
-            <param name="max">maximum number of results</param>
-            <returns></returns>
-        </member>
-        <member name="T:EFarmer.pk.Models.City">
-            <summary>
-            City on any geography from which a user and advertisment belongs
-            </summary>
-        </member>
-        <member name="M:EFarmer.pk.Models.City.#ctor(System.Int16)">
-            <summary>
-            Initialize values from Db by using primary key
+            Deletes this user
             </summary>
             <param name="id"></param>
         </member>
-        <member name="M:EFarmer.pk.Models.City.#ctor(System.String,EFarmer.pk.Common.GeoLocation)">
+        <member name="T:EFarmer.pk.Models.ModelsFactory">
             <summary>
-            Adds a new city into the database
-            </summary>
-            <param name="name"></param>
-            <param name="geoLocation"></param>
-        </member>
-        <member name="P:EFarmer.pk.Models.City.GeoLocation">
-            <summary>
-            Location of the city onto the Geo Map
+            Class to generate the models from repository
             </summary>
         </member>
-        <member name="P:EFarmer.pk.Models.City.Name">
+        <member name="M:EFarmer.pk.Models.ModelsFactory.#ctor">
             <summary>
-            Name of the city
+            Initializer
             </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.City.Id">
-            <summary>
-            Primary Key
-            </summary>
-        </member>
-        <member name="M:EFarmer.pk.Models.City.GetUsers">
-            <summary>
-            Returns a list of users belong to this city
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.City.GetAdvertisements">
-            <summary>
-            Returns a list of advertisements associated to this city
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.City.GetNearbyBuyers">
-            <summary>
-            Returns a list of buyers nearby this city geographically
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.City.GetNearbySeller">
-            <summary>
-            Returns a list of seller nearby this city geographically
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.City.GetCities(System.Int32)">
-            <summary>
-            Static method to get all cities present into the database
-            </summary>
-            <param name="max">Maximum number of results</param>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.City.Copy(EFarmer.pk.Models.SQLConnection)">
-            <summary>
-            Copies the values of other object to this one
-            </summary>
-            <param name="o"></param>
-        </member>
-        <member name="T:EFarmer.pk.Models.Seller">
-            <summary>
-            User of the system who posts different Ads
-            </summary>
-        </member>
-        <member name="M:EFarmer.pk.Models.Seller.#ctor(System.Int64)">
-            <summary>
-            Initialize the value from DB
-            </summary>
-            <param name="id">PrimaryKey</param>
-        </member>
-        <member name="M:EFarmer.pk.Models.Seller.#ctor(EFarmer.pk.Common.NameFormat,EFarmer.pk.Common.ContactNumberFormat,System.String,EFarmer.pk.Models.City)">
-            <summary>
-            Adds new data for the seller to the DB
-            </summary>
-            <param name="name"></param>
-            <param name="contact"></param>
-            <param name="address"></param>
-            <param name="city"></param>
-        </member>
-        <member name="P:EFarmer.pk.Models.Seller.IsBuyer">
-            <summary>
-            Seller Flag
-            </summary>
-        </member>
-        <member name="M:EFarmer.pk.Models.Seller.AddToFavorites(EFarmer.pk.Models.Buyer)">
-            <summary>
-            Method which adds a buyer to the interest list of this user
-            </summary>
-            <param name="buyer"></param>
-        </member>
-        <member name="M:EFarmer.pk.Models.Seller.GetFavoriteBuyers">
-            <summary>
-            Mehtod to get list of buyers favorited by this user
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.Seller.PostAdvertisement(System.Int16,System.Int16,System.DateTime,System.Double,EFarmer.pk.Models.AgroItem,EFarmer.pk.Models.City,System.String)">
-            <summary>
-            Method which seller uses to post a new advertisement
-            </summary>
-            <param name="quality">mainly from 1-3</param>
-            <param name="quantity"></param>
-            <param name="dateTime"></param>
-            <param name="price"></param>
-            <param name="item"></param>
-            <param name="city"></param>
-            <param name="picture"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.Seller.GetPostedAdvertisments(System.DateTime,System.DateTime)">
-            <summary>
-            Method to get a list of advertisments posted by this user
-            </summary>
-            <param name="startDate"></param>
-            <param name="endDate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.Seller.GetSellers">
-            <summary>
-            Static Method to get all sellers present into the database
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:EFarmer.pk.Models.User">
-            <summary>
-            User is the actor of the system who interacts with the system (maybe a Buyer or seller)
-            </summary>
-        </member>
-        <member name="M:EFarmer.pk.Models.User.#ctor(System.Int64)">
-            <summary>
-            Constructor to initialize values from DB by using primary key
-            </summary>
-            <param name="id">Primary Key</param>
-        </member>
-        <member name="M:EFarmer.pk.Models.User.#ctor(EFarmer.pk.Common.NameFormat,EFarmer.pk.Common.ContactNumberFormat,System.String,EFarmer.pk.Models.City)">
-            <summary>
-            Constructor to add new user into the database
-            </summary>
-            <param name="name"></param>
-            <param name="contact"></param>
-            <param name="address"></param>
-            <param name="city"></param>
-        </member>
-        <member name="P:EFarmer.pk.Models.User.City">
-            <summary>
-            City to which the user belongs
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.User.Location">
-            <summary>
-            Latest location based on the cellular GPS Information
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.User.Address">
-            <summary>
-            Physical Address of the User
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.User.ContactNumber">
-            <summary>
-            Contact Number of the user
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.User.Name">
-            <summary>
-            Full Name of the user
-            </summary>
-        </member>
-        <member name="M:EFarmer.pk.Models.User.MakeBuyer">
-            <summary>
-            Method to Make this user a buyer
-            </summary>
-        </member>
-        <member name="M:EFarmer.pk.Models.User.MakeSeller">
-            <summary>
-            Method to make this user a seller
-            </summary>
-        </member>
-        <member name="P:EFarmer.pk.Models.User.Id">
-            <summary>
-            Primary Key
-            </summary>
-        </member>
-        <member name="M:EFarmer.pk.Models.User.GetUser(EFarmer.pk.Common.ContactNumberFormat)">
-            <summary>
-            Gets a user by finding it by using unique contact number
-            </summary>
-            <param name="contact"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EFarmer.pk.Models.User.Copy(EFarmer.pk.Models.SQLConnection)">
-            <summary>
-            Copies an object to this one
-            </summary>
-            <param name="o"></param>
         </member>
         <member name="M:ImageWriter.ImageWriter.CheckIfImageFile(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
