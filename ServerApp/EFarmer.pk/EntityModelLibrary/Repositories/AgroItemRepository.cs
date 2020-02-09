@@ -73,15 +73,12 @@ namespace EFarmerPkModelLibrary.Repositories
 
         public override bool Update(AgroItem model)
         {
-            agroItems.Update(new AGROITEM
-            {
-                Id = model.Id,
-                Name = model.Name,
-                Uname = model.UrduName,
-                UWeightScale = model.UrduWeightScale,
-                CATEGORY = dbContext.Find<CATEGORY>(model.Category.Id),
-                WeightScale = model.WeightScale
-            });
+            var item = agroItems.Find(model.Id);
+            item.Name = model.Name;
+            item.Uname = model.UrduName;
+            item.UWeightScale = model.UrduWeightScale;
+            item.WeightScale = model.WeightScale;
+            agroItems.Update(item);
             var result = dbContext.SaveChanges();
             return (result > 0);
         }

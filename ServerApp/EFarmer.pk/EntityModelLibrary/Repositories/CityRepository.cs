@@ -82,13 +82,11 @@ namespace EFarmerPkModelLibrary.Repositories
         }
         public override bool Update(City model)
         {
-            cities.Update(new Entities.CITY
-            {
-                Id = model.Id,
-                GLat = model.GeoLocation.Latitude ?? 0,
-                GLng = model.GeoLocation.Longitude ?? 0,
-                Name = model.Name
-            });
+            var city = cities.Find(model.Id);
+            city.Name = model.Name;
+            city.GLat = model.GeoLocation.Latitude??0;
+            city.GLng = model.GeoLocation.Longitude??0;
+            cities.Update(city);
             try
             {
                 var result = dbContext.SaveChanges();

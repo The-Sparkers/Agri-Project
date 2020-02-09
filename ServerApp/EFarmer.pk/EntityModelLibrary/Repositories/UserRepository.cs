@@ -123,21 +123,12 @@ namespace EFarmerPkModelLibrary.Repositories
         {
             try
             {
-                var result = users.Update(new USER
-                {
-                    Address = model.Address,
-                    BuyerFlag = model.IsBuyer,
-                    SellerFlag = model.IsSeller,
-                    CCompanyCode = model.ContactNumber.CompanyCode,
-                    CCountryCode = model.ContactNumber.CountryCode,
-                    CPhone = model.ContactNumber.PhoneNumber,
-                    City = dbContext.CITIES.Find(model.City.Id),
-                    LName = model.Name.LastName,
-                    FName = model.Name.FirstName,
-                    GLat = model.Location.Latitude,
-                    GLng = model.Location.Longitude,
-                    Id = model.Id
-                });
+                var user = users.Find(model.Id);
+                user.Address = model.Address;
+                user.City = dbContext.CITIES.Find(model.City.Id);
+                user.FName = model.Name.FirstName;
+                user.LName = model.Name.LastName;
+                var result = users.Update(user);
                 dbContext.SaveChanges();
                 return (result.State == EntityState.Modified) ? true : false;
             }

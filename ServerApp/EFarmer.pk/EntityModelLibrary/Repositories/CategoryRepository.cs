@@ -80,12 +80,10 @@ namespace EFarmerPkModelLibrary.Repositories
         {
             try
             {
-                categories.Update(new CATEGORY
-                {
-                    Id = model.Id,
-                    Name = model.Name,
-                    UName = model.UrduName
-                });
+                var category = categories.Find(model.Id);
+                category.Name = model.Name;
+                category.UName = model.UrduName;
+                categories.Update(category);
                 var result = dbContext.SaveChanges();
                 return (result > 0);
             }
