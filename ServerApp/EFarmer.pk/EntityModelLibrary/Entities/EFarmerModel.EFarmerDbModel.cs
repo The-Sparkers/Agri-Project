@@ -12,6 +12,7 @@ using EFarmerPkModelLibrary.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.SqlServer.Infrastructure.Internal;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -31,9 +32,18 @@ namespace EFarmerPkModelLibrary.Context
         {
             OnCreated();
         }
-        public EFarmerDbModel(DbContextOptions options) :
+        public EFarmerDbModel(DbContextOptions<EFarmerDbModel> options) :
             base(options)
         {
+            try
+            {
+                connectionString = options.GetExtension<SqlServerOptionsExtension>().ConnectionString;
+            }
+            catch (Exception)
+            {
+                connectionString = "";
+                
+            }
             OnCreated();
         }
         public EFarmerDbModel(string connectionString) :
@@ -56,8 +66,9 @@ namespace EFarmerPkModelLibrary.Context
         {
                 optionsBuilder.UseLazyLoadingProxies()
                 .UseSqlServer(connectionString);
-            optionsBuilder.UseSqlServer(connectionString,
-                x => x.MigrationsAssembly("EFarmerPkModelLibrary.Migrations"));
+            //optionsBuilder.UseSqlServer(connectionString,
+            //    x => x.MigrationsAssembly("EFarmerPkModelLibrary.Migrations"));
+
             CustomizeConfiguration(ref optionsBuilder);
             base.OnConfiguring(optionsBuilder);
         }
