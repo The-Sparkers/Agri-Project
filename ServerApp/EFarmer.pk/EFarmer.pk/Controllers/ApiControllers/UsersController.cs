@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using EFarmer.Models;
+using EFarmer.pk.ApiModels;
 using EFarmer.pk.Models;
 using EFarmerPkModelLibrary.Factories;
 using EFarmerPkModelLibrary.Repositories;
@@ -16,6 +17,7 @@ namespace EFarmer.pk.Controllers.ApiControllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("application/json")]
     public class UsersController : ControllerBase
     {
         private readonly IContainer container;
@@ -144,16 +146,26 @@ namespace EFarmer.pk.Controllers.ApiControllers
         [HttpPost("", Name = "PostUser")]
         [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<User> PostUser([FromBody] User user)
+        public ActionResult<User> PostUser([FromBody] UserApiModel user)
         {
             try
             {
-                User _user = null;
+                User _user = new User
+                {
+                    Address = user.Address,
+                    City = new City
+                    {
+                        Id = user.CityId
+                    },
+                    ContactNumber = new EFarmer.Models.Helpers.ContactNumberFormat(user.CountryCode, user.CompanyCode, user.Phone),
+                    Location = user.Location,
+                    Name = user.Name
+                };
                 using (var scope = container.BeginLifetimeScope())
                 {
                     using (var repository = scope.Resolve<IUserRepository>())
                     {
-                        _user = repository.Read(repository.Create(user));
+                        _user = repository.Read(repository.Create(_user));
                     }
                 }
                 return _user;
@@ -171,15 +183,27 @@ namespace EFarmer.pk.Controllers.ApiControllers
         [HttpPut("Update", Name = "UpdateUser")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Put([FromBody] User user)
+        public IActionResult Put([FromBody] UserApiModel user)
         {
             try
             {
+                User _user = new User
+                {
+                    Address = user.Address,
+                    Name = user.Name,
+                    Location = user.Location,
+                    City = new City
+                    {
+                        Id = user.CityId
+                    },
+                    Id = user.Id,
+                    ContactNumber = new EFarmer.Models.Helpers.ContactNumberFormat(user.CountryCode, user.CompanyCode, user.Phone)
+                };
                 using (var scope = container.BeginLifetimeScope())
                 {
                     using (var repository = scope.Resolve<IUserRepository>())
                     {
-                        repository.Update(user);
+                        repository.Update(_user);
                     }
                 }
                 return Ok();

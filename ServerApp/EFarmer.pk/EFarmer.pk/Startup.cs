@@ -15,6 +15,9 @@ using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.PlatformAbstractions;
+using EFarmerPkModelLibrary.Context;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EFarmer.pk
 {
@@ -30,6 +33,10 @@ namespace EFarmer.pk
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //dbcontext
+            services.AddDbContext<EFarmerDbModel>(options => options.UseSqlServer(Common.CommonValues.CONNECTION_STRING))
+                .AddUnitOfWork<EFarmerDbModel>();
+            //swagger
             var pathToDoc = Configuration["Swagger:FileName"];
             services.AddSwaggerGen();
             services.ConfigureSwaggerGen(options =>

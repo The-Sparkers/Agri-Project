@@ -143,13 +143,13 @@
             <param name="phone"></param>
             <returns></returns>
         </member>
-        <member name="M:EFarmer.pk.Controllers.ApiControllers.UsersController.PostUser(EFarmer.Models.User)">
+        <member name="M:EFarmer.pk.Controllers.ApiControllers.UsersController.PostUser(EFarmer.pk.ApiModels.UserApiModel)">
             <summary>
             Creates a new user
             </summary>
             <param name="user">Data for User</param>
         </member>
-        <member name="M:EFarmer.pk.Controllers.ApiControllers.UsersController.Put(EFarmer.Models.User)">
+        <member name="M:EFarmer.pk.Controllers.ApiControllers.UsersController.Put(EFarmer.pk.ApiModels.UserApiModel)">
             <summary>
             Updates the user
             </summary>
@@ -209,6 +209,11 @@
         <member name="P:EFarmer.pk.ApiModels.UserApiModel.Location">
             <summary>
             Location of the user
+            </summary>
+        </member>
+        <member name="P:EFarmer.pk.ApiModels.UserApiModel.Id">
+            <summary>
+            Primary Key
             </summary>
         </member>
         <member name="M:ImageWriter.ImageWriter.CheckIfImageFile(Microsoft.AspNetCore.Http.IFormFile)">

@@ -1,4 +1,4 @@
-﻿using EFarmer.pk.Common;
+﻿using EFarmer.Models.Helpers;
 
 namespace EFarmer.pk.ApiModels
 {
@@ -35,5 +35,9 @@ namespace EFarmer.pk.ApiModels
         /// Location of the user
         /// </summary>
         public GeoLocation Location { get; set; }
+        /// <summary>
+        /// Primary Key
+        /// </summary>
+        public long Id { get; set; }
     }
 }
