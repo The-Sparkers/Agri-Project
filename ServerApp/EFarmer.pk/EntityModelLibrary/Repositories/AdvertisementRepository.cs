@@ -11,16 +11,19 @@ namespace EFarmerPkModelLibrary.Repositories
 {
     internal class AdvertisementRepository : ModelRepository<Advertisement, long>, IAdvertisementRepository
     {
-        private Context.EFarmerDbModel dbContext;
+        private readonly Context.EFarmerDbModel dbContext;
         private readonly DbSet<Entities.ADVERTISEMENT> advertisements;
+        private readonly UserRepository userRepository;
         public AdvertisementRepository(IDbConnection connectionString) : base(connectionString)
         {
             dbContext = new Context.EFarmerDbModel(connectionString.GetConnectionString());
             advertisements = dbContext.ADVERTISEMENTs;
+            userRepository = new UserRepository(connectionString);
         }
 
         public override long Create(Advertisement model)
         {
+            
             var result = advertisements.Add(new Entities.ADVERTISEMENT
             {
                 AgroItem = dbContext.AGROITEMs.Find(model.Item.Id),
@@ -31,7 +34,9 @@ namespace EFarmerPkModelLibrary.Repositories
                 Price = model.Price,
                 Quality = model.Quality,
                 Quantity = model.Quantity,
-                Seller = dbContext.USERs.Find(model.Seller.Id)
+                Seller = (model.Seller.Id == 0) 
+                                             ? dbContext.USERs.Find(userRepository.Create(model.Seller))
+                                             : dbContext.USERs.Find(model.Seller.Id)
             });
             dbContext.SaveChanges();
             return result.Entity.Id;
@@ -192,6 +197,7 @@ namespace EFarmerPkModelLibrary.Repositories
         public void Dispose()
         {
             ((IDisposable)dbContext).Dispose();
+            userRepository.Dispose();
         }
 
         private class GeoLocationDistanceAd
