@@ -23,7 +23,7 @@ namespace EFarmerPkModelLibrary.Repositories
 
         public override long Create(Advertisement model)
         {
-            
+
             var result = advertisements.Add(new Entities.ADVERTISEMENT
             {
                 AgroItem = dbContext.AGROITEMs.Find(model.Item.Id),
@@ -34,7 +34,7 @@ namespace EFarmerPkModelLibrary.Repositories
                 Price = model.Price,
                 Quality = model.Quality,
                 Quantity = model.Quantity,
-                Seller = (model.Seller.Id == 0) 
+                Seller = (model.Seller.Id == 0)
                                              ? dbContext.USERs.Find(userRepository.Create(model.Seller))
                                              : dbContext.USERs.Find(model.Seller.Id)
             });
@@ -58,10 +58,19 @@ namespace EFarmerPkModelLibrary.Repositories
         public override async Task<List<Advertisement>> ReadAllAsync()
         {
             List<Advertisement> lstAdvertisments = new List<Advertisement>();
-            await advertisements.ForEachAsync(x => lstAdvertisments.Add(Advertisement.Convert(x)));
+            await advertisements.OrderByDescending(x => x.PostedDateTime)
+                .ForEachAsync(x => lstAdvertisments.Add(Advertisement.Convert(x)));
             return lstAdvertisments;
         }
-
+        public async Task<List<Advertisement>> ReadRowsAsync(int startRow, int endRow = int.MaxValue)
+        {
+            List<Advertisement> lstAdvertisments = new List<Advertisement>();
+            await advertisements.OrderByDescending(x => x.PostedDateTime)
+                .Skip(startRow - 1)
+                .Take(endRow)
+                .ForEachAsync(x => lstAdvertisments.Add(Advertisement.Convert(x)));
+            return lstAdvertisments;
+        }
         public override bool Update(Advertisement model)
         {
             return false;
@@ -92,11 +101,40 @@ namespace EFarmerPkModelLibrary.Repositories
         /// </summary>
         /// <param name="location"></param>
         /// <returns></returns>
-        public List<Advertisement> GetNearbyAdvertisements(Advertisement advertisement, GeoLocation location, double radiusInKm)
+        public List<Advertisement> GetNearbyAdvertisements(GeoLocation location, double radiusInKm)
         {
             List<Advertisement> nearbyAdvertisements = new List<Advertisement>();
             List<GeoLocationDistanceAd> temp = new List<GeoLocationDistanceAd>();
             foreach (var item in advertisements.Take(advertisements.Count()))
+            {
+                var ad = Advertisement.Convert(item);
+                var city = City.Convert(item.City);
+                var distance = city.GeoLocation.DistanceFromAPoint(location); //in km
+                if (distance < radiusInKm)
+                {
+                    temp.Add(new GeoLocationDistanceAd { DistanceFromOrigion = distance, Advertisement = ad });
+                }
+            }
+            if (temp.Count > 0)
+            {
+                temp = temp.OrderBy(x => x.DistanceFromOrigion).ToList();
+                foreach (var item in temp)
+                {
+                    nearbyAdvertisements.Add(item.Advertisement);
+                }
+            }
+            return nearbyAdvertisements;
+        }
+        /// <summary>
+        /// Returns a list of advertisements near a certain location
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        public List<Advertisement> GetNearbyAdvertisements(GeoLocation location, double radiusInKm, int startRow, int endRow = int.MaxValue)
+        {
+            List<Advertisement> nearbyAdvertisements = new List<Advertisement>();
+            List<GeoLocationDistanceAd> temp = new List<GeoLocationDistanceAd>();
+            foreach (var item in advertisements.Skip(startRow - 1).Take(endRow))
             {
                 var ad = Advertisement.Convert(item);
                 var city = City.Convert(item.City);
@@ -144,24 +182,24 @@ namespace EFarmerPkModelLibrary.Repositories
         /// Returns a list of advertisements associated to this city
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Advertisement>> GetAdvertisementsAsync(City city)
+        public async Task<List<Advertisement>> GetAdvertisementsAsync(City city, int startRow = 1, int endRow = int.MaxValue)
         {
             var _city = dbContext.CITIES.Find(city.Id);
             List<Advertisement> advertisements = new List<Advertisement>();
             var ads = dbContext.ADVERTISEMENTs;
-            await ads.Where(x => x.City.Id == city.Id).ForEachAsync(x => advertisements.Add(
-                    new Advertisement
-                    {
-                        Id = x.Id,
-                        Picture = x.Picture,
-                        PostedDateTime = x.PostedDateTime,
-                        Price = x.Price,
-                        Quality = x.Quality,
-                        Quantity = x.Quantity,
-                        Seller = User.Convert(x.Seller),
-                        City = City.Convert(x.City),
-                        Item = AgroItem.Convert(x.AgroItem)
-                    }));
+            await ads.Where(x => x.City.Id == city.Id).Skip(startRow - 1).Take(endRow).ForEachAsync(x => advertisements.Add(
+                      new Advertisement
+                      {
+                          Id = x.Id,
+                          Picture = x.Picture,
+                          PostedDateTime = x.PostedDateTime,
+                          Price = x.Price,
+                          Quality = x.Quality,
+                          Quantity = x.Quantity,
+                          Seller = User.Convert(x.Seller),
+                          City = City.Convert(x.City),
+                          Item = AgroItem.Convert(x.AgroItem)
+                      }));
             return advertisements;
         }
         /// <summary>
@@ -170,11 +208,13 @@ namespace EFarmerPkModelLibrary.Repositories
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        public async Task<List<Advertisement>> GetPostedAdvertismentsAsync(DateTime startDate, DateTime endDate, User seller)
+        public async Task<List<Advertisement>> GetPostedAdvertismentsAsync(DateTime startDate, DateTime endDate, User seller, int startRow = 1, int endRow = int.MaxValue)
         {
             List<Advertisement> advertisements = new List<Advertisement>();
             await Task.Run(() => dbContext.ADVERTISEMENTs
-                .Where(x => x.Seller.Id == seller.Id)
+                .Where(x => x.Seller.Id == seller.Id && (x.PostedDateTime >= startDate && x.PostedDateTime <= endDate))
+                .Skip(startRow - 1)
+                .Take(endRow)
                 .ForEachAsync(x => advertisements.Add(Advertisement.Convert(x))));
             return advertisements;
         }
@@ -192,6 +232,16 @@ namespace EFarmerPkModelLibrary.Repositories
                 .ForEach(x => _tAdvertisements.Add(Task.Run(() => Advertisement.Convert(x))));
             var _tResults = await Task.WhenAll(_tAdvertisements);
             advertisements = _tResults.ToList();
+            return advertisements;
+        }
+        public async Task<List<Advertisement>> GetAdvertisementsByCategoryAsync(Category category, int startRow = 1, int endRow = int.MaxValue)
+        {
+            List<Advertisement> advertisements = new List<Advertisement>();
+            await dbContext.ADVERTISEMENTs.Where(x => x.AgroItem.CATEGORY.Id == category.Id)
+                .OrderByDescending(x => x.PostedDateTime)
+                .Skip(startRow - 1)
+                .Take(endRow)
+                .ForEachAsync(x => advertisements.Add(Advertisement.Convert(x)));
             return advertisements;
         }
         public void Dispose()
