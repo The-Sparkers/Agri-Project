@@ -21,5 +21,6 @@ namespace EFarmerPkModelLibrary.Repositories
         bool Update(Advertisement model);
         Task<List<Advertisement>> ReadRowsAsync(int startRow, int endRow = int.MaxValue);
         List<Advertisement> GetNearbyAdvertisements(GeoLocation location, double radiusInKm, int startRow, int endRow = int.MaxValue);
+        Task<List<Advertisement>> GetAdvertisementsByCategoryAsync(Category category, int startRow = 1, int endRow = int.MaxValue);
     }
 }
