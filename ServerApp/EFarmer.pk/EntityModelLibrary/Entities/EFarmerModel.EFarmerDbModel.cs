@@ -42,7 +42,7 @@ namespace EFarmerPkModelLibrary.Context
             catch (Exception)
             {
                 connectionString = "";
-                
+
             }
             OnCreated();
         }
@@ -64,8 +64,8 @@ namespace EFarmerPkModelLibrary.Context
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-                optionsBuilder.UseLazyLoadingProxies()
-                .UseSqlServer(connectionString);
+            optionsBuilder.UseLazyLoadingProxies()
+            .UseSqlServer(connectionString);
             //optionsBuilder.UseSqlServer(connectionString,
             //    x => x.MigrationsAssembly("EFarmerPkModelLibrary.Migrations"));
 
@@ -82,49 +82,49 @@ namespace EFarmerPkModelLibrary.Context
 
         partial void CustomizeConfiguration(ref DbContextOptionsBuilder optionsBuilder);
 
-        public virtual DbSet<ADVERTISEMENT> ADVERTISEMENTs
+        internal virtual DbSet<ADVERTISEMENT> ADVERTISEMENTs
         {
             get;
             set;
         }
 
-        public virtual DbSet<AGROITEM> AGROITEMs
+        internal virtual DbSet<AGROITEM> AGROITEMs
         {
             get;
             set;
         }
 
-        public virtual DbSet<BUYERADDSDIFFERENTADSTOFAV> BUYERADDSDIFFERENTADSTOFAVs
+        internal virtual DbSet<BUYERADDSDIFFERENTADSTOFAV> BUYERADDSDIFFERENTADSTOFAVs
         {
             get;
             set;
         }
 
-        public virtual DbSet<BUYERSADDAGROITEMTOINTEREST> BUYERSADDAGROITEMTOINTERESTs
+        internal virtual DbSet<BUYERSADDAGROITEMTOINTEREST> BUYERSADDAGROITEMTOINTERESTs
         {
             get;
             set;
         }
 
-        public virtual DbSet<CATEGORY> CATEGORIES
+        internal virtual DbSet<CATEGORY> CATEGORIES
         {
             get;
             set;
         }
 
-        public virtual DbSet<CITY> CITIES
+        internal virtual DbSet<CITY> CITIES
         {
             get;
             set;
         }
 
-        public virtual DbSet<SELLERSFAVORITESBUYER> SELLERSFAVORITESBUYERs
+        internal virtual DbSet<SELLERSFAVORITESBUYER> SELLERSFAVORITESBUYERs
         {
             get;
             set;
         }
 
-        public virtual DbSet<USER> USERs
+        internal virtual DbSet<USER> USERs
         {
             get;
             set;
@@ -132,7 +132,7 @@ namespace EFarmerPkModelLibrary.Context
 
         #region Methods
 
-        public void AddBuyerToInterest(long? sellerId, long? buyerId)
+        internal void AddBuyerToInterest(long? sellerId, long? buyerId)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -200,7 +200,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task AddBuyerToInterestAsync(long? sellerId, long? buyerId)
+        internal async Task AddBuyerToInterestAsync(long? sellerId, long? buyerId)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -268,7 +268,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public List<AddNewAdvertisementResult> AddNewAdvertisement(short? quality, short? quantity, System.DateTime? dateTime, decimal? price, string picture, long? sellerId, int? itemId, short? cityId)
+        internal List<AddNewAdvertisementResult> AddNewAdvertisement(short? quality, short? quantity, System.DateTime? dateTime, decimal? price, string picture, long? sellerId, int? itemId, short? cityId)
         {
 
             List<AddNewAdvertisementResult> result = new List<AddNewAdvertisementResult>();
@@ -458,7 +458,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<AddNewAdvertisementResult>> AddNewAdvertisementAsync(short? quality, short? quantity, System.DateTime? dateTime, decimal? price, string picture, long? sellerId, int? itemId, short? cityId)
+        internal async Task<List<AddNewAdvertisementResult>> AddNewAdvertisementAsync(short? quality, short? quantity, System.DateTime? dateTime, decimal? price, string picture, long? sellerId, int? itemId, short? cityId)
         {
 
             List<AddNewAdvertisementResult> result = new List<AddNewAdvertisementResult>();
@@ -648,7 +648,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<AddNewAdvertisementResult> AddNewAgroItem(string name, string uName, string scale, string uScale, short? catId)
+        internal List<AddNewAdvertisementResult> AddNewAgroItem(string name, string uName, string scale, string uScale, short? catId)
         {
 
             List<AddNewAdvertisementResult> result = new List<AddNewAdvertisementResult>();
@@ -783,7 +783,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<AddNewAdvertisementResult>> AddNewAgroItemAsync(string name, string uName, string scale, string uScale, short? catId)
+        internal async Task<List<AddNewAdvertisementResult>> AddNewAgroItemAsync(string name, string uName, string scale, string uScale, short? catId)
         {
 
             List<AddNewAdvertisementResult> result = new List<AddNewAdvertisementResult>();
@@ -918,7 +918,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<AddNewAdvertisementResult> AddNewCategory(string name, string uName)
+        internal List<AddNewAdvertisementResult> AddNewCategory(string name, string uName)
         {
 
             List<AddNewAdvertisementResult> result = new List<AddNewAdvertisementResult>();
@@ -1006,7 +1006,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<AddNewAdvertisementResult>> AddNewCategoryAsync(string name, string uName)
+        internal async Task<List<AddNewAdvertisementResult>> AddNewCategoryAsync(string name, string uName)
         {
 
             List<AddNewAdvertisementResult> result = new List<AddNewAdvertisementResult>();
@@ -1094,7 +1094,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<AddNewAdvertisementResult> AddNewCity(string name, decimal? lat, decimal? lng)
+        internal List<AddNewAdvertisementResult> AddNewCity(string name, decimal? lat, decimal? lng)
         {
 
             List<AddNewAdvertisementResult> result = new List<AddNewAdvertisementResult>();
@@ -1201,7 +1201,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<AddNewAdvertisementResult>> AddNewCityAsync(string name, decimal? lat, decimal? lng)
+        internal async Task<List<AddNewAdvertisementResult>> AddNewCityAsync(string name, decimal? lat, decimal? lng)
         {
 
             List<AddNewAdvertisementResult> result = new List<AddNewAdvertisementResult>();
@@ -1308,7 +1308,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<AddNewAdvertisementResult> AddNewUser(string fName, string lName, string countryCode, string companyCode, string phone, string address, short? cityId)
+        internal List<AddNewAdvertisementResult> AddNewUser(string fName, string lName, string countryCode, string companyCode, string phone, string address, short? cityId)
         {
 
             List<AddNewAdvertisementResult> result = new List<AddNewAdvertisementResult>();
@@ -1473,7 +1473,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<AddNewAdvertisementResult>> AddNewUserAsync(string fName, string lName, string countryCode, string companyCode, string phone, string address, short? cityId)
+        internal async Task<List<AddNewAdvertisementResult>> AddNewUserAsync(string fName, string lName, string countryCode, string companyCode, string phone, string address, short? cityId)
         {
 
             List<AddNewAdvertisementResult> result = new List<AddNewAdvertisementResult>();
@@ -1638,7 +1638,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public void DeleteAgroItem(int? itemId, string name)
+        internal void DeleteAgroItem(int? itemId, string name)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -1704,7 +1704,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task DeleteAgroItemAsync(int? itemId, string name)
+        internal async Task DeleteAgroItemAsync(int? itemId, string name)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -1770,7 +1770,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void FavAd(long? buyerId, long? adId)
+        internal void FavAd(long? buyerId, long? adId)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -1837,8 +1837,72 @@ namespace EFarmerPkModelLibrary.Context
                 }
             }
         }
+        internal void RegisterIdentity(long? userId, string identityId)
+        {
 
-        public async Task FavAdAsync(long? buyerId, long? adId)
+            DbConnection connection = this.Database.GetDbConnection();
+            bool needClose = false;
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+                needClose = true;
+            }
+
+            try
+            {
+                using (DbCommand cmd = connection.CreateCommand())
+                {
+                    if (this.Database.GetCommandTimeout().HasValue)
+                    {
+                        cmd.CommandTimeout = this.Database.GetCommandTimeout().Value;
+                    }
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = @"dbo.RegisterIdentity";
+
+                    DbParameter userIdParameter = cmd.CreateParameter();
+                    userIdParameter.ParameterName = "userId";
+                    userIdParameter.Direction = ParameterDirection.Input;
+                    userIdParameter.DbType = DbType.Int64;
+                    userIdParameter.Precision = 19;
+                    userIdParameter.Scale = 0;
+                    if (userId.HasValue)
+                    {
+                        userIdParameter.Value = userId.Value;
+                    }
+                    else
+                    {
+                        userIdParameter.Size = -1;
+                        userIdParameter.Value = DBNull.Value;
+                    }
+                    cmd.Parameters.Add(userIdParameter);
+
+                    DbParameter identityIdParameter = cmd.CreateParameter();
+                    identityIdParameter.ParameterName = "identityId";
+                    identityIdParameter.Direction = ParameterDirection.Input;
+                    identityIdParameter.DbType = DbType.StringFixedLength;
+                    if (!string.IsNullOrEmpty(identityId))
+                    {
+                        identityIdParameter.Value = identityId;
+                    }
+                    else
+                    {
+                        identityIdParameter.Value = DBNull.Value;
+                    }
+                    cmd.Parameters.Add(identityIdParameter);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            finally
+            {
+                if (needClose)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        internal async Task FavAdAsync(long? buyerId, long? adId)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -1906,7 +1970,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public List<GetAdsCityResult> GetAdsCity(short? cityId)
+        internal List<GetAdsCityResult> GetAdsCity(short? cityId)
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -1977,7 +2041,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<GetAdsCityResult>> GetAdsCityAsync(short? cityId)
+        internal async Task<List<GetAdsCityResult>> GetAdsCityAsync(short? cityId)
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -2048,7 +2112,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<ADVERTISEMENT> GetAdvertisement(long? id)
+        internal List<ADVERTISEMENT> GetAdvertisement(long? id)
         {
 
             List<ADVERTISEMENT> result = new List<ADVERTISEMENT>();
@@ -2154,7 +2218,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<ADVERTISEMENT>> GetAdvertisementAsync(long? id)
+        internal async Task<List<ADVERTISEMENT>> GetAdvertisementAsync(long? id)
         {
 
             List<ADVERTISEMENT> result = new List<ADVERTISEMENT>();
@@ -2260,7 +2324,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<GetAdsCityResult> GetAdvertisement(int? max)
+        internal List<GetAdsCityResult> GetAdvertisement(int? max)
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -2331,7 +2395,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<GetAdsCityResult>> GetAdvertisementAsync(int? max)
+        internal async Task<List<GetAdsCityResult>> GetAdvertisementAsync(int? max)
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -2402,7 +2466,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<AGROITEM> GetAgroItem(int? id)
+        internal List<AGROITEM> GetAgroItem(int? id)
         {
 
             List<AGROITEM> result = new List<AGROITEM>();
@@ -2501,7 +2565,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<AGROITEM>> GetAgroItemAsync(int? id)
+        internal async Task<List<AGROITEM>> GetAgroItemAsync(int? id)
         {
 
             List<AGROITEM> result = new List<AGROITEM>();
@@ -2600,7 +2664,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<GetAgroItem1Result> GetAgroItem1(int? max)
+        internal List<GetAgroItem1Result> GetAgroItem1(int? max)
         {
 
             List<GetAgroItem1Result> result = new List<GetAgroItem1Result>();
@@ -2671,7 +2735,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<GetAgroItem1Result>> GetAgroItem1Async(int? max)
+        internal async Task<List<GetAgroItem1Result>> GetAgroItem1Async(int? max)
         {
 
             List<GetAgroItem1Result> result = new List<GetAgroItem1Result>();
@@ -2742,7 +2806,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<GetAdsCityResult> GetBuyer()
+        internal List<GetAdsCityResult> GetBuyer()
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -2796,7 +2860,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<GetAdsCityResult>> GetBuyerAsync()
+        internal async Task<List<GetAdsCityResult>> GetBuyerAsync()
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -2850,7 +2914,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<GetCategoryResult> GetCategory(int? max)
+        internal List<GetCategoryResult> GetCategory(int? max)
         {
 
             List<GetCategoryResult> result = new List<GetCategoryResult>();
@@ -2921,7 +2985,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<GetCategoryResult>> GetCategoryAsync(int? max)
+        internal async Task<List<GetCategoryResult>> GetCategoryAsync(int? max)
         {
 
             List<GetCategoryResult> result = new List<GetCategoryResult>();
@@ -2992,7 +3056,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<CATEGORY> GetCategory(short? id)
+        internal List<CATEGORY> GetCategory(short? id)
         {
 
             List<CATEGORY> result = new List<CATEGORY>();
@@ -3072,7 +3136,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<CATEGORY>> GetCategoryAsync(short? id)
+        internal async Task<List<CATEGORY>> GetCategoryAsync(short? id)
         {
 
             List<CATEGORY> result = new List<CATEGORY>();
@@ -3152,7 +3216,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<GetCategoryResult> GetCity(int? max)
+        internal List<GetCategoryResult> GetCity(int? max)
         {
 
             List<GetCategoryResult> result = new List<GetCategoryResult>();
@@ -3223,7 +3287,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<GetCategoryResult>> GetCityAsync(int? max)
+        internal async Task<List<GetCategoryResult>> GetCityAsync(int? max)
         {
 
             List<GetCategoryResult> result = new List<GetCategoryResult>();
@@ -3294,7 +3358,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<CITY> GetCity(short? id)
+        internal List<CITY> GetCity(short? id)
         {
 
             List<CITY> result = new List<CITY>();
@@ -3375,7 +3439,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<CITY>> GetCityAsync(short? id)
+        internal async Task<List<CITY>> GetCityAsync(short? id)
         {
 
             List<CITY> result = new List<CITY>();
@@ -3456,7 +3520,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<GetFavAdvertismentResult> GetFavAdvertisment(long? buyerId)
+        internal List<GetFavAdvertismentResult> GetFavAdvertisment(long? buyerId)
         {
 
             List<GetFavAdvertismentResult> result = new List<GetFavAdvertismentResult>();
@@ -3527,7 +3591,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<GetFavAdvertismentResult>> GetFavAdvertismentAsync(long? buyerId)
+        internal async Task<List<GetFavAdvertismentResult>> GetFavAdvertismentAsync(long? buyerId)
         {
 
             List<GetFavAdvertismentResult> result = new List<GetFavAdvertismentResult>();
@@ -3598,7 +3662,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<GetFavBuyerResult> GetFavBuyer(long? sellerId)
+        internal List<GetFavBuyerResult> GetFavBuyer(long? sellerId)
         {
 
             List<GetFavBuyerResult> result = new List<GetFavBuyerResult>();
@@ -3669,7 +3733,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<GetFavBuyerResult>> GetFavBuyerAsync(long? sellerId)
+        internal async Task<List<GetFavBuyerResult>> GetFavBuyerAsync(long? sellerId)
         {
 
             List<GetFavBuyerResult> result = new List<GetFavBuyerResult>();
@@ -3740,7 +3804,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<GetInterestedItemResult> GetInterestedItem(long? buyerId)
+        internal List<GetInterestedItemResult> GetInterestedItem(long? buyerId)
         {
 
             List<GetInterestedItemResult> result = new List<GetInterestedItemResult>();
@@ -3811,7 +3875,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<GetInterestedItemResult>> GetInterestedItemAsync(long? buyerId)
+        internal async Task<List<GetInterestedItemResult>> GetInterestedItemAsync(long? buyerId)
         {
 
             List<GetInterestedItemResult> result = new List<GetInterestedItemResult>();
@@ -3882,7 +3946,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<GetAdsCityResult> GetItemAd(int? itemId, int? max)
+        internal List<GetAdsCityResult> GetItemAd(int? itemId, int? max)
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -3970,7 +4034,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<GetAdsCityResult>> GetItemAdAsync(int? itemId, int? max)
+        internal async Task<List<GetAdsCityResult>> GetItemAdAsync(int? itemId, int? max)
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -4058,7 +4122,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<GetAgroItem1Result> GetItemsCat(short? catId)
+        internal List<GetAgroItem1Result> GetItemsCat(short? catId)
         {
 
             List<GetAgroItem1Result> result = new List<GetAgroItem1Result>();
@@ -4129,7 +4193,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<GetAgroItem1Result>> GetItemsCatAsync(short? catId)
+        internal async Task<List<GetAgroItem1Result>> GetItemsCatAsync(short? catId)
         {
 
             List<GetAgroItem1Result> result = new List<GetAgroItem1Result>();
@@ -4200,7 +4264,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<GetAdsCityResult> GetPostedAdvertisment(long? sellerId, System.DateTime? startDate, System.DateTime? endDate)
+        internal List<GetAdsCityResult> GetPostedAdvertisment(long? sellerId, System.DateTime? startDate, System.DateTime? endDate)
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -4301,7 +4365,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<GetAdsCityResult>> GetPostedAdvertismentAsync(long? sellerId, System.DateTime? startDate, System.DateTime? endDate)
+        internal async Task<List<GetAdsCityResult>> GetPostedAdvertismentAsync(long? sellerId, System.DateTime? startDate, System.DateTime? endDate)
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -4402,7 +4466,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<GetAdsCityResult> GetSeller()
+        internal List<GetAdsCityResult> GetSeller()
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -4456,7 +4520,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<GetAdsCityResult>> GetSellerAsync()
+        internal async Task<List<GetAdsCityResult>> GetSellerAsync()
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -4510,7 +4574,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<USER> GetUser(long? id)
+        internal List<USER> GetUser(long? id)
         {
 
             List<USER> result = new List<USER>();
@@ -4639,7 +4703,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<USER>> GetUserAsync(long? id)
+        internal async Task<List<USER>> GetUserAsync(long? id)
         {
 
             List<USER> result = new List<USER>();
@@ -4768,7 +4832,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<GetAdsCityResult> GetUserByContact(string countryCode, string companyCode, string phone)
+        internal List<GetAdsCityResult> GetUserByContact(string countryCode, string companyCode, string phone)
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -4866,8 +4930,57 @@ namespace EFarmerPkModelLibrary.Context
             }
             return result;
         }
+        internal long GetIdentityUserId(string identityId)
+        {
+            var result = long.Parse("0");
+            DbConnection connection = this.Database.GetDbConnection();
+            bool needClose = false;
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+                needClose = true;
+            }
 
-        public async Task<List<GetAdsCityResult>> GetUserByContactAsync(string countryCode, string companyCode, string phone)
+            try
+            {
+                using (DbCommand cmd = connection.CreateCommand())
+                {
+                    if (this.Database.GetCommandTimeout().HasValue)
+                    {
+                        cmd.CommandTimeout = this.Database.GetCommandTimeout().Value;
+                    }
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = @"dbo.GetIdentityUserId";
+
+                    DbParameter countryCodeParameter = cmd.CreateParameter();
+                    countryCodeParameter.ParameterName = "identityId";
+                    countryCodeParameter.Direction = ParameterDirection.Input;
+                    countryCodeParameter.DbType = DbType.String;
+                    if (identityId != null)
+                    {
+                        countryCodeParameter.Value = identityId;
+                    }
+                    else
+                    {
+                        countryCodeParameter.Value = DBNull.Value;
+                    }
+                    cmd.Parameters.Add(countryCodeParameter);
+
+                    result = Convert.ToInt64(cmd.ExecuteScalar());
+                }
+            }
+            finally
+            {
+                if (needClose)
+                {
+                    connection.Close();
+                }
+            }
+            return result;
+        }
+
+        internal async Task<List<GetAdsCityResult>> GetUserByContactAsync(string countryCode, string companyCode, string phone)
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -4966,7 +5079,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public List<GetAdsCityResult> GetUsersCity(short? cityId)
+        internal List<GetAdsCityResult> GetUsersCity(short? cityId)
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -5037,7 +5150,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public async Task<List<GetAdsCityResult>> GetUsersCityAsync(short? cityId)
+        internal async Task<List<GetAdsCityResult>> GetUsersCityAsync(short? cityId)
         {
 
             List<GetAdsCityResult> result = new List<GetAdsCityResult>();
@@ -5108,7 +5221,7 @@ namespace EFarmerPkModelLibrary.Context
             return result;
         }
 
-        public void MakeBuyer(long? userId)
+        internal void MakeBuyer(long? userId)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -5159,7 +5272,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task MakeBuyerAsync(long? userId)
+        internal async Task MakeBuyerAsync(long? userId)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -5210,7 +5323,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void MakeSeller(long? userId)
+        internal void MakeSeller(long? userId)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -5261,7 +5374,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task MakeSellerAsync(long? userId)
+        internal async Task MakeSellerAsync(long? userId)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -5312,7 +5425,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void UpdateCategoryName(short? catId, string name)
+        internal void UpdateCategoryName(short? catId, string name)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -5378,7 +5491,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task UpdateCategoryNameAsync(short? catId, string name)
+        internal async Task UpdateCategoryNameAsync(short? catId, string name)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -5444,7 +5557,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void UpdateCategoryUName(short? catId, string uName)
+        internal void UpdateCategoryUName(short? catId, string uName)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -5510,7 +5623,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task UpdateCategoryUNameAsync(short? catId, string uName)
+        internal async Task UpdateCategoryUNameAsync(short? catId, string uName)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -5576,7 +5689,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void UpdateCityGeoLocation(short? cityId, decimal? lat, decimal? lng)
+        internal void UpdateCityGeoLocation(short? cityId, decimal? lat, decimal? lng)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -5661,7 +5774,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task UpdateCityGeoLocationAsync(short? cityId, decimal? lat, decimal? lng)
+        internal async Task UpdateCityGeoLocationAsync(short? cityId, decimal? lat, decimal? lng)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -5746,7 +5859,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void UpdateCityName(short? cityId, string name)
+        internal void UpdateCityName(short? cityId, string name)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -5812,7 +5925,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task UpdateCityNameAsync(short? cityId, string name)
+        internal async Task UpdateCityNameAsync(short? cityId, string name)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -5878,7 +5991,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void UpdateItemCategory(int? itemId, short? catId)
+        internal void UpdateItemCategory(int? itemId, short? catId)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -5946,7 +6059,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task UpdateItemCategoryAsync(int? itemId, short? catId)
+        internal async Task UpdateItemCategoryAsync(int? itemId, short? catId)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -6014,7 +6127,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void UpdateItemName(int? itemId, string name)
+        internal void UpdateItemName(int? itemId, string name)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -6080,7 +6193,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task UpdateItemNameAsync(int? itemId, string name)
+        internal async Task UpdateItemNameAsync(int? itemId, string name)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -6146,7 +6259,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void UpdateItemUName(int? itemId, string uName)
+        internal void UpdateItemUName(int? itemId, string uName)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -6212,7 +6325,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task UpdateItemUNameAsync(int? itemId, string uName)
+        internal async Task UpdateItemUNameAsync(int? itemId, string uName)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -6278,7 +6391,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void UpdateItemUWeightScale(int? itemId, string uScale)
+        internal void UpdateItemUWeightScale(int? itemId, string uScale)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -6344,7 +6457,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task UpdateItemUWeightScaleAsync(int? itemId, string uScale)
+        internal async Task UpdateItemUWeightScaleAsync(int? itemId, string uScale)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -6410,7 +6523,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void UpdateItemWeightScale(int? itemId, string scale)
+        internal void UpdateItemWeightScale(int? itemId, string scale)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -6476,7 +6589,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task UpdateItemWeightScaleAsync(int? itemId, string scale)
+        internal async Task UpdateItemWeightScaleAsync(int? itemId, string scale)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -6542,7 +6655,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void UpdateUserAddress(long? userId, string address)
+        internal void UpdateUserAddress(long? userId, string address)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -6608,7 +6721,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task UpdateUserAddressAsync(long? userId, string address)
+        internal async Task UpdateUserAddressAsync(long? userId, string address)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -6674,7 +6787,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void UpdateUserCity(long? userId, short? cityId)
+        internal void UpdateUserCity(long? userId, short? cityId)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -6742,7 +6855,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task UpdateUserCityAsync(long? userId, short? cityId)
+        internal async Task UpdateUserCityAsync(long? userId, short? cityId)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -6810,7 +6923,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void UpdateUserContact(long? userId, string countryCode, string comapnyCode, string phone)
+        internal void UpdateUserContact(long? userId, string countryCode, string comapnyCode, string phone)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -6906,7 +7019,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task UpdateUserContactAsync(long? userId, string countryCode, string comapnyCode, string phone)
+        internal async Task UpdateUserContactAsync(long? userId, string countryCode, string comapnyCode, string phone)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -7002,7 +7115,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void UpdateUserLocation(long? userId, decimal? lat, decimal? lng)
+        internal void UpdateUserLocation(long? userId, decimal? lat, decimal? lng)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -7087,7 +7200,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task UpdateUserLocationAsync(long? userId, decimal? lat, decimal? lng)
+        internal async Task UpdateUserLocationAsync(long? userId, decimal? lat, decimal? lng)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -7172,7 +7285,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public void UpdateUserName(long? userId, string fName, string lName)
+        internal void UpdateUserName(long? userId, string fName, string lName)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
@@ -7253,7 +7366,7 @@ namespace EFarmerPkModelLibrary.Context
             }
         }
 
-        public async Task UpdateUserNameAsync(long? userId, string fName, string lName)
+        internal async Task UpdateUserNameAsync(long? userId, string fName, string lName)
         {
 
             DbConnection connection = this.Database.GetDbConnection();
